@@ -5,15 +5,9 @@ import {
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 import { zodToJsonSchema } from "zod-to-json-schema";
+import { z } from "zod";
 
-import {
-  SummarizePreviousSessionInputSchema,
-  summarizePreviousSession,
-} from "./tools/summarizePreviousSession.js";
-import {
-  SaveSessionSummaryInputSchema,
-  saveSessionSummary,
-} from "./tools/saveSessionSummary.js";
+import { storePreviousSessionContent } from "./tools/storePreviousSessionContent.js";
 import {
   GetRelevantSessionsInputSchema,
   getRelevantSessions,
@@ -26,7 +20,7 @@ import {
 const server = new Server(
   {
     name: "osc-mcp",
-    version: "1.0.0",
+    version: "1.0.0", 
   },
   {
     capabilities: {
@@ -39,26 +33,21 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   return {
     tools: [
       {
-        name: "summarize_previous_session",
+        name: "store_previous_session_content",
         description:
-          "Fetches the raw logs for the most recent unsummarized session and instructs the AI to summarize it.",
-        inputSchema: zodToJsonSchema(SummarizePreviousSessionInputSchema),
-      },
-      {
-        name: "save_session_summary",
-        description: "Saves a generated session summary into the MCP database.",
-        inputSchema: zodToJsonSchema(SaveSessionSummaryInputSchema),
+          "Stores the filtered content for the most recent previous session into the MCP database.",
+        inputSchema: zodToJsonSchema(z.object({}) as any),
       },
       {
         name: "get_relevant_sessions",
         description:
           "Retrieves a list of the 10 most recent sessions (Title, Date, ID) to be used as a Table of Contents.",
-        inputSchema: zodToJsonSchema(GetRelevantSessionsInputSchema),
+        inputSchema: zodToJsonSchema(GetRelevantSessionsInputSchema as any),
       },
       {
         name: "get_session_summary",
-        description: "Fetches the full stored summary for a specific session.",
-        inputSchema: zodToJsonSchema(GetSessionSummaryInputSchema),
+        description: "Fetches the stored content for a specific session.",
+        inputSchema: zodToJsonSchema(GetSessionSummaryInputSchema as any),
       },
     ],
   };
@@ -70,14 +59,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
   try {
     switch (name) {
-      case "summarize_previous_session": {
-        const input = SummarizePreviousSessionInputSchema.parse(args || {});
-        resultText = await summarizePreviousSession(input);
-        break;
-      }
-      case "save_session_summary": {
-        const input = SaveSessionSummaryInputSchema.parse(args || {});
-        resultText = await saveSessionSummary(input);
+      case "store_previous_session_content": {
+        z.object({}).parse(args || {});
+        resultText = await storePreviousSessionContent();
         break;
       }
       case "get_relevant_sessions": {

@@ -25,7 +25,7 @@ bun install
 bun test
 
 # Run a single test file
-bun test tests/summarizePreviousSession.test.ts
+bun test tests/storePreviousSessionContent.test.ts
 
 # Run a specific test by name pattern
 bun test --test-name-pattern "returns no previous session"
@@ -51,10 +51,8 @@ src/
   index.ts                       # MCP server entry point; registers all tools
   lib/
     lib.ts                       # Shared utilities (getRelevantDirectory, getPreviousSessionId)
-    mappers.ts                   # DB row → typed object mappers (MessageMapper, etc.)
   tools/
-    summarizePreviousSession.ts  # Tool: fetch previous session logs for AI to summarize
-    saveSessionSummary.ts        # Tool: persist generated summary into mcpDb
+    storePreviousSessionContent.ts # Tool: store previous session content into mcpDb
     getRelevantSessions.ts       # Tool: list 10 most recent sessions for current project
     getSessionSummary.ts         # Tool: fetch a stored session summary by ID
 tests/
@@ -66,10 +64,9 @@ tests/
 ## Tool Catalog (`src/index.ts`)
 
 Registered MCP tools:
-- `summarize_previous_session` — fetches raw logs for the most recent unsummarized session.
-- `save_session_summary` — persists a generated summary into `mcpDb`.
+- `store_previous_session_content` — stores filtered content for the most recent previous session.
 - `get_relevant_sessions` — returns 10 most recent sessions (title, date, id) for a TOC.
-- `get_session_summary` — fetches a stored summary by session id.
+- `get_session_summary` — fetches stored session content by session id.
 
 Runtime behavior:
 - Input validation uses Zod schemas and `zodToJsonSchema` for tool manifests.
@@ -84,7 +81,7 @@ Runtime behavior:
 - Directories are created with `mkdirSync(..., { recursive: true })` for fresh installs.
 - PRAGMAs: `busy_timeout=5000` on both DBs, `journal_mode=WAL` on `mcpDb`.
 - Schema created on startup:
-  - `mcp_session_summary(session_id TEXT PRIMARY KEY, project_id TEXT, summary TEXT, time_created INTEGER, time_updated INTEGER)`.
+- `mcp_session_summary(session_id TEXT PRIMARY KEY, content TEXT, time_created INTEGER, time_updated INTEGER)`.
 
 ---
 
@@ -129,24 +126,7 @@ const result = await new Promise<SomeType>((resolve, reject) => {
 
 ---
 
-## Mappers (`src/lib/mappers.ts`)
 
-When converting raw DB rows to objects:
-- **Always include `id` and `session_id` first** (top-level, not nested).
-- **Spread the `data` column** (parsed JSON) directly into the result — do not pick/rename fields.
-- Drop other row-level metadata (`time_created`, `time_updated`) unless explicitly needed.
-- JSON parse failures are tolerated; the mapper returns only `id` / `session_id` plus any valid parsed fields.
-- `fromRowWithParts` builds `content` from part rows, each with `id` and parsed `part.data`.
-
-```ts
-return {
-  id: row.id,
-  session_id: row.session_id,
-  ...JSON.parse(row.data),
-};
-```
-
----
 
 ## Code Style
 

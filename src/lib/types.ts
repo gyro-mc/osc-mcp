@@ -23,15 +23,39 @@ export interface PartRow {
 // Parsed shapes of message.data (discriminated by `role`)
 // ---------------------------------------------------------------------------
 
+export interface SummaryDiff {
+  file?: string;
+  status?: string;
+  additions?: number;
+  deletions?: number;
+  before?: string;
+  after?: string;
+}
+
+export interface SummaryData {
+  title?: string;
+  diffs: SummaryDiff[];
+}
+
 export interface UserMessageData {
   role: "user";
   time: { created: number };
   agent: string;
-  summary?: { title?: string; diffs: unknown[] };
+  summary?: SummaryData;
   model?: { providerID: string; modelID: string };
   tools?: Record<string, boolean>;
   system?: string;        // injected system prompt (e.g. slash command agents)
   variant?: string;       // e.g. "thinking" | "max"
+}
+
+export interface ErrorData {
+  message?: string;
+  statusCode?: number;
+  isRetryable?: boolean;
+  responseBody?: string;
+  responseHeaders?: Record<string, string | number | boolean | null>;
+  metadata?: { url?: string };
+  [key: string]: unknown;
 }
 
 export interface AssistantMessageData {
@@ -52,7 +76,8 @@ export interface AssistantMessageData {
     cache: { read: number; write: number };
   };
   finish?: string;        // "stop" | "tool-calls"
-  error?: { name: string; data: { message: string } };
+  error?: { name: string; data: ErrorData };
+  summary?: SummaryData;
   variant?: string;       // e.g. "thinking" | "max"
 }
 
@@ -170,3 +195,15 @@ export type MappedMessage = MessageData & {
   session_id: string;
   content?: (PartData & { id: string })[];
 };
+
+export interface PreviousSessionContentMessage {
+  session_id: string;
+  message_id: string;
+  role: string;
+  time_created: number;
+  content: {
+    summary?: any;
+    error?: any;
+    parts: any[];
+  };
+}

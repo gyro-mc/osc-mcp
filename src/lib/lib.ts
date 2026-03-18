@@ -4,7 +4,7 @@ import { existsSync } from "node:fs";
 import { opencodeDb } from "../db.js";
 
 /**
- * Executes a git command.
+ * Executes a git command. 
  */
 function runGit(args: string[], cwd: string): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -21,16 +21,15 @@ function runGit(args: string[], cwd: string): Promise<string> {
 }
 
 /**
- * @description Finds the root directory of the relevant files for the current session.
+ * @description Finds the root directory of the relevant session of the current session
+ * (may be project dircotry or just the same directory session).
  * It searches upwards (up to 3 levels) for a `.git` repository.
  * If a valid Git repo is found, it returns that directory.
  * If not, it falls back to the exact starting directory.
  * 
- * @param startDir The starting directory path. Defaults to the current working directory.
  * @returns The relevant root directory string.
  */
-export async function getRelevantDirectory(startDir: string = process.cwd()): Promise<string> {
-  let currentDir = resolve(startDir);
+export async function getRelevantDirectory(currentDir:string): Promise<string> {
   let levels = 0;
   
   while (levels < 3) {
@@ -47,9 +46,9 @@ export async function getRelevantDirectory(startDir: string = process.cwd()): Pr
     currentDir = parent;
     levels++;
   }
-  
+   
   // If we didn't find a git root within 3 levels, just return the startDir
-  return resolve(startDir);
+  return resolve(currentDir);
 }
 
 /**

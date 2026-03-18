@@ -24,4 +24,4 @@ test("Database connections should be valid and open", async () => {
     });
   });
   expect(mcpResult).toEqual({ result: 1 });
-});
+})

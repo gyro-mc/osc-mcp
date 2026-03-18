@@ -7,11 +7,11 @@ export const GetSessionSummaryInputSchema = z.object({
 export type GetSessionSummaryInput = z.infer<typeof GetSessionSummaryInputSchema>;
 
 /**
- * @description Fetches the full, detailed summary for a specific past session based on its ID.
- * Use this when `get_relevant_sessions` returns a session that looks useful.
+  * @description Fetches the stored session content for a specific past session based on its ID.
+  * Use this when `get_relevant_sessions` returns a session that looks useful.
  * 
  * @param input The session ID to retrieve.
- * @returns The full detailed string summary stored in the database.
+  * @returns The stored session content string from the database.
  */
 export async function getSessionSummary(input: GetSessionSummaryInput): Promise<string> {
   throw new Error("Not implemented");
