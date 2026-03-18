@@ -1,98 +1,18 @@
-// ---------------------------------------------------------------------------
-// Raw DB row types (as returned from SQLite queries)
-// ---------------------------------------------------------------------------
+import type {
+  MessageRow,
+  PartRow,
+  MappedMessage,
+  PartData,
+} from "./types.js";
 
-export interface MessageRow {
-  id: string;
-  session_id: string;
-  time_created: number;
-  time_updated: number;
-  data: string; // JSON string
-}
 
-export interface PartRow {
-  id: string;
-  message_id: string;
-  session_id: string;
-  time_created: number;
-  time_updated: number;
-  data: string; // JSON string
-}
-
-// ---------------------------------------------------------------------------
-// Parsed shapes of message.data (discriminated by `role`)
-// ---------------------------------------------------------------------------
-
-interface MessageDataBase {
-  role: "user" | "assistant";
-  time: { created: number; completed?: number };
-  agent?: string;
-}
-
-interface UserMessageData extends MessageDataBase {
-  role: "user";
-  summary?: { title: string; diffs: unknown[] };
-  model?: { providerID: string; modelID: string };
-  tools?: Record<string, boolean>;
-}
-
-interface AssistantMessageData extends MessageDataBase {
-  role: "assistant";
-  parentID?: string;
-  modelID?: string;
-  providerID?: string;
-  mode?: string;
-  path?: { cwd: string; root: string };
-  cost?: number;
-  tokens?: {
-    total?: number;
-    input: number;
-    output: number;
-    reasoning: number;
-    cache: { read: number; write: number };
-  };
-  finish?: string;
-  error?: { name: string; data: { message: string } };
-}
-
-type MessageData = UserMessageData | AssistantMessageData;
-
-// ---------------------------------------------------------------------------
-// Parsed shapes of part.data (discriminated by `type`)
-// Only types that carry readable text content are extracted.
-// ---------------------------------------------------------------------------
-
-interface TextPartData {
-  type: "text" | "reasoning";
-  text: string;
-}
-
-interface ToolPartData {
-  type: "tool";
-  tool: string;
-  state: { status: string; input: Record<string, unknown>; error?: string };
-}
-
-type PartData = TextPartData | ToolPartData | { type: string };
-
-// ---------------------------------------------------------------------------
-// Mapped (clean, full) output type
-// ---------------------------------------------------------------------------
-
-export type MappedMessage = MessageData & {
-  id: string;
-  session_id: string;
-  content?: (PartData & { id: string })[];
-};
-
-// ---------------------------------------------------------------------------
-// MessageMapper
-// ---------------------------------------------------------------------------
+export type { MessageRow, PartRow, MappedMessage, PartData };
 
 export class MessageMapper {
   /**
-   * Convert a raw `message` DB row into a mapped object.
-   * Parses the JSON `data` field and combines it with session_id (and id).
+   * @description Converts a message row into a mapped message object with parsed data.
+
+   * @output { id, session_id, ...parsedData }
    */
   static fromRow(row: MessageRow): MappedMessage {
     let parsed: any = {};
@@ -100,7 +20,6 @@ export class MessageMapper {
     try {
       parsed = JSON.parse(row.data);
     } catch {
-      // Malformed JSON fallback
     }
 
     return {
@@ -111,8 +30,8 @@ export class MessageMapper {
   }
 
   /**
-   * Convert a raw `message` row together with its associated `part` rows
-   * into a fully populated mapped message, including readable content.
+   * @description Converts a message row and its parts into a mapped message with content.
+   * @output { id, session_id, ...parsedData, content: Array<{ id, ...parsedPartData }> }
    */
   static fromRowWithParts(row: MessageRow, parts: PartRow[]): MappedMessage {
     const mapped = MessageMapper.fromRow(row);
@@ -122,7 +41,6 @@ export class MessageMapper {
       try {
         parsed = JSON.parse(part.data);
       } catch {
-        // Malformed JSON fallback
       }
       return {
         id: part.id,
@@ -134,15 +52,16 @@ export class MessageMapper {
   }
 
   /**
-   * Batch-convert message rows without parts.
+   * @description Converts an array of message rows into mapped messages.
+   * @output Array<{ id, session_id, ...parsedData }>
    */
   static fromRows(rows: MessageRow[]): MappedMessage[] {
     return rows.map((r) => MessageMapper.fromRow(r));
   }
 
   /**
-   * Batch-convert message rows each paired with their part rows.
-   * `partsByMessageId` is a map of message_id → PartRow[].
+   * @description Batch-convert message rows each paired with their part rows.
+   * @output Array<{ id, session_id, ...parsedData, content: Array<{ id, ...parsedPartData }> }>
    */
   static fromRowsWithParts(
     rows: MessageRow[],

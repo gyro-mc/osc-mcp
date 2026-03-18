@@ -7,126 +7,174 @@ This document is based on the local `opencode.db` schema and session records as 
 ## Schema (sqlite3 .schema)
 
 ```sql
-CREATE TABLE "__drizzle_migrations" (
-				id SERIAL PRIMARY KEY,
-				hash text NOT NULL,
-				created_at numeric
-			, "name" text, "applied_at" TEXT);
-CREATE TABLE `project` (
-	`id` text PRIMARY KEY,
-	`worktree` text NOT NULL,
-	`vcs` text,
-	`name` text,
-	`icon_url` text,
-	`icon_color` text,
-	`time_created` integer NOT NULL,
-	`time_updated` integer NOT NULL,
-	`time_initialized` integer,
-	`sandboxes` text NOT NULL
-, `commands` text);
-CREATE TABLE `message` (
-	`id` text PRIMARY KEY,
-	`session_id` text NOT NULL,
-	`time_created` integer NOT NULL,
-	`time_updated` integer NOT NULL,
-	`data` text NOT NULL,
-	CONSTRAINT `fk_message_session_id_session_id_fk` FOREIGN KEY (`session_id`) REFERENCES `session`(`id`) ON DELETE CASCADE
-);
-CREATE TABLE `part` (
-	`id` text PRIMARY KEY,
-	`message_id` text NOT NULL,
-	`session_id` text NOT NULL,
-	`time_created` integer NOT NULL,
-	`time_updated` integer NOT NULL,
-	`data` text NOT NULL,
-	CONSTRAINT `fk_part_message_id_message_id_fk` FOREIGN KEY (`message_id`) REFERENCES `message`(`id`) ON DELETE CASCADE
-);
-CREATE TABLE `permission` (
-	`project_id` text PRIMARY KEY,
-	`time_created` integer NOT NULL,
-	`time_updated` integer NOT NULL,
-	`data` text NOT NULL,
-	CONSTRAINT `fk_permission_project_id_project_id_fk` FOREIGN KEY (`project_id`) REFERENCES `project`(`id`) ON DELETE CASCADE
-);
-CREATE TABLE `session` (
-	`id` text PRIMARY KEY,
-	`project_id` text NOT NULL,
-	`parent_id` text,
-	`slug` text NOT NULL,
-	`directory` text NOT NULL,
-	`title` text NOT NULL,
-	`version` text NOT NULL,
-	`share_url` text,
-	`summary_additions` integer,
-	`summary_deletions` integer,
-	`summary_files` integer,
-	`summary_diffs` text,
-	`revert` text,
-	`permission` text,
-	`time_created` integer NOT NULL,
-	`time_updated` integer NOT NULL,
-	`time_compacting` integer,
-	`time_archived` integer, `workspace_id` text,
-	CONSTRAINT `fk_session_project_id_project_id_fk` FOREIGN KEY (`project_id`) REFERENCES `project`(`id`) ON DELETE CASCADE
-);
-CREATE TABLE `todo` (
-	`session_id` text NOT NULL,
-	`content` text NOT NULL,
-	`status` text NOT NULL,
-	`priority` text NOT NULL,
-	`position` integer NOT NULL,
-	`time_created` integer NOT NULL,
-	`time_updated` integer NOT NULL,
-	CONSTRAINT `todo_pk` PRIMARY KEY(`session_id`, `position`),
-	CONSTRAINT `fk_todo_session_id_session_id_fk` FOREIGN KEY (`session_id`) REFERENCES `session`(`id`) ON DELETE CASCADE
-);
-CREATE TABLE `session_share` (
-	`session_id` text PRIMARY KEY,
-	`id` text NOT NULL,
-	`secret` text NOT NULL,
-	`url` text NOT NULL,
-	`time_created` integer NOT NULL,
-	`time_updated` integer NOT NULL,
-	CONSTRAINT `fk_session_share_session_id_session_id_fk` FOREIGN KEY (`session_id`) REFERENCES `session`(`id`) ON DELETE CASCADE
-);
-CREATE INDEX `part_session_idx` ON `part` (`session_id`);
-CREATE INDEX `session_project_idx` ON `session` (`project_id`);
-CREATE INDEX `session_parent_idx` ON `session` (`parent_id`);
-CREATE INDEX `todo_session_idx` ON `todo` (`session_id`);
-CREATE TABLE `control_account` (
-	`email` text NOT NULL,
-	`url` text NOT NULL,
-	`access_token` text NOT NULL,
-	`refresh_token` text NOT NULL,
-	`token_expiry` integer,
-	`active` integer NOT NULL,
-	`time_created` integer NOT NULL,
-	`time_updated` integer NOT NULL,
-	CONSTRAINT `control_account_pk` PRIMARY KEY(`email`, `url`)
-);
-CREATE TABLE `workspace` (
-	`id` text PRIMARY KEY,
-	`branch` text,
-	`project_id` text NOT NULL,
-	`type` text NOT NULL, `name` text, `directory` text, `extra` text,
-	CONSTRAINT `fk_workspace_project_id_project_id_fk` FOREIGN KEY (`project_id`) REFERENCES `project`(`id`) ON DELETE CASCADE
-);
-CREATE INDEX `session_workspace_idx` ON `session` (`workspace_id`);
-CREATE TABLE `account` (
-	`id` text PRIMARY KEY,
-	`email` text NOT NULL,
-	`url` text NOT NULL,
-	`access_token` text NOT NULL,
-	`refresh_token` text NOT NULL,
-	`token_expiry` integer,
-	`time_created` integer NOT NULL,
-	`time_updated` integer NOT NULL
-);
-CREATE TABLE `account_state` (
-	`id` integer PRIMARY KEY NOT NULL,
-	`active_account_id` text, `active_org_id` text,
-	FOREIGN KEY (`active_account_id`) REFERENCES `account`(`id`) ON UPDATE no action ON DELETE set null
-);
 CREATE INDEX `message_session_time_created_id_idx` ON `message` (`session_id`,`time_created`,`id`);
 CREATE INDEX `part_message_id_id_idx` ON `part` (`message_id`,`id`);
+```
+
+---
+
+## TypeScript Interfaces
+
+Derived from real DB rows in `message_10_rows.json` and `part_10_rows.json`.
+
+### Message
+
+```ts
+// Raw DB row
+interface MessageRow {
+  id: string;           // "msg_..."
+  session_id: string;   // "ses_..."
+  time_created: number; // Unix ms timestamp
+  time_updated: number; // Unix ms timestamp
+  data: string;         // JSON string → UserMessageData | AssistantMessageData
+}
+
+// Parsed from data — user turn
+interface UserMessageData {
+  role: "user";
+  time: { created: number };
+  agent: string;
+  summary?: { title: string; diffs: unknown[] };
+  model?: { providerID: string; modelID: string };
+  tools?: Record<string, boolean>;
+}
+
+// Parsed from data — assistant turn
+interface AssistantMessageData {
+  role: "assistant";
+  time: { created: number; completed?: number };
+  agent: string;
+  parentID: string;
+  modelID: string;
+  providerID: string;
+  mode: string;
+  path: { cwd: string; root: string };
+  cost: number;
+  tokens: {
+    input: number;
+    output: number;
+    reasoning: number;
+    total?: number;
+    cache: { read: number; write: number };
+  };
+  finish?: string; // "stop" | "tool-calls"
+  error?: { name: string; data: { message: string } };
+}
+```
+
+### Part
+
+```ts
+// Raw DB row
+interface PartRow {
+  id: string;           // "prt_..."
+  message_id: string;   // "msg_..."
+  session_id: string;   // "ses_..."
+  time_created: number; // Unix ms timestamp
+  time_updated: number; // Unix ms timestamp
+  data: string;         // JSON string → ToolPartData | StepStartPartData | StepFinishPartData
+}
+
+// Parsed from data — a tool call or result
+interface ToolPartData {
+  type: "tool";
+  callID: string;
+  tool: string; // e.g. "edit", "todowrite", "read"
+  state: {
+    status: "completed" | "error" | string;
+    input: Record<string, unknown>;
+    output?: string;
+    error?: string;
+    title?: string;
+    metadata?: Record<string, unknown>;
+    time: { start: number; end: number };
+  };
+}
+
+// Parsed from data — marks the start of an LLM inference step
+interface StepStartPartData {
+  type: "step-start";
+  snapshot: string; // git commit hash of workspace state
+}
+
+// Parsed from data — marks the end of an LLM inference step
+interface StepFinishPartData {
+  type: "step-finish";
+  reason: string;   // e.g. "tool-calls", "stop"
+  snapshot: string;
+  cost: number;
+  tokens: {
+    input: number;
+    output: number;
+    reasoning: number;
+    cache: { read: number; write: number };
+  };
+}
+
+// Parsed from data — assistant's internal chain-of-thought (extended thinking models)
+interface ReasoningPartData {
+  type: "reasoning";
+  text: string;
+  time: { start: number; end: number };
+}
+
+// Parsed from data — a git patch snapshot after file edits
+interface PatchPartData {
+  type: "patch";
+  hash: string;    // git commit hash
+  files: string[]; // absolute paths of files changed
+}
+
+// Parsed from data — context window compaction event
+interface CompactionPartData {
+  type: "compaction";
+  auto: boolean;
+}
+
+// Parsed from data — a slash command spawning a sub-agent task
+interface SubtaskPartData {
+  type: "subtask";
+  prompt: string;       // full system prompt sent to sub-agent
+  description: string;  // short human-readable label
+  agent: string;        // e.g. "build"
+  model: { providerID: string; modelID: string };
+  command: string;      // slash command name e.g. "review"
+}
+
+// Parsed from data — a file or resource attached to the message
+interface FilePartData {
+  type: "file";
+  mime: string;      // e.g. "text/plain", "application/json"
+  filename: string;
+  url: string;       // file:// or resource URI
+  source?: {
+    text: { value: string; start: number; end: number };
+    type: string;       // e.g. "resource"
+    clientName: string; // e.g. "websearch"
+    uri: string;
+  };
+}
+
+// Parsed from data — an @agent mention in the user message
+interface AgentPartData {
+  type: "agent";
+  name: string;  // e.g. "plan"
+  source: { value: string; start: number; end: number };
+}
+
+// Union of all known part data shapes
+type PartData =
+  | ToolPartData
+  | StepStartPartData
+  | StepFinishPartData
+  | ReasoningPartData
+  | PatchPartData
+  | CompactionPartData
+  | SubtaskPartData
+  | FilePartData
+  | AgentPartData;
+
+// Part type distribution (observed counts in production DB):
+// tool: 3933 | step-start: 3547 | step-finish: 3499 | text: 2658
+// reasoning: 780 | patch: 214 | compaction: 18 | subtask: 3 | file: 3 | agent: 1
 ```

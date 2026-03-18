@@ -1,0 +1,3142 @@
+[
+  {
+    "id": "msg_cb5f8c361001hARSAK6fslgxId",
+    "session_id": "ses_34a0c26baffeRVZDmKEPtvEkGa",
+    "time_created": "2026-03-03T23:11:44.993Z",
+    "time_updated": "2026-03-03T23:11:49.098Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772579504993,
+        "completed": 1772579509098
+      },
+      "parentID": "msg_cb5f84940001Hwo2v3aD6z2SW4",
+      "modelID": "minimax-m2.5-free",
+      "providerID": "opencode",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 14837,
+        "input": 210,
+        "output": 102,
+        "reasoning": 0,
+        "cache": {
+          "read": 14208,
+          "write": 317
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_c942ef5d8001JTEE4v0pDupIcv",
+    "session_id": "ses_36bf0d17dffeb45h9o1NCB6UGy",
+    "time_created": "2026-02-25T09:43:51.512Z",
+    "time_updated": "2026-02-25T09:43:55.470Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772012631512,
+        "completed": 1772012635470
+      },
+      "parentID": "msg_c942ef5c6001oVd7EfY3Lv25lD",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/school/cns/projects/c2-email-spoofing-detector",
+        "root": "/home/gyro/Documents/school/cns/projects/c2-email-spoofing-detector"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 17266,
+        "input": 2696,
+        "output": 17,
+        "reasoning": 0,
+        "cache": {
+          "read": 14553,
+          "write": 0
+        }
+      },
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_ced2ab847001RHEMK5KtyFS7xL",
+    "session_id": "ses_36caa373bffeiZIElptWKPPqq1",
+    "time_created": "2026-03-14T16:25:25.831Z",
+    "time_updated": "2026-03-14T16:26:17.501Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773505525831,
+        "completed": 1773505577501
+      },
+      "parentID": "msg_ced2ab838001z40QCdqF0MyDjH",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/school/cns/projects/c2-email-spoofing-detector",
+        "root": "/home/gyro/Documents/school/cns/projects/c2-email-spoofing-detector"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 83302,
+        "input": 81249,
+        "output": 2053,
+        "reasoning": 0,
+        "cache": {
+          "read": 0,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cfdb7f095001OafexhLnCUF3lq",
+    "session_id": "ses_3035b5225ffeEaqWYf1imgbw69",
+    "time_created": "2026-03-17T21:33:36.277Z",
+    "time_updated": "2026-03-17T21:33:59.318Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773783216277
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "google",
+        "modelID": "gemini-3.1-pro-preview"
+      },
+      "variant": "medium"
+    }
+  },
+  {
+    "id": "msg_cf76ac747001H83sW5u3zTtZdU",
+    "session_id": "ses_308982cd3ffey6DxeR4YRT8QmO",
+    "time_created": "2026-03-16T16:11:36.143Z",
+    "time_updated": "2026-03-16T16:11:40.590Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773677496143
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "plan",
+      "model": {
+        "providerID": "opencode",
+        "modelID": "minimax-m2.5-free"
+      }
+    }
+  },
+  {
+    "id": "msg_c8f2be943001lZ8NemsAaLxpq9",
+    "session_id": "ses_370d416f0ffevfsQa3yAtEaX3w",
+    "time_created": "2026-02-24T10:22:25.603Z",
+    "time_updated": "2026-02-24T10:23:06.751Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771928545603,
+        "completed": 1771928586749
+      },
+      "error": {
+        "name": "MessageAbortedError",
+        "data": {
+          "message": "The operation was aborted."
+        }
+      },
+      "parentID": "msg_c8f2be9130015LX4iL3hnAEapM",
+      "modelID": "claude-opus-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "reasoning": 0,
+        "cache": {
+          "read": 0,
+          "write": 0
+        }
+      }
+    }
+  },
+  {
+    "id": "msg_cf1b4c99f001pYy8o9cNNj4HsS",
+    "session_id": "ses_30e8fab3effeO8DX3eq2tLcSTY",
+    "time_created": "2026-03-15T13:34:43.103Z",
+    "time_updated": "2026-03-15T13:34:46.223Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773581683103,
+        "completed": 1773581686223
+      },
+      "parentID": "msg_cf1b471bd001dlBLsI6ejXgbPg",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 58233,
+        "input": 156,
+        "output": 109,
+        "reasoning": 0,
+        "cache": {
+          "read": 57968,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf13fe32e001HZDnXAw27npqE0",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-15T11:27:01.942Z",
+    "time_updated": "2026-03-15T11:27:08.659Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773574021942
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_c4bd040af001GU80O3nyJ9HwZ5",
+    "session_id": "ses_3b7c035e4ffeFV3YdMoWzXRoLC",
+    "time_created": "2026-02-11T08:27:45.199Z",
+    "time_updated": "2026-02-18T17:37:16.529Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1770798465199,
+        "completed": 1770798470280
+      },
+      "parentID": "msg_c4bcef601001sJLsYnr7zI4O4c",
+      "modelID": "claude-sonnet-4.5",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/vlp",
+        "root": "/home/gyro/Documents/redemption/vlp"
+      },
+      "cost": 0,
+      "tokens": {
+        "input": 397,
+        "output": 364,
+        "reasoning": 0,
+        "cache": {
+          "read": 28570,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf203f6a3002Q1Be203nfslcmz",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-15T15:01:11.971Z",
+    "time_updated": "2026-03-15T15:01:17.763Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773586871971,
+        "completed": 1773586877763
+      },
+      "parentID": "msg_cf203f683001k5w3LoLCqfybkG",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 63887,
+        "input": 48817,
+        "output": 20,
+        "reasoning": 0,
+        "cache": {
+          "read": 15050,
+          "write": 0
+        }
+      },
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_c81f62d1d001pGxCqpY9UQ7gIp",
+    "session_id": "ses_37e1487e4ffe7is2VSFjtacbDV",
+    "time_created": "2026-02-21T20:48:40.221Z",
+    "time_updated": "2026-02-21T20:48:57.416Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771706920221,
+        "completed": 1771706937416
+      },
+      "parentID": "msg_c81eb78210019MFV2Ds3ePTm0f",
+      "modelID": "claude-sonnet-4.5",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 36567,
+        "input": 641,
+        "output": 645,
+        "reasoning": 0,
+        "cache": {
+          "read": 35281,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cfdfecf980025xzjEErpp61FSy",
+    "session_id": "ses_3035b5225ffeEaqWYf1imgbw69",
+    "time_created": "2026-03-17T22:51:00.888Z",
+    "time_updated": "2026-03-17T22:51:07.771Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773787860888,
+        "completed": 1773787867770
+      },
+      "parentID": "msg_cfdfc09870013H5dWoz3vPGLuV",
+      "modelID": "gemini-3.1-pro-preview",
+      "providerID": "google",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/Projects/osc-mcp",
+        "root": "/home/gyro/Documents/Projects/osc-mcp"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 55872,
+        "input": 13797,
+        "output": 43,
+        "reasoning": 102,
+        "cache": {
+          "read": 41930,
+          "write": 0
+        }
+      },
+      "variant": "medium",
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cfbb11cc1001V2EjjnNNeE0zwW",
+    "session_id": "ses_30451185bffeZU86YkKJhmz0gj",
+    "time_created": "2026-03-17T12:06:54.401Z",
+    "time_updated": "2026-03-17T12:06:59.467Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773749214401,
+        "completed": 1773749219467
+      },
+      "parentID": "msg_cfbaee877001xixRnHOrzyKFFd",
+      "modelID": "claude-sonnet-4.5",
+      "providerID": "github-copilot",
+      "mode": "Sisyphus-Junior",
+      "agent": "Sisyphus-Junior",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 46319,
+        "input": 1652,
+        "output": 134,
+        "reasoning": 0,
+        "cache": {
+          "read": 44533,
+          "write": 0
+        }
+      },
+      "variant": "max",
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_ca9ad18c6001BCHmqDcLk49odx",
+    "session_id": "ses_3566b5e3dffeQas00NP0qPIdF9",
+    "time_created": "2026-03-01T13:53:39.527Z",
+    "time_updated": "2026-03-01T13:53:50.162Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772373219527,
+        "completed": 1772373230162
+      },
+      "parentID": "msg_ca9a2db65001xHiJxVyZgn5UVZ",
+      "modelID": "claude-opus-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/vollio/client",
+        "root": "/home/gyro/Documents/redemption/vollio"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 96589,
+        "input": 395,
+        "output": 346,
+        "reasoning": 0,
+        "cache": {
+          "read": 95848,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_ca9ac3b98001QIDd7vbVzD8SjZ",
+    "session_id": "ses_3566b5e3dffeQas00NP0qPIdF9",
+    "time_created": "2026-03-01T13:52:42.904Z",
+    "time_updated": "2026-03-01T13:52:48.830Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772373162904,
+        "completed": 1772373168829
+      },
+      "parentID": "msg_ca9a2db65001xHiJxVyZgn5UVZ",
+      "modelID": "claude-opus-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/vollio/client",
+        "root": "/home/gyro/Documents/redemption/vollio"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 93533,
+        "input": 159,
+        "output": 110,
+        "reasoning": 0,
+        "cache": {
+          "read": 93264,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cfb630129001PFwD1QV9qc6qkJ",
+    "session_id": "ses_3049d9e0effeQ4RE2sEZJkeqOO",
+    "time_created": "2026-03-17T10:41:35.529Z",
+    "time_updated": "2026-03-17T10:41:38.776Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773744095529,
+        "completed": 1773744098776
+      },
+      "parentID": "msg_cfb6261f9001FHcgO0NCY9XbL1",
+      "modelID": "gemini-3-flash-preview",
+      "providerID": "google",
+      "mode": "Sisyphus-Junior",
+      "agent": "Sisyphus-Junior",
+      "path": {
+        "cwd": "/home/gyro/Documents/Projects/osc-mcp",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 24425,
+        "input": 8033,
+        "output": 31,
+        "reasoning": 31,
+        "cache": {
+          "read": 16330,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_c7dd5a52f001Rxe0JLzf4Gkmgq",
+    "session_id": "ses_384545ffefferViF0yGeUijLz2",
+    "time_created": "2026-02-21T01:34:39.407Z",
+    "time_updated": "2026-02-21T01:34:51.653Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771637679407,
+        "completed": 1771637691653
+      },
+      "parentID": "msg_c7dd4f4f2001YiZo9pIPiMidMe",
+      "modelID": "claude-sonnet-4.5",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 44075,
+        "input": 2847,
+        "output": 643,
+        "reasoning": 0,
+        "cache": {
+          "read": 40585,
+          "write": 0
+        }
+      },
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_c81f5d9df001A1n28qbs8fTjaS",
+    "session_id": "ses_37e1487e4ffe7is2VSFjtacbDV",
+    "time_created": "2026-02-21T20:48:18.911Z",
+    "time_updated": "2026-02-21T20:48:28.944Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771706898911,
+        "completed": 1771706908944
+      },
+      "parentID": "msg_c81eb78210019MFV2Ds3ePTm0f",
+      "modelID": "claude-sonnet-4.5",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 35265,
+        "input": 641,
+        "output": 696,
+        "reasoning": 0,
+        "cache": {
+          "read": 33928,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf4f0a3a0001iGgs8eNOU1aZS2",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-16T04:38:57.185Z",
+    "time_updated": "2026-03-16T04:39:16.157Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773635937185,
+        "completed": 1773635956157
+      },
+      "parentID": "msg_cf4efe7520018qFOYwCg3n4UFt",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 34455,
+        "input": 511,
+        "output": 1448,
+        "reasoning": 0,
+        "cache": {
+          "read": 32496,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf2bdb2dc0010eEuVICCsFVUCu",
+    "session_id": "ses_30d425eebffeGW8Yv09RidAeYX",
+    "time_created": "2026-03-15T18:24:04.316Z",
+    "time_updated": "2026-03-15T18:24:07.638Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773599044316,
+        "completed": 1773599047638
+      },
+      "parentID": "msg_cf2bda12b001Emi49VxXkmLdEC",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 15958,
+        "input": 810,
+        "output": 98,
+        "reasoning": 0,
+        "cache": {
+          "read": 15050,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf40e26be002jQHlmMovcWxced",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-16T00:31:34.078Z",
+    "time_updated": "2026-03-16T00:31:42.900Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773621094078,
+        "completed": 1773621102899
+      },
+      "parentID": "msg_cf40e26960011ImFJ2GDx0PVcg",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 81362,
+        "input": 81293,
+        "output": 69,
+        "reasoning": 0,
+        "cache": {
+          "read": 0,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf1b18982001Q1Gl2mgM3DPUp4",
+    "session_id": "ses_30e8fab3effeO8DX3eq2tLcSTY",
+    "time_created": "2026-03-15T13:31:10.091Z",
+    "time_updated": "2026-03-15T13:31:14.241Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773581470091
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_c935d41d2001a1CukKArSCtp65",
+    "session_id": "ses_36caa373bffeiZIElptWKPPqq1",
+    "time_created": "2026-02-25T05:54:48.403Z",
+    "time_updated": "2026-02-25T05:55:11.478Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771998888403,
+        "completed": 1771998911478
+      },
+      "parentID": "msg_c935d41c60015suP8fgaSbMhwk",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/school/cns/projects/c2-email-spoofing-detector",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 50649,
+        "input": 35730,
+        "output": 1157,
+        "reasoning": 0,
+        "cache": {
+          "read": 13762,
+          "write": 0
+        }
+      },
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_cf13b98e3002jvBlBP9tTQVmLv",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-15T11:22:20.771Z",
+    "time_updated": "2026-03-15T11:22:25.697Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773573740771,
+        "completed": 1773573745697
+      },
+      "parentID": "msg_cf13b98c8001EB3sjgt3rbrrVU",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 44129,
+        "input": 28793,
+        "output": 144,
+        "reasoning": 0,
+        "cache": {
+          "read": 15192,
+          "write": 0
+        }
+      },
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_c4bd2b20f001dPP2ghIKwd6IDP",
+    "session_id": "ses_3b7c035e4ffeFV3YdMoWzXRoLC",
+    "time_created": "2026-02-11T08:30:25.304Z",
+    "time_updated": "2026-02-18T17:37:16.529Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1770798625304
+      },
+      "summary": {
+        "title": "Replace webhook with normal input request",
+        "diffs": [
+          {
+            "file": "REDDIT_WORKFLOW_DOCS.md",
+            "before": "# Reddit Multi-Post with AI Refinement Workflow\n\n## Overview\nThis n8n workflow automatically posts messages to multiple Reddit subreddits with AI-powered message refinement using OpenAI.\n\n**Workflow ID**: `fG1bdfsGgoUpJ2LA`  \n**Status**: ✅ Active  \n**Webhook URL**: `https://n8n.vollio.xyz/webhook/reddit-post`\n\n---\n\n## Workflow Structure\n\n```\n1. Webhook Trigger (POST /reddit-post)\n   ↓\n2. Extract Input (message, subreddits array)\n   ↓\n3. OpenAI Refine (GPT-4o-mini refines the message)\n   ↓\n4. Prepare Loop (store refined message + subreddits)\n   ↓\n5. Loop Subreddits (iterate over each subreddit)\n   ↓\n6. Post to Reddit (submit post via Reddit API)\n   ↓\n7. Collect Result (gather post URLs and status)\n   ↓\n8. Respond (return results to caller)\n```\n\n---\n\n## Input Format\n\n**Method**: POST  \n**URL**: `https://n8n.vollio.xyz/webhook/reddit-post`  \n**Content-Type**: `application/json`\n\n```json\n{\n  \"message\": \"Your message here that will be refined by AI\",\n  \"subreddits\": [\"subreddit1\", \"subreddit2\", \"subreddit3\"]\n}\n```\n\n### Example Input:\n```json\n{\n  \"message\": \"I just built an amazing tool that helps developers automate their workflows!\",\n  \"subreddits\": [\"webdev\", \"programming\", \"javascript\"]\n}\n```\n\n---\n\n## Output Format\n\n```json\n{\n  \"success\": true,\n  \"message\": \"All posts completed\",\n  \"refinedMessage\": \"The AI-refined version of your message\",\n  \"results\": [\n    {\n      \"subreddit\": \"webdev\",\n      \"success\": true,\n      \"postUrl\": \"https://reddit.com/r/webdev/comments/...\"\n    },\n    {\n      \"subreddit\": \"programming\",\n      \"success\": true,\n      \"postUrl\": \"https://reddit.com/r/programming/comments/...\"\n    }\n  ]\n}\n```\n\n---\n\n## How to Use\n\n### Option 1: Using the Test Script\n```bash\n./test-reddit-workflow.sh \"Your message\" \"subreddit1,subreddit2,subreddit3\"\n```\n\n**Example:**\n```bash\n./test-reddit-workflow.sh \"Check out my new project!\" \"webdev,javascript,programming\"\n```\n\n### Option 2: Using cURL\n```bash\ncurl -X POST \"https://n8n.vollio.xyz/webhook/reddit-post\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"message\": \"Your message here\",\n    \"subreddits\": [\"subreddit1\", \"subreddit2\"]\n  }'\n```\n\n### Option 3: Using JavaScript/TypeScript\n```javascript\nasync function postToReddit(message, subreddits) {\n  const response = await fetch('https://n8n.vollio.xyz/webhook/reddit-post', {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/json',\n    },\n    body: JSON.stringify({\n      message,\n      subreddits,\n    }),\n  });\n  \n  return await response.json();\n}\n\n// Usage\nconst result = await postToReddit(\n  'Check out this cool project!',\n  ['webdev', 'programming', 'javascript']\n);\nconsole.log(result);\n```\n\n### Option 4: Using Python\n```python\nimport requests\n\ndef post_to_reddit(message, subreddits):\n    url = 'https://n8n.vollio.xyz/webhook/reddit-post'\n    payload = {\n        'message': message,\n        'subreddits': subreddits\n    }\n    response = requests.post(url, json=payload)\n    return response.json()\n\n# Usage\nresult = post_to_reddit(\n    'Check out this cool project!',\n    ['webdev', 'programming', 'javascript']\n)\nprint(result)\n```\n\n---\n\n## Features\n\n### ✅ AI Message Refinement\n- Uses OpenAI GPT-4o-mini to refine your message\n- Makes content more engaging and Reddit-appropriate\n- Maintains your core message while improving readability\n\n### ✅ Multi-Subreddit Posting\n- Posts to multiple subreddits in sequence\n- Each post is independent (one failure won't affect others)\n- Returns individual results for each subreddit\n\n### ✅ Automatic Title Generation\n- First line (up to 100 chars) becomes the post title\n- Remaining content becomes the post body\n- Fully automatic - no manual splitting needed\n\n### ✅ Error Handling\n- Tracks success/failure for each subreddit\n- Returns post URLs for successful posts\n- Provides error details for failed posts\n\n---\n\n## Important Notes\n\n### Prerequisites\nYou need to configure these credentials in n8n:\n1. **OpenAI API** - For message refinement\n2. **Reddit OAuth2** - For posting to Reddit\n\n### Reddit API Requirements\n- You need a Reddit account with API access\n- Must create a Reddit app to get OAuth credentials\n- Some subreddits may have posting restrictions (karma, account age)\n- Respect Reddit's rate limits (1 post every 10 minutes per subreddit)\n\n### Best Practices\n1. **Test First**: Use test/personal subreddits first\n2. **Check Rules**: Review each subreddit's posting rules\n3. **Avoid Spam**: Don't post the same message to too many subreddits\n4. **Timing**: Space out posts to different subreddits\n5. **Quality**: Let the AI refine your message for better engagement\n\n---\n\n## Troubleshooting\n\n### \"Workflow not found\" Error\nThe workflow might not be active. Check status in n8n UI.\n\n### \"Authentication failed\" Error\nReddit OAuth credentials need to be configured in n8n.\n\n### \"Rate limit exceeded\" Error\nYou're posting too frequently. Wait 10+ minutes between posts to the same subreddit.\n\n### \"Subreddit not found\" Error\nCheck subreddit name spelling (case-sensitive, no \"r/\" prefix needed).\n\n---\n\n## Managing the Workflow\n\n### View in n8n UI\nVisit: `https://n8n.vollio.xyz/workflow/fG1bdfsGgoUpJ2LA`\n\n### Deactivate Workflow\n```bash\ncurl -X POST \"https://n8n.vollio.xyz/api/v1/workflows/fG1bdfsGgoUpJ2LA/deactivate\" \\\n  -H \"X-N8N-API-KEY: your-api-key\"\n```\n\n### Reactivate Workflow\n```bash\ncurl -X POST \"https://n8n.vollio.xyz/api/v1/workflows/fG1bdfsGgoUpJ2LA/activate\" \\\n  -H \"X-N8N-API-KEY: your-api-key\"\n```\n\n---\n\n## Next Steps\n\n1. **Configure Reddit OAuth** in n8n (if not already done)\n2. **Configure OpenAI API** in n8n (if not already done)\n3. **Test the workflow** using the test script or cURL\n4. **Monitor results** in n8n execution history\n5. **Refine as needed** - adjust AI prompts, add delays, etc.\n\n---\n\n## Support\n\nFor issues or questions:\n- Check n8n execution logs at `https://n8n.vollio.xyz`\n- Review Reddit API documentation\n- Check OpenAI API status\n\nCreated: February 11, 2026\n",
+            "after": "# Reddit Multi-Post with AI Refinement Workflow\n\n## Overview\nThis n8n workflow automatically posts messages to multiple Reddit subreddits with AI-powered message refinement using OpenAI.\n\n**Workflow ID**: `fG1bdfsGgoUpJ2LA`  \n**Status**: ✅ Active  \n**Trigger Type**: Manual (Form Input)\n\n---\n\n## Workflow Structure\n\n```\n1. Manual Trigger (Form Input)\n   ├─ Input: message (string)\n   └─ Input: subreddits (array)\n   ↓\n2. Extract Input (message, subreddits array)\n   ↓\n3. OpenAI Refine (GPT-4o-mini refines the message)\n   ↓\n4. Prepare Loop (store refined message + subreddits)\n   ↓\n5. Loop Subreddits (iterate over each subreddit)\n   ↓\n6. Post to Reddit (submit post via Reddit API)\n   ↓\n7. Collect Result (gather post URLs and status)\n```\n\n---\n\n## Input Format\n\nUse the **Manual Trigger** form in n8n to input:\n\n1. **message** (string): Your message to be refined by AI\n2. **subreddits** (array): List of subreddit names to post to\n\n### Example Input:\n```\nmessage: \"I just built an amazing tool that helps developers automate their workflows!\"\nsubreddits: [\"webdev\", \"programming\", \"javascript\"]\n```\n\n---\n\n## Output Format\n\nThe workflow returns:\n```json\n{\n  \"success\": true,\n  \"message\": \"All posts completed\",\n  \"refinedMessage\": \"The AI-refined version of your message\",\n  \"results\": [\n    {\n      \"subreddit\": \"webdev\",\n      \"success\": true,\n      \"postUrl\": \"https://reddit.com/r/webdev/comments/...\"\n    },\n    {\n      \"subreddit\": \"programming\",\n      \"success\": true,\n      \"postUrl\": \"https://reddit.com/r/programming/comments/...\"\n    }\n  ]\n}\n\n---\n\n## How to Use\n\n### Step 1: Open the Workflow in n8n\nVisit: `https://n8n.vollio.xyz/workflow/fG1bdfsGgoUpJ2LA`\n\n### Step 2: Click the Test/Run Button\nIn n8n UI, click the \"Test\" or \"Manually Trigger Workflow\" button\n\n### Step 3: Fill in the Form\nA form will appear with two fields:\n- **message**: Enter your message\n- **subreddits**: Enter subreddit names (comma-separated or array format)\n\n### Step 4: Execute\nClick the execute/run button and watch the workflow process:\n1. AI refines your message\n2. Posts to each subreddit\n3. Returns results with post URLs\n\n---\n\n## Example Execution\n\n**Input:**\n```\nmessage: Check out this awesome new project I built!\nsubreddits: webdev, javascript, programming\n```\n\n**Output:**\n```\nsuccess: true\nmessage: \"All posts completed\"\nrefinedMessage: \"Excited to share this awesome new project I built! It streamlines workflow automation...\"\nresults: [\n  {\n    subreddit: \"webdev\",\n    success: true,\n    postUrl: \"https://reddit.com/r/webdev/comments/...\"\n  },\n  {\n    subreddit: \"javascript\",\n    success: true,\n    postUrl: \"https://reddit.com/r/javascript/comments/...\"\n  },\n  {\n    subreddit: \"programming\",\n    success: true,\n    postUrl: \"https://reddit.com/r/programming/comments/...\"\n  }\n]\n```\n\n---\n\n## Features\n\n### ✅ AI Message Refinement\n- Uses OpenAI GPT-4o-mini to refine your message\n- Makes content more engaging and Reddit-appropriate\n- Maintains your core message while improving readability\n\n### ✅ Multi-Subreddit Posting\n- Posts to multiple subreddits in sequence\n- Each post is independent (one failure won't affect others)\n- Returns individual results for each subreddit\n\n### ✅ Automatic Title Generation\n- First line (up to 100 chars) becomes the post title\n- Remaining content becomes the post body\n- Fully automatic - no manual splitting needed\n\n### ✅ Error Handling\n- Tracks success/failure for each subreddit\n- Returns post URLs for successful posts\n- Provides error details for failed posts\n\n---\n\n## Important Notes\n\n### Prerequisites\nYou need to configure these credentials in n8n:\n1. **OpenAI API** - For message refinement\n2. **Reddit OAuth2** - For posting to Reddit\n\n### Reddit API Requirements\n- You need a Reddit account with API access\n- Must create a Reddit app to get OAuth credentials\n- Some subreddits may have posting restrictions (karma, account age)\n- Respect Reddit's rate limits (1 post every 10 minutes per subreddit)\n\n### Best Practices\n1. **Test First**: Use test/personal subreddits first\n2. **Check Rules**: Review each subreddit's posting rules\n3. **Avoid Spam**: Don't post the same message to too many subreddits\n4. **Timing**: Space out posts to different subreddits\n5. **Quality**: Let the AI refine your message for better engagement\n\n---\n\n## Troubleshooting\n\n### \"Workflow not found\" Error\nThe workflow might not be active. Check status in n8n UI.\n\n### \"Authentication failed\" Error\nReddit OAuth credentials need to be configured in n8n.\n\n### \"Rate limit exceeded\" Error\nYou're posting too frequently. Wait 10+ minutes between posts to the same subreddit.\n\n### \"Subreddit not found\" Error\nCheck subreddit name spelling (case-sensitive, no \"r/\" prefix needed).\n\n---\n\n## Managing the Workflow\n\n### View in n8n UI\nVisit: `https://n8n.vollio.xyz/workflow/fG1bdfsGgoUpJ2LA`\n\n### Test the Workflow\n1. Open the workflow in n8n\n2. Click \"Test\" or \"Manually Trigger Workflow\"\n3. Fill in the input form\n4. Click Execute\n\n### View Execution History\nIn the n8n UI, go to \"Executions\" tab to see:\n- All past runs\n- Input parameters\n- Output results\n- Error logs (if any)\n\n---\n\n## Next Steps\n\n1. **Configure Reddit OAuth** in n8n (if not already done)\n2. **Configure OpenAI API** in n8n (if not already done)\n3. **Test the workflow** using the test script or cURL\n4. **Monitor results** in n8n execution history\n5. **Refine as needed** - adjust AI prompts, add delays, etc.\n\n---\n\n## Support\n\nFor issues or questions:\n- Check n8n execution logs at `https://n8n.vollio.xyz`\n- Review Reddit API documentation\n- Check OpenAI API status\n\nCreated: February 11, 2026\n",
+            "additions": 66,
+            "deletions": 88,
+            "status": "modified"
+          },
+          {
+            "file": "test-reddit-workflow.sh",
+            "before": "#!/bin/bash\n\n# Reddit Multi-Post Workflow Test Script\n# Usage: ./test-reddit-workflow.sh \"Your message\" \"subreddit1,subreddit2,subreddit3\"\n\nMESSAGE=\"$1\"\nSUBREDDITS=\"$2\"\n\nif [ -z \"$MESSAGE\" ] || [ -z \"$SUBREDDITS\" ]; then\n    echo \"Usage: $0 \\\"Your message\\\" \\\"subreddit1,subreddit2,subreddit3\\\"\"\n    echo \"\"\n    echo \"Example:\"\n    echo \"  $0 \\\"Check out this cool project I built!\\\" \\\"webdev,programming,javascript\\\"\"\n    exit 1\nfi\n\n# Convert comma-separated subreddits to JSON array\nIFS=',' read -ra SUBS <<< \"$SUBREDDITS\"\nJSON_ARRAY=\"[\"\nfor i in \"${!SUBS[@]}\"; do\n    if [ $i -gt 0 ]; then\n        JSON_ARRAY+=\",\"\n    fi\n    JSON_ARRAY+=\"\\\"${SUBS[$i]}\\\"\"\ndone\nJSON_ARRAY+=\"]\"\n\nWEBHOOK_URL=\"https://n8n.vollio.xyz/webhook/reddit-post\"\n\necho \"Sending request to n8n workflow...\"\necho \"Message: $MESSAGE\"\necho \"Subreddits: $JSON_ARRAY\"\necho \"\"\n\nRESPONSE=$(curl -s -X POST \"$WEBHOOK_URL\" \\\n  -H \"Content-Type: application/json\" \\\n  -d \"{\n    \\\"message\\\": \\\"$MESSAGE\\\",\n    \\\"subreddits\\\": $JSON_ARRAY\n  }\")\n\necho \"Response:\"\necho \"$RESPONSE\" | python3 -m json.tool 2>/dev/null || echo \"$RESPONSE\"\n",
+            "after": "",
+            "additions": 0,
+            "deletions": 43,
+            "status": "deleted"
+          }
+        ]
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-haiku-4.5"
+      }
+    }
+  },
+  {
+    "id": "msg_cf170b068001QbDhRgE8NO6Kn4",
+    "session_id": "ses_30e8f8e20ffec24fmLQKvtKLnD",
+    "time_created": "2026-03-15T12:20:20.200Z",
+    "time_updated": "2026-03-15T12:21:26.452Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773577220200,
+        "completed": 1773577286452
+      },
+      "parentID": "msg_cf17071e4001a0FWBsEpJ72tFn",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "explore",
+      "agent": "explore",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 35808,
+        "input": 28091,
+        "output": 3167,
+        "reasoning": 0,
+        "cache": {
+          "read": 4550,
+          "write": 0
+        }
+      },
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_c940d818a001Meayef2EEPILaq",
+    "session_id": "ses_36caa373bffeiZIElptWKPPqq1",
+    "time_created": "2026-02-25T09:07:19.060Z",
+    "time_updated": "2026-02-25T09:07:39.142Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1772010439060
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_cf130f818002JVFb0Xg92dwOQz",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-15T11:10:44.248Z",
+    "time_updated": "2026-03-15T11:10:50.308Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773573044248,
+        "completed": 1773573050307
+      },
+      "parentID": "msg_cf130f7f4001hBEWSIZbsJIotV",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 25237,
+        "input": 9943,
+        "output": 102,
+        "reasoning": 0,
+        "cache": {
+          "read": 15192,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cbb96ad70001XQ3haP6O815PbD",
+    "session_id": "ses_3446abdafffeTiUZ40nk8LSZqL",
+    "time_created": "2026-03-05T01:22:20.144Z",
+    "time_updated": "2026-03-05T01:22:24.287Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772673740144,
+        "completed": 1772673744287
+      },
+      "parentID": "msg_cbb954275001N1LWFR8IKclkTp",
+      "modelID": "minimax-m2.5-free",
+      "providerID": "opencode",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/events-scrapper",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 16915,
+        "input": 129,
+        "output": 94,
+        "reasoning": 0,
+        "cache": {
+          "read": 16145,
+          "write": 547
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cc87ba585001U0Ye4Ld9S3GmtJ",
+    "session_id": "ses_337846bbcffeFPSYMnLD4NcyCQ",
+    "time_created": "2026-03-07T13:27:52.453Z",
+    "time_updated": "2026-03-07T13:27:56.991Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772890072453,
+        "completed": 1772890076990
+      },
+      "parentID": "msg_cc87b9446001DOrpJWQRS3US7C",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "explore",
+      "agent": "explore",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/events-scrapper",
+        "root": "/home/gyro/Documents/redemption/events-scrapper"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 6364,
+        "input": 6034,
+        "output": 330,
+        "reasoning": 0,
+        "cache": {
+          "read": 0,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf1ae19c1001QLRr6epEZnWV5T",
+    "session_id": "ses_30e8fab3effeO8DX3eq2tLcSTY",
+    "time_created": "2026-03-15T13:27:24.865Z",
+    "time_updated": "2026-03-15T13:27:31.013Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773581244865,
+        "completed": 1773581251013
+      },
+      "parentID": "msg_cf1ada8ab0019W1jrTkkxq5oTr",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 48360,
+        "input": 562,
+        "output": 265,
+        "reasoning": 0,
+        "cache": {
+          "read": 47533,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_c8f3991c4001nHJXZIL5NawJB4",
+    "session_id": "ses_370c7a087ffevS5qx0hvESW2T0",
+    "time_created": "2026-02-24T10:37:20.708Z",
+    "time_updated": "2026-02-24T10:37:36.630Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771929440708,
+        "completed": 1771929456630
+      },
+      "parentID": "msg_c8f385f7c001wpkCmdvNUGd8Bs",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 16497,
+        "input": 16320,
+        "output": 177,
+        "reasoning": 0,
+        "cache": {
+          "read": 0,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_c8b8e044e001C5GfwfzVGQoWQB",
+    "session_id": "ses_37471fbb3ffecZzdEtvaOwrMoJ",
+    "time_created": "2026-02-23T17:31:06.199Z",
+    "time_updated": "2026-02-23T17:31:09.952Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1771867866199
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_cf13f9936002J8a9tc6jF1vIBZ",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-15T11:26:42.998Z",
+    "time_updated": "2026-03-15T11:26:45.837Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773574002998,
+        "completed": 1773574005837
+      },
+      "parentID": "msg_cf13f2355001W6pEu663uxPMQN",
+      "modelID": "mimo-v2-flash-free",
+      "providerID": "opencode",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 46562,
+        "input": 5389,
+        "output": 86,
+        "reasoning": 0,
+        "cache": {
+          "read": 41087,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cbb9f2df9001PQbrbPFYgQS36K",
+    "session_id": "ses_344617b40ffedKc2zsMV5AIfJF",
+    "time_created": "2026-03-05T01:31:37.337Z",
+    "time_updated": "2026-03-05T01:31:41.248Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772674297337,
+        "completed": 1772674301248
+      },
+      "parentID": "msg_cbb9e84c1001NrgWwo05A3nP2j",
+      "modelID": "minimax-m2.5-free",
+      "providerID": "opencode",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/events-scrapper",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 16660,
+        "input": 1061,
+        "output": 93,
+        "reasoning": 0,
+        "cache": {
+          "read": 13616,
+          "write": 1890
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_ccf0c212e0018523fSsohOOwQq",
+    "session_id": "ses_33d54b67affeVaqsxXpMOSEwgG",
+    "time_created": "2026-03-08T20:03:24.590Z",
+    "time_updated": "2026-03-08T20:03:28.784Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773000204590,
+        "completed": 1773000208784
+      },
+      "parentID": "msg_ccf0ae992001EQ0Cc2r9GkhDQ7",
+      "modelID": "minimax-m2.5-free",
+      "providerID": "opencode",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/vollio",
+        "root": "/home/gyro/Documents/redemption/vollio"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 85363,
+        "input": 92,
+        "output": 68,
+        "reasoning": 0,
+        "cache": {
+          "read": 82525,
+          "write": 2678
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_c8f563a32001IrK4IMFlHqOfYy",
+    "session_id": "ses_370ce3af9ffe1mqH1l8Ci55bgl",
+    "time_created": "2026-02-24T11:08:38.834Z",
+    "time_updated": "2026-02-24T11:08:44.571Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771931318834,
+        "completed": 1771931324571
+      },
+      "parentID": "msg_c8f560677001Gm0PEKXaC6zSvT",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 21293,
+        "input": 290,
+        "output": 87,
+        "reasoning": 0,
+        "cache": {
+          "read": 20916,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf1aa385e0018SkPoc0zAKto49",
+    "session_id": "ses_30e8fab3effeO8DX3eq2tLcSTY",
+    "time_created": "2026-03-15T13:23:10.558Z",
+    "time_updated": "2026-03-15T13:23:14.369Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773580990558,
+        "completed": 1773580994369
+      },
+      "parentID": "msg_cf1a9eabb001aWaQs1g9SSbV3b",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 31906,
+        "input": 337,
+        "output": 123,
+        "reasoning": 0,
+        "cache": {
+          "read": 31446,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_ca9f3f24e0017FylCF98rPVOeD",
+    "session_id": "ses_3566b5e3dffeQas00NP0qPIdF9",
+    "time_created": "2026-03-01T15:11:02.734Z",
+    "time_updated": "2026-03-01T15:11:09.959Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772377862734,
+        "completed": 1772377869959
+      },
+      "parentID": "msg_ca9f344de001MflyP28acd6MjX",
+      "modelID": "claude-opus-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/vollio/client",
+        "root": "/home/gyro/Documents/redemption/vollio"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 39329,
+        "input": 6695,
+        "output": 234,
+        "reasoning": 0,
+        "cache": {
+          "read": 32400,
+          "write": 0
+        }
+      },
+      "variant": "thinking",
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_c81f2fb7a001yY84HaEA5tURg4",
+    "session_id": "ses_37e1487e4ffe7is2VSFjtacbDV",
+    "time_created": "2026-02-21T20:45:10.906Z",
+    "time_updated": "2026-02-21T20:45:17.469Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771706710906,
+        "completed": 1771706717469
+      },
+      "parentID": "msg_c81eb78210019MFV2Ds3ePTm0f",
+      "modelID": "claude-sonnet-4.5",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 28054,
+        "input": 536,
+        "output": 329,
+        "reasoning": 0,
+        "cache": {
+          "read": 27189,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf472fdc6001u19g3Rqxrdc6hD",
+    "session_id": "ses_30b909ee0ffeep6YJVS2Ql7Oko",
+    "time_created": "2026-03-16T02:21:42.726Z",
+    "time_updated": "2026-03-16T02:21:48.287Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773627702726,
+        "completed": 1773627708287
+      },
+      "parentID": "msg_cf46f6123001XtRfNaIZ0jLNRb",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/projects",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 22871,
+        "input": 184,
+        "output": 193,
+        "reasoning": 0,
+        "cache": {
+          "read": 22494,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_c8204024f001hLcALTuhgqZtFn",
+    "session_id": "ses_37e1487e4ffe7is2VSFjtacbDV",
+    "time_created": "2026-02-21T21:03:46.767Z",
+    "time_updated": "2026-02-21T21:04:01.804Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771707826767,
+        "completed": 1771707841804
+      },
+      "parentID": "msg_c8202baf5001CZRJSz0yheImQI",
+      "modelID": "claude-sonnet-4.5",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 51072,
+        "input": 139,
+        "output": 792,
+        "reasoning": 0,
+        "cache": {
+          "read": 50141,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_c7e4e4010001DfNZBsprJ5oN4p",
+    "session_id": "ses_384545ffefferViF0yGeUijLz2",
+    "time_created": "2026-02-21T03:46:23.376Z",
+    "time_updated": "2026-02-21T03:46:29.997Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771645583376,
+        "completed": 1771645589997
+      },
+      "parentID": "msg_c7e4e3ffc001PCk5dl5MDdGoXB",
+      "modelID": "claude-sonnet-4.5",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 21035,
+        "input": 20939,
+        "output": 96,
+        "reasoning": 0,
+        "cache": {
+          "read": 0,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_c820065a20011jqW0dIOHUeXen",
+    "session_id": "ses_37e1487e4ffe7is2VSFjtacbDV",
+    "time_created": "2026-02-21T20:59:50.050Z",
+    "time_updated": "2026-02-21T20:59:55.626Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771707590050,
+        "completed": 1771707595626
+      },
+      "parentID": "msg_c820042e1001E1lTESgX4A9rnN",
+      "modelID": "claude-sonnet-4.5",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 44293,
+        "input": 31411,
+        "output": 84,
+        "reasoning": 0,
+        "cache": {
+          "read": 12798,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cb5f84950001tn02HvuKAreSzG",
+    "session_id": "ses_34a0c26baffeRVZDmKEPtvEkGa",
+    "time_created": "2026-03-03T23:11:13.744Z",
+    "time_updated": "2026-03-03T23:11:19.938Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772579473744,
+        "completed": 1772579479938
+      },
+      "parentID": "msg_cb5f84940001Hwo2v3aD6z2SW4",
+      "modelID": "minimax-m2.5-free",
+      "providerID": "opencode",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 14075,
+        "input": 132,
+        "output": 101,
+        "reasoning": 0,
+        "cache": {
+          "read": 0,
+          "write": 13842
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cb04542ea0019dBmxdHTfNeVQG",
+    "session_id": "ses_34fbf8300ffeY4IY3h3eN744iP",
+    "time_created": "2026-03-02T20:37:35.082Z",
+    "time_updated": "2026-03-02T20:37:38.611Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772483855082,
+        "completed": 1772483858611
+      },
+      "parentID": "msg_cb0407d1900153ORmEXg2ifBwK",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 34190,
+        "input": 234,
+        "output": 112,
+        "reasoning": 0,
+        "cache": {
+          "read": 33844,
+          "write": 0
+        }
+      },
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_d00f17c54001uGwvThQzfAAmV6",
+    "session_id": "ses_2ff1776f4ffekY9U5loaDpDu6o",
+    "time_created": "2026-03-18T12:35:19.253Z",
+    "time_updated": "2026-03-18T12:35:23.051Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773837319253,
+        "completed": 1773837323050
+      },
+      "parentID": "msg_d00f15086001eLIpeqUagmD0N7",
+      "modelID": "gemini-3.1-pro-preview",
+      "providerID": "google",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 27543,
+        "input": 2301,
+        "output": 133,
+        "reasoning": 0,
+        "cache": {
+          "read": 25109,
+          "write": 0
+        }
+      },
+      "variant": "high",
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_cf8188eb0001fUbMbEyUwJNYdF",
+    "session_id": "ses_307e7991effe19dVvSF8DW8d6G",
+    "time_created": "2026-03-16T19:21:24.920Z",
+    "time_updated": "2026-03-16T19:21:24.942Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773688884920
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "gemini-3.1-pro-preview"
+      }
+    }
+  },
+  {
+    "id": "msg_cf4e9e0db001LfDLxfMrlf8dEs",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-16T04:31:34.125Z",
+    "time_updated": "2026-03-16T04:31:46.359Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773635494125
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_c943e133f001FcLaHg6Py31sM5",
+    "session_id": "ses_36bf0d17dffeb45h9o1NCB6UGy",
+    "time_created": "2026-02-25T10:00:22.079Z",
+    "time_updated": "2026-02-25T10:00:27.038Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772013622079,
+        "completed": 1772013627038
+      },
+      "parentID": "msg_c943deb3a001jyZqEoSPGvoZGN",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/school/cns/projects/c2-email-spoofing-detector",
+        "root": "/home/gyro/Documents/school/cns/projects/c2-email-spoofing-detector"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 22033,
+        "input": 326,
+        "output": 269,
+        "reasoning": 0,
+        "cache": {
+          "read": 21438,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_c8f560684001RzykFmjTh22IO1",
+    "session_id": "ses_370ce3af9ffe1mqH1l8Ci55bgl",
+    "time_created": "2026-02-24T11:08:25.604Z",
+    "time_updated": "2026-02-24T11:08:31.687Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771931305604,
+        "completed": 1771931311686
+      },
+      "parentID": "msg_c8f560677001Gm0PEKXaC6zSvT",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 20728,
+        "input": 7051,
+        "output": 114,
+        "reasoning": 0,
+        "cache": {
+          "read": 13563,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cbba934ba001PbUNya5wrekIg1",
+    "session_id": "ses_3446abdafffeTiUZ40nk8LSZqL",
+    "time_created": "2026-03-05T01:42:34.426Z",
+    "time_updated": "2026-03-05T01:42:38.293Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772674954426,
+        "completed": 1772674958292
+      },
+      "parentID": "msg_cbba5d6dc001yPUiw1dEu0C7o7",
+      "modelID": "claude-haiku-4.5",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/events-scrapper",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 43480,
+        "input": 249,
+        "output": 89,
+        "reasoning": 0,
+        "cache": {
+          "read": 43142,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf20e7d82001eLePg8dJPu21JY",
+    "session_id": "ses_30e8fab3effeO8DX3eq2tLcSTY",
+    "time_created": "2026-03-15T15:12:41.868Z",
+    "time_updated": "2026-03-15T15:12:55.162Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773587561868
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_ccf0fa1fd001ZBS6o9VmcVMHMb",
+    "session_id": "ses_33d54b67affeVaqsxXpMOSEwgG",
+    "time_created": "2026-03-08T20:07:14.173Z",
+    "time_updated": "2026-03-08T20:07:19.489Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773000434173,
+        "completed": 1773000439488
+      },
+      "parentID": "msg_ccf0ae992001EQ0Cc2r9GkhDQ7",
+      "modelID": "minimax-m2.5-free",
+      "providerID": "opencode",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/vollio",
+        "root": "/home/gyro/Documents/redemption/vollio"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 98134,
+        "input": 356,
+        "output": 66,
+        "reasoning": 0,
+        "cache": {
+          "read": 97281,
+          "write": 431
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cb67f6585001BWHq2pvhiNGF6S",
+    "session_id": "ses_34980b62bffe68Y1bVqVTY4xEf",
+    "time_created": "2026-03-04T01:38:48.325Z",
+    "time_updated": "2026-03-04T01:38:57.321Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772588328325,
+        "completed": 1772588337320
+      },
+      "parentID": "msg_cb67f49df001g0oSTUw0PtTYu9",
+      "modelID": "minimax-m2.5-free",
+      "providerID": "opencode",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/ascended",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 14514,
+        "input": 464,
+        "output": 335,
+        "reasoning": 0,
+        "cache": {
+          "read": 13482,
+          "write": 233
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cfdade4fd002ZuZFg22c22bb65",
+    "session_id": "ses_3035b5225ffeEaqWYf1imgbw69",
+    "time_created": "2026-03-17T21:22:37.949Z",
+    "time_updated": "2026-03-17T21:23:03.934Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773782557949,
+        "completed": 1773782583934
+      },
+      "parentID": "msg_cfdacea3c0014tdhtVFyqW44KJ",
+      "modelID": "gemini-3.1-pro-preview",
+      "providerID": "google",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/Projects/osc-mcp",
+        "root": "/home/gyro/Documents/Projects/osc-mcp"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 41928,
+        "input": 3810,
+        "output": 30,
+        "reasoning": 0,
+        "cache": {
+          "read": 38088,
+          "write": 0
+        }
+      },
+      "variant": "medium",
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf0eebc34001oZqTISSq3t0PTR",
+    "session_id": "ses_30f143b8cffePjnnyagGAWLNPP",
+    "time_created": "2026-03-15T09:58:23.540Z",
+    "time_updated": "2026-03-15T09:58:28.396Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773568703540,
+        "completed": 1773568708396
+      },
+      "parentID": "msg_cf0ee98b1001LfNxugFgsSFY1S",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 16993,
+        "input": 190,
+        "output": 185,
+        "reasoning": 0,
+        "cache": {
+          "read": 16618,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_c935c95ba001HyEzuy0nEkwt6u",
+    "session_id": "ses_36caa373bffeiZIElptWKPPqq1",
+    "time_created": "2026-02-25T05:54:04.355Z",
+    "time_updated": "2026-02-25T05:54:16.485Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1771998844355
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_cf179a9a40015GmwMuRivNbzaU",
+    "session_id": "ses_30e8fab3effeO8DX3eq2tLcSTY",
+    "time_created": "2026-03-15T12:30:08.304Z",
+    "time_updated": "2026-03-15T12:31:46.369Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773577808304
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_cf46e4375001ZJjnga8fmTNmOw",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-16T02:16:32.885Z",
+    "time_updated": "2026-03-16T02:17:03.930Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773627392885
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_c4bd38d00001hSPohVekcsGxXk",
+    "session_id": "ses_3b7c035e4ffeFV3YdMoWzXRoLC",
+    "time_created": "2026-02-11T08:31:21.344Z",
+    "time_updated": "2026-02-18T17:37:16.529Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1770798681344,
+        "completed": 1770798685081
+      },
+      "parentID": "msg_c4bd2b20f001dPP2ghIKwd6IDP",
+      "modelID": "claude-haiku-4.5",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/vlp",
+        "root": "/home/gyro/Documents/redemption/vlp"
+      },
+      "cost": 0,
+      "tokens": {
+        "input": 2157,
+        "output": 401,
+        "reasoning": 0,
+        "cache": {
+          "read": 48591,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cfb37de6c001dytka60EHv9D63",
+    "session_id": "ses_304c84321ffePKVqmW2k2O7h4S",
+    "time_created": "2026-03-17T09:54:28.588Z",
+    "time_updated": "2026-03-17T09:54:33.044Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773741268588,
+        "completed": 1773741273044
+      },
+      "parentID": "msg_cfb37bdb80011shRX3H3Q4mF1V",
+      "modelID": "claude-opus-4.6",
+      "providerID": "github-copilot",
+      "mode": "Metis (Plan Consultant)",
+      "agent": "Metis (Plan Consultant)",
+      "path": {
+        "cwd": "/home/gyro/Documents/Projects/osc-mcp",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 27340,
+        "input": 1238,
+        "output": 102,
+        "reasoning": 0,
+        "cache": {
+          "read": 26000,
+          "write": 0
+        }
+      },
+      "variant": "max",
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf484882d0010FACZ1osfQbggc",
+    "session_id": "ses_30b7da4e0ffedbKk9WtDC37SxD",
+    "time_created": "2026-03-16T02:40:52.269Z",
+    "time_updated": "2026-03-16T02:40:57.553Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773628852269,
+        "completed": 1773628857552
+      },
+      "error": {
+        "name": "APIError",
+        "data": {
+          "message": "Requested entity was not found.",
+          "statusCode": 404,
+          "isRetryable": false,
+          "responseHeaders": {
+            "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+            "content-length": "114",
+            "content-type": "text/event-stream",
+            "date": "Mon, 16 Mar 2026 02:40:57 GMT",
+            "server": "ESF",
+            "server-timing": "gfet4t7; dur=358",
+            "vary": "Origin, X-Origin, Referer",
+            "x-cloudaicompanion-trace-id": "2b2a099febfd99b",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "SAMEORIGIN",
+            "x-xss-protection": "0"
+          },
+          "responseBody": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"Requested entity was not found.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n",
+          "metadata": {
+            "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:streamGenerateContent?alt=sse"
+          }
+        }
+      },
+      "parentID": "msg_cf4848821001N7d5XsJLZ71n8g",
+      "modelID": "gemini-flash-latest",
+      "providerID": "google",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/projects",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "reasoning": 0,
+        "cache": {
+          "read": 0,
+          "write": 0
+        }
+      }
+    }
+  },
+  {
+    "id": "msg_cbde9a2ba001q8WPaJSkXdOmIB",
+    "session_id": "ses_3446abdafffeTiUZ40nk8LSZqL",
+    "time_created": "2026-03-05T12:12:11.322Z",
+    "time_updated": "2026-03-05T12:12:20.755Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772712731322,
+        "completed": 1772712740755
+      },
+      "parentID": "msg_cbde8944e001gOiSwxSKAcbH1g",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/events-scrapper",
+        "root": "/home/gyro/Documents/redemption/events-scrapper"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 27630,
+        "input": 303,
+        "output": 85,
+        "reasoning": 0,
+        "cache": {
+          "read": 27242,
+          "write": 0
+        }
+      },
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_cf204d87e002Pyx6vIvBg2pU5U",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-15T15:02:09.790Z",
+    "time_updated": "2026-03-15T15:02:24.907Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773586929790,
+        "completed": 1773586944906
+      },
+      "parentID": "msg_cf204ae7e00106qdpnWzbAp967",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 70473,
+        "input": 143,
+        "output": 307,
+        "reasoning": 0,
+        "cache": {
+          "read": 70023,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_d0023a741001B8uv5OJhYBrfyw",
+    "session_id": "ses_2ffdd3ae1ffedMm9BAfcQooJmi",
+    "time_created": "2026-03-18T08:50:29.825Z",
+    "time_updated": "2026-03-18T08:50:36.313Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773823829825,
+        "completed": 1773823836313
+      },
+      "parentID": "msg_d0022c523001KgRObVlKJmk9Jj",
+      "modelID": "antigravity-claude-sonnet-4-6",
+      "providerID": "google",
+      "mode": "explore",
+      "agent": "explore",
+      "path": {
+        "cwd": "/home/gyro/Documents/Projects/osc-mcp",
+        "root": "/home/gyro/Documents/Projects/osc-mcp"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 47664,
+        "input": 2597,
+        "output": 276,
+        "reasoning": 0,
+        "cache": {
+          "read": 44791,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_ca9d22769001WAfHcnxM3G2R0r",
+    "session_id": "ses_3562dd89bffeYW7Yk5yFKr9Gq3",
+    "time_created": "2026-03-01T14:34:08.105Z",
+    "time_updated": "2026-03-01T14:34:13.657Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772375648105,
+        "completed": 1772375653657
+      },
+      "parentID": "msg_ca9d22766001bTjnAQ1NyVTQ50",
+      "modelID": "claude-opus-4.6",
+      "providerID": "github-copilot",
+      "mode": "explore",
+      "agent": "explore",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/vollio/client",
+        "root": "/home/gyro/Documents/redemption/vollio"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 6252,
+        "input": 402,
+        "output": 354,
+        "reasoning": 0,
+        "cache": {
+          "read": 5496,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cfbae1f8e001boYLukR4jj7jp7",
+    "session_id": "ses_30491acafffeTwqtVy7OQze0zP",
+    "time_created": "2026-03-17T12:03:38.510Z",
+    "time_updated": "2026-03-17T12:03:59.791Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773749018510,
+        "completed": 1773749039791
+      },
+      "parentID": "msg_cfbaa98b0001VeDmyy2N1x7KmU",
+      "modelID": "gemini-3.1-pro-preview",
+      "providerID": "google",
+      "mode": "Atlas (Plan Executor)",
+      "agent": "Atlas (Plan Executor)",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 106389,
+        "input": 20466,
+        "output": 113,
+        "reasoning": 0,
+        "cache": {
+          "read": 85810,
+          "write": 0
+        }
+      },
+      "variant": "medium",
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf1fb49bf00162776TcqXWHMku",
+    "session_id": "ses_30e8fab3effeO8DX3eq2tLcSTY",
+    "time_created": "2026-03-15T14:51:43.434Z",
+    "time_updated": "2026-03-15T14:51:43.532Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773586303434
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "google",
+        "modelID": "gemini-3.1-pro-preview"
+      }
+    }
+  },
+  {
+    "id": "msg_cf120b14400188MHWpx8KBORny",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-15T10:52:57.547Z",
+    "time_updated": "2026-03-15T10:53:01.281Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773571977547
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_cfcb747f5001fFCrz9uvyiXaLC",
+    "session_id": "ses_3035b5225ffeEaqWYf1imgbw69",
+    "time_created": "2026-03-17T16:53:15.893Z",
+    "time_updated": "2026-03-17T16:53:32.491Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773766395893,
+        "completed": 1773766412490
+      },
+      "parentID": "msg_cfcb163cf001oca6lFUWeoPv3K",
+      "modelID": "antigravity-gemini-3.1-pro",
+      "providerID": "google",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/Projects/osc-mcp",
+        "root": "/home/gyro/Documents/Projects/osc-mcp"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 30616,
+        "input": 652,
+        "output": 47,
+        "reasoning": 220,
+        "cache": {
+          "read": 29697,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_d003a7dec001h4xqaAewABmoD9",
+    "session_id": "ses_2ffd01e96ffefxUb57B3S4rl5f",
+    "time_created": "2026-03-18T09:15:26.572Z",
+    "time_updated": "2026-03-18T09:15:36.638Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773825326572,
+        "completed": 1773825336638
+      },
+      "parentID": "msg_d0039a20a001CJBVAsYnnI0MNk",
+      "modelID": "gemini-3.1-pro-preview",
+      "providerID": "google",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 23637,
+        "input": 2412,
+        "output": 355,
+        "reasoning": 20,
+        "cache": {
+          "read": 20850,
+          "write": 0
+        }
+      },
+      "variant": "high",
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf20bef6f002HIQBAJ3fM8ZE4Q",
+    "session_id": "ses_30e8fab3effeO8DX3eq2tLcSTY",
+    "time_created": "2026-03-15T15:09:54.415Z",
+    "time_updated": "2026-03-15T15:10:00.617Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773587394415,
+        "completed": 1773587400617
+      },
+      "parentID": "msg_cf20bdb33001bqtJcPKXaW7FNb",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 91236,
+        "input": 75963,
+        "output": 82,
+        "reasoning": 0,
+        "cache": {
+          "read": 15191,
+          "write": 0
+        }
+      },
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_ccf46f4b10012pfY1XvTzr9VEK",
+    "session_id": "ses_33d54b67affeVaqsxXpMOSEwgG",
+    "time_created": "2026-03-08T21:07:39.826Z",
+    "time_updated": "2026-03-08T21:07:43.206Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773004059826,
+        "completed": 1773004063205
+      },
+      "parentID": "msg_ccf46b1240015UWtIp0pFRHjo8",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/vollio",
+        "root": "/home/gyro/Documents/redemption/vollio"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 30352,
+        "input": 649,
+        "output": 91,
+        "reasoning": 0,
+        "cache": {
+          "read": 29612,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cfd5ff721002fv1aKLCG0zOPFT",
+    "session_id": "ses_3035b5225ffeEaqWYf1imgbw69",
+    "time_created": "2026-03-17T19:57:30.785Z",
+    "time_updated": "2026-03-17T19:57:34.760Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773777450785,
+        "completed": 1773777454759
+      },
+      "parentID": "msg_cfd5fb665001PLTNlDPPR2q63R",
+      "modelID": "gemini-3.1-pro-preview",
+      "providerID": "google",
+      "mode": "plan",
+      "agent": "plan",
+      "path": {
+        "cwd": "/home/gyro/Documents/Projects/osc-mcp",
+        "root": "/home/gyro/Documents/Projects/osc-mcp"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 30993,
+        "input": 1354,
+        "output": 45,
+        "reasoning": 0,
+        "cache": {
+          "read": 29594,
+          "write": 0
+        }
+      },
+      "variant": "medium",
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cc87b7f9f0026wEh2odwvIca9g",
+    "session_id": "ses_33784f98effe1pqK92hYRgD5Li",
+    "time_created": "2026-03-07T13:27:42.751Z",
+    "time_updated": "2026-03-07T13:29:11.029Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772890062751,
+        "completed": 1772890151028
+      },
+      "parentID": "msg_cc87b0688001ILbbM4AwfEpCVK",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "plan",
+      "agent": "plan",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/events-scrapper",
+        "root": "/home/gyro/Documents/redemption/events-scrapper"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 16262,
+        "input": 766,
+        "output": 257,
+        "reasoning": 0,
+        "cache": {
+          "read": 15239,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_ced2a9bd5001JHfpjCEuOgJUGo",
+    "session_id": "ses_36caa373bffeiZIElptWKPPqq1",
+    "time_created": "2026-03-14T16:25:18.549Z",
+    "time_updated": "2026-03-14T16:25:18.552Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773505518549
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_cfbea8ccf001B2xPb1gZfw3Rok",
+    "session_id": "ses_3041ef9a8ffegi3yqxu2udK9oe",
+    "time_created": "2026-03-17T13:09:38.639Z",
+    "time_updated": "2026-03-17T13:12:23.545Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773752978639,
+        "completed": 1773753143545
+      },
+      "parentID": "msg_cfbe10729001WAkGtLEJr2F0U4",
+      "modelID": "claude-sonnet-4.5",
+      "providerID": "github-copilot",
+      "mode": "Sisyphus-Junior",
+      "agent": "Sisyphus-Junior",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 31222,
+        "input": 546,
+        "output": 288,
+        "reasoning": 0,
+        "cache": {
+          "read": 30388,
+          "write": 0
+        }
+      },
+      "variant": "max",
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf4c0bc40001WNY8o7RBUIqgck",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-16T03:46:37.770Z",
+    "time_updated": "2026-03-16T03:46:49.635Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773632797770
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_cf13c8351001r4xWhaLKwW0q14",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-15T11:23:20.793Z",
+    "time_updated": "2026-03-15T11:23:25.102Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773573800793
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_cf1f1b5b2001Du19sBD0OH5Xei",
+    "session_id": "ses_30e8fab3effeO8DX3eq2tLcSTY",
+    "time_created": "2026-03-15T14:41:15.698Z",
+    "time_updated": "2026-03-15T14:41:26.852Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773585675698,
+        "completed": 1773585686852
+      },
+      "parentID": "msg_cf1f1677d001vbBxpx68efGYWW",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 85048,
+        "input": 387,
+        "output": 265,
+        "reasoning": 0,
+        "cache": {
+          "read": 84396,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_c7bac7088001VpNwVFzuZelhLZ",
+    "session_id": "ses_384545ffefferViF0yGeUijLz2",
+    "time_created": "2026-02-20T15:30:24.520Z",
+    "time_updated": "2026-02-20T15:30:34.166Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771601424520,
+        "completed": 1771601434166
+      },
+      "parentID": "msg_c7baba124001Gdm2I54GKEU531",
+      "modelID": "claude-sonnet-4.5",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 33783,
+        "input": 2367,
+        "output": 363,
+        "reasoning": 0,
+        "cache": {
+          "read": 31053,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cfdb4c56a0020xHkmJdy8UGD5U",
+    "session_id": "ses_3035b5225ffeEaqWYf1imgbw69",
+    "time_created": "2026-03-17T21:30:08.618Z",
+    "time_updated": "2026-03-17T21:30:14.782Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773783008618,
+        "completed": 1773783014782
+      },
+      "parentID": "msg_cfdb1b99c001OdVrGSNGkNYHAa",
+      "modelID": "gemini-3.1-pro-preview",
+      "providerID": "google",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/Projects/osc-mcp",
+        "root": "/home/gyro/Documents/Projects/osc-mcp"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 51713,
+        "input": 754,
+        "output": 34,
+        "reasoning": 61,
+        "cache": {
+          "read": 50864,
+          "write": 0
+        }
+      },
+      "variant": "medium",
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_ce86ba83f001BOQhszLA5UOZkU",
+    "session_id": "ses_31794ca3affets8t73kciSdAK7",
+    "time_created": "2026-03-13T18:18:15.487Z",
+    "time_updated": "2026-03-13T18:18:18.296Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773425895487,
+        "completed": 1773425898296
+      },
+      "parentID": "msg_ce86b35cc001w802kNVoyLuHXz",
+      "modelID": "gemini-3-flash-preview",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/taqni",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 25422,
+        "input": 2472,
+        "output": 127,
+        "reasoning": 0,
+        "cache": {
+          "read": 22823,
+          "write": 0
+        }
+      },
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_cee68c550001aQzUIysqJO5zCH",
+    "session_id": "ses_311973adbffehFNDAcX20td4DE",
+    "time_created": "2026-03-14T22:12:49.616Z",
+    "time_updated": "2026-03-14T22:12:54.816Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773526369616,
+        "completed": 1773526374815
+      },
+      "error": {
+        "name": "APIError",
+        "data": {
+          "message": "Requested entity was not found. Request preview access at https://goo.gle/enable-preview-features before using Gemini 3 models.",
+          "statusCode": 404,
+          "isRetryable": false,
+          "responseHeaders": {
+            "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+            "content-length": "114",
+            "content-type": "text/event-stream",
+            "date": "Sat, 14 Mar 2026 22:12:54 GMT",
+            "server": "ESF",
+            "server-timing": "gfet4t7; dur=420",
+            "vary": "Origin, X-Origin, Referer",
+            "x-cloudaicompanion-trace-id": "14d10e6b3e3d72a4",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "SAMEORIGIN",
+            "x-xss-protection": "0"
+          },
+          "responseBody": "{\"error\":{\"code\":404,\"message\":\"Requested entity was not found. Request preview access at https://goo.gle/enable-preview-features before using Gemini 3 models.\",\"status\":\"NOT_FOUND\"}}",
+          "metadata": {
+            "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro-preview:streamGenerateContent?alt=sse"
+          }
+        }
+      },
+      "parentID": "msg_cee68c52b001OuCcKR6DXHK3kk",
+      "modelID": "gemini-3.1-pro-preview",
+      "providerID": "google",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/taqni",
+        "root": "/home/gyro/Documents/redemption/taqni"
+      },
+      "cost": 0,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "reasoning": 0,
+        "cache": {
+          "read": 0,
+          "write": 0
+        }
+      }
+    }
+  },
+  {
+    "id": "msg_c7d8854bb001eg82M3DSYkSwIi",
+    "session_id": "ses_384545ffefferViF0yGeUijLz2",
+    "time_created": "2026-02-21T00:10:12.550Z",
+    "time_updated": "2026-02-21T00:11:02.327Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1771632612550
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.5"
+      }
+    }
+  },
+  {
+    "id": "msg_cf73614bb002li3IO3H5YRin54",
+    "session_id": "ses_308ce6ff7ffee9i2kq0ejG1bSK",
+    "time_created": "2026-03-16T15:14:02.555Z",
+    "time_updated": "2026-03-16T15:14:10.031Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773674042555,
+        "completed": 1773674050031
+      },
+      "parentID": "msg_cf73614aa0018l1wcKx6trB7t2",
+      "modelID": "gemini-3-flash-preview",
+      "providerID": "google",
+      "mode": "plan",
+      "agent": "plan",
+      "path": {
+        "cwd": "/home/gyro/Documents/projects/taqni/client",
+        "root": "/home/gyro/Documents/projects/taqni"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 17428,
+        "input": 835,
+        "output": 320,
+        "reasoning": 0,
+        "cache": {
+          "read": 16273,
+          "write": 0
+        }
+      },
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_cbba3ca53001SRmLMWJ9o2ffZB",
+    "session_id": "ses_3446abdafffeTiUZ40nk8LSZqL",
+    "time_created": "2026-03-05T01:36:39.507Z",
+    "time_updated": "2026-03-05T01:36:51.235Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772674599507,
+        "completed": 1772674611235
+      },
+      "parentID": "msg_cbba3ca11001x8WrMivexnkRyj",
+      "modelID": "minimax-m2.5-free",
+      "providerID": "opencode",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption/events-scrapper",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 30797,
+        "input": 132,
+        "output": 74,
+        "reasoning": 0,
+        "cache": {
+          "read": 30409,
+          "write": 182
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_ca3dfa7cb001FnfyKSKv7vOl7s",
+    "session_id": "ses_35c71a01bffe2XXlTkN7w56x3u",
+    "time_created": "2026-02-28T10:51:09.652Z",
+    "time_updated": "2026-02-28T10:53:46.719Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1772275869652
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-opus-4.6"
+      },
+      "variant": "thinking"
+    }
+  },
+  {
+    "id": "msg_c820588f700141oT2coNU5y9tT",
+    "session_id": "ses_37e1487e4ffe7is2VSFjtacbDV",
+    "time_created": "2026-02-21T21:05:26.775Z",
+    "time_updated": "2026-02-21T21:05:31.930Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1771707926775,
+        "completed": 1771707931930
+      },
+      "parentID": "msg_c8202baf5001CZRJSz0yheImQI",
+      "modelID": "claude-sonnet-4.5",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/redemption",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 58228,
+        "input": 455,
+        "output": 100,
+        "reasoning": 0,
+        "cache": {
+          "read": 57673,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf13a8e51002Pjzbto5M52oQiR",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-15T11:21:12.529Z",
+    "time_updated": "2026-03-15T11:21:15.665Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773573672529,
+        "completed": 1773573675665
+      },
+      "parentID": "msg_cf139ec8f001Ld2W16IJGX8U5w",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 43712,
+        "input": 269,
+        "output": 96,
+        "reasoning": 0,
+        "cache": {
+          "read": 43347,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf4e563c1001MdTWwMAq3FGD98",
+    "session_id": "ses_30f0900ffffeA3BsNEU0NzkHg2",
+    "time_created": "2026-03-16T04:26:39.944Z",
+    "time_updated": "2026-03-16T04:26:48.204Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1773635199944
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-sonnet-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_cf77686b5002aa9ouUo3Kq5Keq",
+    "session_id": "ses_30e8fab3effeO8DX3eq2tLcSTY",
+    "time_created": "2026-03-16T16:24:26.037Z",
+    "time_updated": "2026-03-16T16:24:33.686Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773678266037,
+        "completed": 1773678273685
+      },
+      "parentID": "msg_cf7751036001jdqCnwAwdVF1Au",
+      "modelID": "minimax/minimax-m2.5",
+      "providerID": "openrouter",
+      "mode": "plan",
+      "agent": "plan",
+      "path": {
+        "cwd": "/home/gyro/Documents/projects",
+        "root": "/"
+      },
+      "cost": 0.00534084,
+      "tokens": {
+        "total": 19143,
+        "input": 17002,
+        "output": 93,
+        "reasoning": 56,
+        "cache": {
+          "read": 2048,
+          "write": 0
+        }
+      },
+      "finish": "stop"
+    }
+  },
+  {
+    "id": "msg_ca99eb7c5001areq34zH408aBa",
+    "session_id": "ses_3566b5e3dffeQas00NP0qPIdF9",
+    "time_created": "2026-03-01T13:37:57.506Z",
+    "time_updated": "2026-03-01T13:37:57.685Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1772372277506
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "github-copilot",
+        "modelID": "claude-opus-4.6"
+      }
+    }
+  },
+  {
+    "id": "msg_c942e5875001L8kOlRudJSye8t",
+    "session_id": "ses_36bf0d17dffeb45h9o1NCB6UGy",
+    "time_created": "2026-02-25T09:43:11.221Z",
+    "time_updated": "2026-02-25T09:43:19.931Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1772012591221,
+        "completed": 1772012599931
+      },
+      "parentID": "msg_c942e3fe5001cZUb6Qts4IFJKS",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/school/cns/projects/c2-email-spoofing-detector",
+        "root": "/home/gyro/Documents/school/cns/projects/c2-email-spoofing-detector"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 17143,
+        "input": 2514,
+        "output": 76,
+        "reasoning": 0,
+        "cache": {
+          "read": 14553,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf4b9b37f001r3N9QEFzjI7xyJ",
+    "session_id": "ses_30b46b56effeWgFnvtDf4oSS93",
+    "time_created": "2026-03-16T03:38:56.767Z",
+    "time_updated": "2026-03-16T03:38:59.436Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773632336767,
+        "completed": 1773632339436
+      },
+      "parentID": "msg_cf4b94a96001ov7x6VLu4TfX4c",
+      "modelID": "gemini-3-flash-preview",
+      "providerID": "google",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro/Documents/projects",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 52690,
+        "input": 3229,
+        "output": 38,
+        "reasoning": 22,
+        "cache": {
+          "read": 49401,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cf470f37d001cdXCuqrmqOG77d",
+    "session_id": "ses_30b8f4957ffeIXMIf3Ejd4KDsc",
+    "time_created": "2026-03-16T02:19:29.022Z",
+    "time_updated": "2026-03-16T02:19:34.281Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773627569022,
+        "completed": 1773627574280
+      },
+      "parentID": "msg_cf470b6ab001PEnzU2BnHRnjPh",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "explore",
+      "agent": "explore",
+      "path": {
+        "cwd": "/home/gyro/Documents/projects",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 11347,
+        "input": 1166,
+        "output": 255,
+        "reasoning": 0,
+        "cache": {
+          "read": 9926,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  },
+  {
+    "id": "msg_cbd3bb5e9001s3WW5R01140uUG",
+    "session_id": "ses_3446abdafffeTiUZ40nk8LSZqL",
+    "time_created": "2026-03-05T09:02:13.038Z",
+    "time_updated": "2026-03-05T09:02:54.995Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1772701333038
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "opencode",
+        "modelID": "minimax-m2.5-free"
+      }
+    }
+  },
+  {
+    "id": "msg_cb609b37e001AkO3d7bTq3sLA7",
+    "session_id": "ses_34a0c26baffeRVZDmKEPtvEkGa",
+    "time_created": "2026-03-03T23:30:15.046Z",
+    "time_updated": "2026-03-03T23:30:21.110Z",
+    "data": {
+      "role": "user",
+      "time": {
+        "created": 1772580615046
+      },
+      "summary": {
+        "diffs": []
+      },
+      "agent": "build",
+      "model": {
+        "providerID": "opencode",
+        "modelID": "minimax-m2.5-free"
+      }
+    }
+  },
+  {
+    "id": "msg_cf1a2af2100196y2z0zDHCI1II",
+    "session_id": "ses_30e8fab3effeO8DX3eq2tLcSTY",
+    "time_created": "2026-03-15T13:14:56.673Z",
+    "time_updated": "2026-03-15T13:15:01.130Z",
+    "data": {
+      "role": "assistant",
+      "time": {
+        "created": 1773580496673,
+        "completed": 1773580501130
+      },
+      "parentID": "msg_cf1a2044f001HipoyVLnITDwts",
+      "modelID": "claude-sonnet-4.6",
+      "providerID": "github-copilot",
+      "mode": "build",
+      "agent": "build",
+      "path": {
+        "cwd": "/home/gyro",
+        "root": "/"
+      },
+      "cost": 0,
+      "tokens": {
+        "total": 53757,
+        "input": 127,
+        "output": 140,
+        "reasoning": 0,
+        "cache": {
+          "read": 53490,
+          "write": 0
+        }
+      },
+      "finish": "tool-calls"
+    }
+  }
+]
