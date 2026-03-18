@@ -50,11 +50,10 @@ src/
   db.ts                          # SQLite connections for opencodeDb and mcpDb
   index.ts                       # MCP server entry point; registers all tools
   lib/
-    lib.ts                       # Shared utilities (getRelevantDirectory, getPreviousSessionId)
+    lib.ts                       # Shared utilities (getProjectIdForDirectory, getPreviousSessionId)
   tools/
     storePreviousSessionContent.ts # Tool: store previous session content into mcpDb
     getRelevantSessions.ts       # Tool: list 10 most recent sessions for current project
-    getSessionSummary.ts         # Tool: fetch a stored session summary by ID
 tests/
   db.test.ts                     # DB connection smoke tests
 ```
@@ -66,7 +65,6 @@ tests/
 Registered MCP tools:
 - `store_previous_session_content` — stores filtered content for the most recent previous session.
 - `get_relevant_sessions` — returns 10 most recent sessions (title, date, id) for a TOC.
-- `get_session_summary` — fetches stored session content by session id.
 
 Runtime behavior:
 - Input validation uses Zod schemas and `zodToJsonSchema` for tool manifests.
@@ -81,15 +79,14 @@ Runtime behavior:
 - Directories are created with `mkdirSync(..., { recursive: true })` for fresh installs.
 - PRAGMAs: `busy_timeout=5000` on both DBs, `journal_mode=WAL` on `mcpDb`.
 - Schema created on startup:
-- `mcp_session_summary(session_id TEXT PRIMARY KEY, content TEXT, time_created INTEGER, time_updated INTEGER)`.
+- `mcp_session_summary(session_id TEXT PRIMARY KEY, project_id TEXT, content TEXT, time_created INTEGER, time_updated INTEGER)`.
 
 ---
 
 ## Session Resolution (`src/lib/lib.ts`)
 
-- `getRelevantDirectory()` walks up to 3 levels searching for `.git` and verifies with `git rev-parse`.
-- If no valid repo is found, it returns the starting directory.
-- `getPreviousSessionId()` queries `session` in `opencodeDb` using `directory = ? OR directory LIKE ?` and `LIMIT 1 OFFSET 1` to skip the current session.
+- `getProjectIdForDirectory()` queries `session` for the most recent `project_id` matching the current directory or its subdirectories.
+- `getPreviousSessionId()` queries `session` by `project_id` and uses `LIMIT 1 OFFSET 1` to skip the current session.
 
 ---
 

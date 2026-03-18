@@ -12,10 +12,6 @@ import {
   GetRelevantSessionsInputSchema,
   getRelevantSessions,
 } from "./tools/getRelevantSessions.js";
-import {
-  GetSessionSummaryInputSchema,
-  getSessionSummary,
-} from "./tools/getSessionSummary.js";
 
 const server = new Server(
   {
@@ -44,11 +40,6 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           "Retrieves a list of the 10 most recent sessions (Title, Date, ID) to be used as a Table of Contents.",
         inputSchema: zodToJsonSchema(GetRelevantSessionsInputSchema as any),
       },
-      {
-        name: "get_session_summary",
-        description: "Fetches the stored content for a specific session.",
-        inputSchema: zodToJsonSchema(GetSessionSummaryInputSchema as any),
-      },
     ],
   };
 });
@@ -67,11 +58,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case "get_relevant_sessions": {
         const input = GetRelevantSessionsInputSchema.parse(args || {});
         resultText = await getRelevantSessions(input);
-        break;
-      }
-      case "get_session_summary": {
-        const input = GetSessionSummaryInputSchema.parse(args || {});
-        resultText = await getSessionSummary(input);
         break;
       }
       default:

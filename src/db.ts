@@ -40,6 +40,7 @@ mcpDb.exec("PRAGMA journal_mode = WAL;");
 mcpDb.exec(`
   CREATE TABLE IF NOT EXISTS mcp_session_summary (
     session_id TEXT PRIMARY KEY,
+    project_id TEXT NOT NULL,
     content TEXT,
     time_created INTEGER NOT NULL,
     time_updated INTEGER NOT NULL

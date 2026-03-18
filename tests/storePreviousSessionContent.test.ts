@@ -1,18 +1,20 @@
 import { beforeEach, expect, mock, test } from "bun:test";
 
 type DbAllCallback = (err: Error | null, rows: any[] | null) => void;
+type DbGetCallback = (err: Error | null, row: any) => void;
 type DbRunCallback = (err: Error | null) => void;
 
 const mockGetPreviousSessionId = mock();
 const mockMcpRun = mock();
 const mockOpencodeAll = mock();
+const mockOpencodeGet = mock();
 
 mock.module("../src/lib/lib.js", () => ({
   getPreviousSessionId: mockGetPreviousSessionId,
 }));
 
 mock.module("../src/db.js", () => ({
-  opencodeDb: { all: mockOpencodeAll, get: mock() },
+  opencodeDb: { all: mockOpencodeAll, get: mockOpencodeGet },
   mcpDb: { get: mock(), run: mockMcpRun },
 }));
 
@@ -22,6 +24,7 @@ beforeEach(() => {
   mockGetPreviousSessionId.mockReset();
   mockMcpRun.mockReset();
   mockOpencodeAll.mockReset();
+  mockOpencodeGet.mockReset();
 });
 
 test("returns a message when no previous session is found", async () => {
@@ -34,6 +37,9 @@ test("returns a message when no previous session is found", async () => {
 
 test("rejects when message query fails", async () => {
   mockGetPreviousSessionId.mockResolvedValue("session-3");
+  mockOpencodeGet.mockImplementation((sql: string, params: unknown[], cb: DbGetCallback) => {
+    cb(null, { project_id: "proj-1" });
+  });
   mockOpencodeAll.mockImplementation((sql: string, params: unknown[], cb: DbAllCallback) => {
     cb(new Error("message query failed"), null);
   });
@@ -45,6 +51,9 @@ test("rejects when message query fails", async () => {
 
 test("returns a message when no messages exist", async () => {
   mockGetPreviousSessionId.mockResolvedValue("session-4");
+  mockOpencodeGet.mockImplementation((sql: string, params: unknown[], cb: DbGetCallback) => {
+    cb(null, { project_id: "proj-1" });
+  });
   mockOpencodeAll.mockImplementation((sql: string, params: unknown[], cb: DbAllCallback) => {
     cb(null, []);
   });
@@ -56,6 +65,9 @@ test("returns a message when no messages exist", async () => {
 
 test("rejects when storing content fails", async () => {
   mockGetPreviousSessionId.mockResolvedValue("session-5");
+  mockOpencodeGet.mockImplementation((sql: string, params: unknown[], cb: DbGetCallback) => {
+    cb(null, { project_id: "proj-1" });
+  });
   mockOpencodeAll.mockImplementation((sql: string, params: unknown[], cb: DbAllCallback) => {
     cb(null, [
       {
@@ -69,6 +81,7 @@ test("rejects when storing content fails", async () => {
   mockMcpRun.mockImplementation((sql: string, params: unknown[], cb: DbRunCallback) => {
     expect(sql).toContain("mcp_session_summary");
     expect(sql).not.toContain("summary");
+    expect(sql).toContain("project_id");
     cb(new Error("insert failed"));
   });
 
@@ -79,6 +92,9 @@ test("rejects when storing content fails", async () => {
 
 test("stores content for successful lookup", async () => {
   mockGetPreviousSessionId.mockResolvedValue("session-6");
+  mockOpencodeGet.mockImplementation((sql: string, params: unknown[], cb: DbGetCallback) => {
+    cb(null, { project_id: "proj-1" });
+  });
   mockOpencodeAll.mockImplementation((sql: string, params: unknown[], cb: DbAllCallback) => {
     cb(null, [
       {
@@ -92,6 +108,7 @@ test("stores content for successful lookup", async () => {
   mockMcpRun.mockImplementation((sql: string, params: unknown[], cb: DbRunCallback) => {
     expect(sql).toContain("mcp_session_summary");
     expect(sql).not.toContain("summary");
+    expect(sql).toContain("project_id");
     cb(null);
   });
 

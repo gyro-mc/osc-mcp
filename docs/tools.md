@@ -12,6 +12,7 @@ Summaries and filtered session content are stored in our own SQLite database (`m
 ```sql
 CREATE TABLE IF NOT EXISTS mcp_session_summary (
   session_id TEXT PRIMARY KEY,
+  project_id TEXT NOT NULL,
   content TEXT,
   time_created INTEGER NOT NULL,
   time_updated INTEGER NOT NULL
@@ -20,7 +21,7 @@ CREATE TABLE IF NOT EXISTS mcp_session_summary (
 
 ## The Tool List
 
-We expose 3 distinct tools to the AI to handle the lifecycle of session context.
+We expose 2 distinct tools to the AI to handle the lifecycle of session context.
 
 ### 1. `store_previous_session_content`
 *   **Trigger:** Called proactively by the AI at the start of a new session.
@@ -30,10 +31,4 @@ We expose 3 distinct tools to the AI to handle the lifecycle of session context.
 ### 2. `get_relevant_sessions`
 *   **Trigger:** Called by the AI whenever it needs historical context about the codebase or previous work.
 *   **Action:** Retrieves the 10 most recent sessions for the current project from `opencode.db`.
-*   **Output:** A lightweight "Table of Contents" list containing only the Session Title, Date, and `session_id`. It includes an instruction telling the AI to use `get_session_summary` if it needs the full details of any specific session.
-
-### 3. `get_session_summary`
-*   **Trigger:** Called by the AI after reviewing the list from `get_relevant_sessions`.
-*   **Input:** `session_id` (string).
-*   **Action:** Fetches the stored session content from `mcp.db` for the requested session.
-*   **Output:** The stored session content for the AI to read and use as context.
+*   **Output:** A lightweight "Table of Contents" list containing only the Session Title, Date, and `session_id`.
