@@ -25,6 +25,7 @@ var __export = (target, all) => {
       set: (newValue) => all[name] = () => newValue
     });
 };
+var __require = import.meta.require;
 
 // node_modules/ajv/dist/compile/codegen/code.js
 var require_code = __commonJS((exports) => {
@@ -6498,6 +6499,385 @@ var require_dist = __commonJS((exports, module) => {
   exports.default = formatsPlugin;
 });
 
+// node_modules/file-uri-to-path/index.js
+var require_file_uri_to_path = __commonJS((exports, module) => {
+  var sep = __require("path").sep || "/";
+  module.exports = fileUriToPath;
+  function fileUriToPath(uri) {
+    if (typeof uri != "string" || uri.length <= 7 || uri.substring(0, 7) != "file://") {
+      throw new TypeError("must pass in a file:// URI to convert to a file path");
+    }
+    var rest = decodeURI(uri.substring(7));
+    var firstSlash = rest.indexOf("/");
+    var host = rest.substring(0, firstSlash);
+    var path = rest.substring(firstSlash + 1);
+    if (host == "localhost")
+      host = "";
+    if (host) {
+      host = sep + sep + host;
+    }
+    path = path.replace(/^(.+)\|/, "$1:");
+    if (sep == "\\") {
+      path = path.replace(/\//g, "\\");
+    }
+    if (/^.+\:/.test(path)) {} else {
+      path = sep + path;
+    }
+    return host + path;
+  }
+});
+
+// node_modules/bindings/bindings.js
+var require_bindings = __commonJS((exports, module) => {
+  var __filename = "/home/gyro/Documents/Projects/osc-mcp/node_modules/bindings/bindings.js";
+  var fs = __require("fs");
+  var path = __require("path");
+  var fileURLToPath = require_file_uri_to_path();
+  var join = path.join;
+  var dirname = path.dirname;
+  var exists = fs.accessSync && function(path2) {
+    try {
+      fs.accessSync(path2);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  } || fs.existsSync || path.existsSync;
+  var defaults = {
+    arrow: process.env.NODE_BINDINGS_ARROW || " \u2192 ",
+    compiled: process.env.NODE_BINDINGS_COMPILED_DIR || "compiled",
+    platform: process.platform,
+    arch: process.arch,
+    nodePreGyp: "node-v" + process.versions.modules + "-" + process.platform + "-" + process.arch,
+    version: process.versions.node,
+    bindings: "bindings.node",
+    try: [
+      ["module_root", "build", "bindings"],
+      ["module_root", "build", "Debug", "bindings"],
+      ["module_root", "build", "Release", "bindings"],
+      ["module_root", "out", "Debug", "bindings"],
+      ["module_root", "Debug", "bindings"],
+      ["module_root", "out", "Release", "bindings"],
+      ["module_root", "Release", "bindings"],
+      ["module_root", "build", "default", "bindings"],
+      ["module_root", "compiled", "version", "platform", "arch", "bindings"],
+      ["module_root", "addon-build", "release", "install-root", "bindings"],
+      ["module_root", "addon-build", "debug", "install-root", "bindings"],
+      ["module_root", "addon-build", "default", "install-root", "bindings"],
+      ["module_root", "lib", "binding", "nodePreGyp", "bindings"]
+    ]
+  };
+  function bindings(opts) {
+    if (typeof opts == "string") {
+      opts = { bindings: opts };
+    } else if (!opts) {
+      opts = {};
+    }
+    Object.keys(defaults).map(function(i2) {
+      if (!(i2 in opts))
+        opts[i2] = defaults[i2];
+    });
+    if (!opts.module_root) {
+      opts.module_root = exports.getRoot(exports.getFileName());
+    }
+    if (path.extname(opts.bindings) != ".node") {
+      opts.bindings += ".node";
+    }
+    var requireFunc = typeof __webpack_require__ === "function" ? __non_webpack_require__ : __require;
+    var tries = [], i = 0, l = opts.try.length, n, b, err;
+    for (;i < l; i++) {
+      n = join.apply(null, opts.try[i].map(function(p) {
+        return opts[p] || p;
+      }));
+      tries.push(n);
+      try {
+        b = opts.path ? requireFunc.resolve(n) : requireFunc(n);
+        if (!opts.path) {
+          b.path = n;
+        }
+        return b;
+      } catch (e) {
+        if (e.code !== "MODULE_NOT_FOUND" && e.code !== "QUALIFIED_PATH_RESOLUTION_FAILED" && !/not find/i.test(e.message)) {
+          throw e;
+        }
+      }
+    }
+    err = new Error(`Could not locate the bindings file. Tried:
+` + tries.map(function(a) {
+      return opts.arrow + a;
+    }).join(`
+`));
+    err.tries = tries;
+    throw err;
+  }
+  module.exports = exports = bindings;
+  exports.getFileName = function getFileName(calling_file) {
+    var { prepareStackTrace: origPST, stackTraceLimit: origSTL } = Error, dummy = {}, fileName;
+    Error.stackTraceLimit = 10;
+    Error.prepareStackTrace = function(e, st) {
+      for (var i = 0, l = st.length;i < l; i++) {
+        fileName = st[i].getFileName();
+        if (fileName !== __filename) {
+          if (calling_file) {
+            if (fileName !== calling_file) {
+              return;
+            }
+          } else {
+            return;
+          }
+        }
+      }
+    };
+    Error.captureStackTrace(dummy);
+    dummy.stack;
+    Error.prepareStackTrace = origPST;
+    Error.stackTraceLimit = origSTL;
+    var fileSchema = "file://";
+    if (fileName.indexOf(fileSchema) === 0) {
+      fileName = fileURLToPath(fileName);
+    }
+    return fileName;
+  };
+  exports.getRoot = function getRoot(file2) {
+    var dir = dirname(file2), prev;
+    while (true) {
+      if (dir === ".") {
+        dir = process.cwd();
+      }
+      if (exists(join(dir, "package.json")) || exists(join(dir, "node_modules"))) {
+        return dir;
+      }
+      if (prev === dir) {
+        throw new Error('Could not find module root given file: "' + file2 + '". Do you have a `package.json` file? ');
+      }
+      prev = dir;
+      dir = join(dir, "..");
+    }
+  };
+});
+
+// node_modules/sqlite3/lib/sqlite3-binding.js
+var require_sqlite3_binding = __commonJS((exports, module) => {
+  module.exports = require_bindings()("node_sqlite3.node");
+});
+
+// node_modules/sqlite3/lib/trace.js
+var require_trace = __commonJS((exports) => {
+  var __filename = "/home/gyro/Documents/Projects/osc-mcp/node_modules/sqlite3/lib/trace.js";
+  var util2 = __require("util");
+  function extendTrace(object4, property, pos) {
+    const old = object4[property];
+    object4[property] = function() {
+      const error48 = new Error;
+      const name = object4.constructor.name + "#" + property + "(" + Array.prototype.slice.call(arguments).map(function(el) {
+        return util2.inspect(el, false, 0);
+      }).join(", ") + ")";
+      if (typeof pos === "undefined")
+        pos = -1;
+      if (pos < 0)
+        pos += arguments.length;
+      const cb = arguments[pos];
+      if (typeof arguments[pos] === "function") {
+        arguments[pos] = function replacement() {
+          const err = arguments[0];
+          if (err && err.stack && !err.__augmented) {
+            err.stack = filter(err).join(`
+`);
+            err.stack += `
+--> in ` + name;
+            err.stack += `
+` + filter(error48).slice(1).join(`
+`);
+            err.__augmented = true;
+          }
+          return cb.apply(this, arguments);
+        };
+      }
+      return old.apply(this, arguments);
+    };
+  }
+  exports.extendTrace = extendTrace;
+  function filter(error48) {
+    return error48.stack.split(`
+`).filter(function(line) {
+      return line.indexOf(__filename) < 0;
+    });
+  }
+});
+
+// node_modules/sqlite3/lib/sqlite3.js
+var require_sqlite3 = __commonJS((exports, module) => {
+  var path = __require("path");
+  var sqlite3 = require_sqlite3_binding();
+  var EventEmitter = __require("events").EventEmitter;
+  module.exports = exports = sqlite3;
+  function normalizeMethod(fn) {
+    return function(sql) {
+      let errBack;
+      const args = Array.prototype.slice.call(arguments, 1);
+      if (typeof args[args.length - 1] === "function") {
+        const callback = args[args.length - 1];
+        errBack = function(err) {
+          if (err) {
+            callback(err);
+          }
+        };
+      }
+      const statement = new Statement(this, sql, errBack);
+      return fn.call(this, statement, args);
+    };
+  }
+  function inherits(target, source) {
+    for (const k in source.prototype)
+      target.prototype[k] = source.prototype[k];
+  }
+  sqlite3.cached = {
+    Database: function(file2, a, b) {
+      if (file2 === "" || file2 === ":memory:") {
+        return new Database(file2, a, b);
+      }
+      let db;
+      file2 = path.resolve(file2);
+      if (!sqlite3.cached.objects[file2]) {
+        db = sqlite3.cached.objects[file2] = new Database(file2, a, b);
+      } else {
+        db = sqlite3.cached.objects[file2];
+        const callback = typeof a === "number" ? b : a;
+        if (typeof callback === "function") {
+          let cb2 = function() {
+            callback.call(db, null);
+          };
+          var cb = cb2;
+          if (db.open)
+            process.nextTick(cb2);
+          else
+            db.once("open", cb2);
+        }
+      }
+      return db;
+    },
+    objects: {}
+  };
+  var Database = sqlite3.Database;
+  var Statement = sqlite3.Statement;
+  var Backup = sqlite3.Backup;
+  inherits(Database, EventEmitter);
+  inherits(Statement, EventEmitter);
+  inherits(Backup, EventEmitter);
+  Database.prototype.prepare = normalizeMethod(function(statement, params) {
+    return params.length ? statement.bind.apply(statement, params) : statement;
+  });
+  Database.prototype.run = normalizeMethod(function(statement, params) {
+    statement.run.apply(statement, params).finalize();
+    return this;
+  });
+  Database.prototype.get = normalizeMethod(function(statement, params) {
+    statement.get.apply(statement, params).finalize();
+    return this;
+  });
+  Database.prototype.all = normalizeMethod(function(statement, params) {
+    statement.all.apply(statement, params).finalize();
+    return this;
+  });
+  Database.prototype.each = normalizeMethod(function(statement, params) {
+    statement.each.apply(statement, params).finalize();
+    return this;
+  });
+  Database.prototype.map = normalizeMethod(function(statement, params) {
+    statement.map.apply(statement, params).finalize();
+    return this;
+  });
+  Database.prototype.backup = function() {
+    let backup;
+    if (arguments.length <= 2) {
+      backup = new Backup(this, arguments[0], "main", "main", true, arguments[1]);
+    } else {
+      backup = new Backup(this, arguments[0], arguments[1], arguments[2], arguments[3], arguments[4]);
+    }
+    backup.retryErrors = [sqlite3.BUSY, sqlite3.LOCKED];
+    return backup;
+  };
+  Statement.prototype.map = function() {
+    const params = Array.prototype.slice.call(arguments);
+    const callback = params.pop();
+    params.push(function(err, rows) {
+      if (err)
+        return callback(err);
+      const result = {};
+      if (rows.length) {
+        const keys = Object.keys(rows[0]);
+        const key = keys[0];
+        if (keys.length > 2) {
+          for (let i = 0;i < rows.length; i++) {
+            result[rows[i][key]] = rows[i];
+          }
+        } else {
+          const value = keys[1];
+          for (let i = 0;i < rows.length; i++) {
+            result[rows[i][key]] = rows[i][value];
+          }
+        }
+      }
+      callback(err, result);
+    });
+    return this.all.apply(this, params);
+  };
+  var isVerbose = false;
+  var supportedEvents = ["trace", "profile", "change"];
+  Database.prototype.addListener = Database.prototype.on = function(type) {
+    const val = EventEmitter.prototype.addListener.apply(this, arguments);
+    if (supportedEvents.indexOf(type) >= 0) {
+      this.configure(type, true);
+    }
+    return val;
+  };
+  Database.prototype.removeListener = function(type) {
+    const val = EventEmitter.prototype.removeListener.apply(this, arguments);
+    if (supportedEvents.indexOf(type) >= 0 && !this._events[type]) {
+      this.configure(type, false);
+    }
+    return val;
+  };
+  Database.prototype.removeAllListeners = function(type) {
+    const val = EventEmitter.prototype.removeAllListeners.apply(this, arguments);
+    if (supportedEvents.indexOf(type) >= 0) {
+      this.configure(type, false);
+    }
+    return val;
+  };
+  sqlite3.verbose = function() {
+    if (!isVerbose) {
+      const trace = require_trace();
+      [
+        "prepare",
+        "get",
+        "run",
+        "all",
+        "each",
+        "map",
+        "close",
+        "exec"
+      ].forEach(function(name) {
+        trace.extendTrace(Database.prototype, name);
+      });
+      [
+        "bind",
+        "get",
+        "run",
+        "all",
+        "each",
+        "map",
+        "reset",
+        "finalize"
+      ].forEach(function(name) {
+        trace.extendTrace(Statement.prototype, name);
+      });
+      isVerbose = true;
+    }
+    return sqlite3;
+  };
+});
+
 // node_modules/zod/v3/helpers/util.js
 var util;
 (function(util2) {
@@ -10325,7 +10705,7 @@ __export(exports_core2, {
   safeDecode: () => safeDecode,
   registry: () => registry,
   regexes: () => exports_regexes,
-  process: () => process,
+  process: () => process2,
   prettifyError: () => prettifyError,
   parseAsync: () => parseAsync,
   parse: () => parse,
@@ -20789,7 +21169,7 @@ function initializeContext(params) {
     external: params?.external ?? undefined
   };
 }
-function process(schema, ctx, _params = { path: [], schemaPath: [] }) {
+function process2(schema, ctx, _params = { path: [], schemaPath: [] }) {
   var _a2;
   const def = schema._zod.def;
   const seen = ctx.seen.get(schema);
@@ -20826,7 +21206,7 @@ function process(schema, ctx, _params = { path: [], schemaPath: [] }) {
     if (parent) {
       if (!result.ref)
         result.ref = parent;
-      process(parent, ctx, params);
+      process2(parent, ctx, params);
       ctx.seen.get(parent).isParent = true;
     }
   }
@@ -21102,14 +21482,14 @@ function isTransforming(_schema, _ctx) {
 }
 var createToJSONSchemaMethod = (schema, processors = {}) => (params) => {
   const ctx = initializeContext({ ...params, processors });
-  process(schema, ctx);
+  process2(schema, ctx);
   extractDefs(ctx, schema);
   return finalize(ctx, schema);
 };
 var createStandardJSONSchemaMethod = (schema, io, processors = {}) => (params) => {
   const { libraryOptions, target } = params ?? {};
   const ctx = initializeContext({ ...libraryOptions ?? {}, target, io, processors });
-  process(schema, ctx);
+  process2(schema, ctx);
   extractDefs(ctx, schema);
   return finalize(ctx, schema);
 };
@@ -21360,7 +21740,7 @@ var arrayProcessor = (schema, ctx, _json, params) => {
   if (typeof maximum === "number")
     json.maxItems = maximum;
   json.type = "array";
-  json.items = process(def.element, ctx, { ...params, path: [...params.path, "items"] });
+  json.items = process2(def.element, ctx, { ...params, path: [...params.path, "items"] });
 };
 var objectProcessor = (schema, ctx, _json, params) => {
   const json = _json;
@@ -21369,7 +21749,7 @@ var objectProcessor = (schema, ctx, _json, params) => {
   json.properties = {};
   const shape = def.shape;
   for (const key in shape) {
-    json.properties[key] = process(shape[key], ctx, {
+    json.properties[key] = process2(shape[key], ctx, {
       ...params,
       path: [...params.path, "properties", key]
     });
@@ -21392,7 +21772,7 @@ var objectProcessor = (schema, ctx, _json, params) => {
     if (ctx.io === "output")
       json.additionalProperties = false;
   } else if (def.catchall) {
-    json.additionalProperties = process(def.catchall, ctx, {
+    json.additionalProperties = process2(def.catchall, ctx, {
       ...params,
       path: [...params.path, "additionalProperties"]
     });
@@ -21401,7 +21781,7 @@ var objectProcessor = (schema, ctx, _json, params) => {
 var unionProcessor = (schema, ctx, json, params) => {
   const def = schema._zod.def;
   const isExclusive = def.inclusive === false;
-  const options = def.options.map((x, i) => process(x, ctx, {
+  const options = def.options.map((x, i) => process2(x, ctx, {
     ...params,
     path: [...params.path, isExclusive ? "oneOf" : "anyOf", i]
   }));
@@ -21413,11 +21793,11 @@ var unionProcessor = (schema, ctx, json, params) => {
 };
 var intersectionProcessor = (schema, ctx, json, params) => {
   const def = schema._zod.def;
-  const a = process(def.left, ctx, {
+  const a = process2(def.left, ctx, {
     ...params,
     path: [...params.path, "allOf", 0]
   });
-  const b = process(def.right, ctx, {
+  const b = process2(def.right, ctx, {
     ...params,
     path: [...params.path, "allOf", 1]
   });
@@ -21434,11 +21814,11 @@ var tupleProcessor = (schema, ctx, _json, params) => {
   json.type = "array";
   const prefixPath = ctx.target === "draft-2020-12" ? "prefixItems" : "items";
   const restPath = ctx.target === "draft-2020-12" ? "items" : ctx.target === "openapi-3.0" ? "items" : "additionalItems";
-  const prefixItems = def.items.map((x, i) => process(x, ctx, {
+  const prefixItems = def.items.map((x, i) => process2(x, ctx, {
     ...params,
     path: [...params.path, prefixPath, i]
   }));
-  const rest = def.rest ? process(def.rest, ctx, {
+  const rest = def.rest ? process2(def.rest, ctx, {
     ...params,
     path: [...params.path, restPath, ...ctx.target === "openapi-3.0" ? [def.items.length] : []]
   }) : null;
@@ -21478,7 +21858,7 @@ var recordProcessor = (schema, ctx, _json, params) => {
   const keyBag = keyType._zod.bag;
   const patterns = keyBag?.patterns;
   if (def.mode === "loose" && patterns && patterns.size > 0) {
-    const valueSchema = process(def.valueType, ctx, {
+    const valueSchema = process2(def.valueType, ctx, {
       ...params,
       path: [...params.path, "patternProperties", "*"]
     });
@@ -21488,12 +21868,12 @@ var recordProcessor = (schema, ctx, _json, params) => {
     }
   } else {
     if (ctx.target === "draft-07" || ctx.target === "draft-2020-12") {
-      json.propertyNames = process(def.keyType, ctx, {
+      json.propertyNames = process2(def.keyType, ctx, {
         ...params,
         path: [...params.path, "propertyNames"]
       });
     }
-    json.additionalProperties = process(def.valueType, ctx, {
+    json.additionalProperties = process2(def.valueType, ctx, {
       ...params,
       path: [...params.path, "additionalProperties"]
     });
@@ -21508,7 +21888,7 @@ var recordProcessor = (schema, ctx, _json, params) => {
 };
 var nullableProcessor = (schema, ctx, json, params) => {
   const def = schema._zod.def;
-  const inner = process(def.innerType, ctx, params);
+  const inner = process2(def.innerType, ctx, params);
   const seen = ctx.seen.get(schema);
   if (ctx.target === "openapi-3.0") {
     seen.ref = def.innerType;
@@ -21519,20 +21899,20 @@ var nullableProcessor = (schema, ctx, json, params) => {
 };
 var nonoptionalProcessor = (schema, ctx, _json, params) => {
   const def = schema._zod.def;
-  process(def.innerType, ctx, params);
+  process2(def.innerType, ctx, params);
   const seen = ctx.seen.get(schema);
   seen.ref = def.innerType;
 };
 var defaultProcessor = (schema, ctx, json, params) => {
   const def = schema._zod.def;
-  process(def.innerType, ctx, params);
+  process2(def.innerType, ctx, params);
   const seen = ctx.seen.get(schema);
   seen.ref = def.innerType;
   json.default = JSON.parse(JSON.stringify(def.defaultValue));
 };
 var prefaultProcessor = (schema, ctx, json, params) => {
   const def = schema._zod.def;
-  process(def.innerType, ctx, params);
+  process2(def.innerType, ctx, params);
   const seen = ctx.seen.get(schema);
   seen.ref = def.innerType;
   if (ctx.io === "input")
@@ -21540,7 +21920,7 @@ var prefaultProcessor = (schema, ctx, json, params) => {
 };
 var catchProcessor = (schema, ctx, json, params) => {
   const def = schema._zod.def;
-  process(def.innerType, ctx, params);
+  process2(def.innerType, ctx, params);
   const seen = ctx.seen.get(schema);
   seen.ref = def.innerType;
   let catchValue;
@@ -21554,32 +21934,32 @@ var catchProcessor = (schema, ctx, json, params) => {
 var pipeProcessor = (schema, ctx, _json, params) => {
   const def = schema._zod.def;
   const innerType = ctx.io === "input" ? def.in._zod.def.type === "transform" ? def.out : def.in : def.out;
-  process(innerType, ctx, params);
+  process2(innerType, ctx, params);
   const seen = ctx.seen.get(schema);
   seen.ref = innerType;
 };
 var readonlyProcessor = (schema, ctx, json, params) => {
   const def = schema._zod.def;
-  process(def.innerType, ctx, params);
+  process2(def.innerType, ctx, params);
   const seen = ctx.seen.get(schema);
   seen.ref = def.innerType;
   json.readOnly = true;
 };
 var promiseProcessor = (schema, ctx, _json, params) => {
   const def = schema._zod.def;
-  process(def.innerType, ctx, params);
+  process2(def.innerType, ctx, params);
   const seen = ctx.seen.get(schema);
   seen.ref = def.innerType;
 };
 var optionalProcessor = (schema, ctx, _json, params) => {
   const def = schema._zod.def;
-  process(def.innerType, ctx, params);
+  process2(def.innerType, ctx, params);
   const seen = ctx.seen.get(schema);
   seen.ref = def.innerType;
 };
 var lazyProcessor = (schema, ctx, _json, params) => {
   const innerType = schema._zod.innerType;
-  process(innerType, ctx, params);
+  process2(innerType, ctx, params);
   const seen = ctx.seen.get(schema);
   seen.ref = innerType;
 };
@@ -21631,7 +22011,7 @@ function toJSONSchema(input, params) {
     const defs = {};
     for (const entry of registry2._idmap.entries()) {
       const [_, schema] = entry;
-      process(schema, ctx2);
+      process2(schema, ctx2);
     }
     const schemas = {};
     const external = {
@@ -21654,7 +22034,7 @@ function toJSONSchema(input, params) {
     return { schemas };
   }
   const ctx = initializeContext({ ...params, processors: allProcessors });
-  process(input, ctx);
+  process2(input, ctx);
   extractDefs(ctx, input);
   return finalize(ctx, input);
 }
@@ -21700,7 +22080,7 @@ class JSONSchemaGenerator {
     });
   }
   process(schema, _params = { path: [], schemaPath: [] }) {
-    return process(schema, this.ctx, _params);
+    return process2(schema, this.ctx, _params);
   }
   emit(schema, _params) {
     if (_params) {
@@ -27321,7 +27701,7 @@ class Server extends Protocol {
 }
 
 // node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
-import process2 from "process";
+import process3 from "process";
 
 // node_modules/@modelcontextprotocol/sdk/dist/esm/shared/stdio.js
 class ReadBuffer {
@@ -27355,7 +27735,7 @@ function serializeMessage(message) {
 
 // node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js
 class StdioServerTransport {
-  constructor(_stdin = process2.stdin, _stdout = process2.stdout) {
+  constructor(_stdin = process3.stdin, _stdout = process3.stdout) {
     this._stdin = _stdin;
     this._stdout = _stdout;
     this._readBuffer = new ReadBuffer;
@@ -27410,10 +27790,130 @@ class StdioServerTransport {
     });
   }
 }
+// src/db.ts
+var sqlite3 = __toESM(require_sqlite3(), 1);
+import { homedir } from "os";
+import { join, dirname } from "path";
+import { mkdirSync } from "fs";
+var defaultDirPath = join(homedir(), ".local", "share", "opencode");
+var opencodePath = process.env.OPENCODE_DB ?? join(defaultDirPath, "opencode.db");
+var mcpPath = process.env.MCP_DB ?? join(defaultDirPath, "mcp.db");
+mkdirSync(dirname(opencodePath), { recursive: true });
+mkdirSync(dirname(mcpPath), { recursive: true });
+var opencodeDb = new sqlite3.Database(opencodePath, (err) => {
+  if (err) {
+    console.error("Failed to connect to opencodeDb:", err.message);
+  }
+});
+var mcpDb = new sqlite3.Database(mcpPath, (err) => {
+  if (err) {
+    console.error("Failed to connect to mcpDb:", err.message);
+  }
+});
+opencodeDb.exec("PRAGMA busy_timeout = 5000;");
+mcpDb.exec("PRAGMA busy_timeout = 5000;");
+mcpDb.exec("PRAGMA journal_mode = WAL;");
+mcpDb.exec(`
+  CREATE TABLE IF NOT EXISTS mcp_session_summary (
+    session_id TEXT PRIMARY KEY,
+    project_id TEXT NOT NULL,
+    summary TEXT NOT NULL,
+    time_created INTEGER NOT NULL,
+    time_updated INTEGER NOT NULL
+  );
+`);
+
+// src/lib/lib.ts
+import { spawn } from "child_process";
+import { dirname as dirname2, resolve } from "path";
+import { existsSync } from "fs";
+function runGit(args, cwd) {
+  return new Promise((resolve2, reject) => {
+    const child = spawn("git", args, { cwd });
+    let stdout = "";
+    let stderr = "";
+    child.stdout.on("data", (data) => stdout += data);
+    child.stderr.on("data", (data) => stderr += data);
+    child.on("close", (code) => {
+      if (code === 0)
+        resolve2(stdout.trim());
+      else
+        reject(new Error(stderr.trim()));
+    });
+  });
+}
+function findNearestGitRoot(startDir) {
+  let currentDir = resolve(startDir);
+  while (true) {
+    if (existsSync(resolve(currentDir, ".git"))) {
+      return currentDir;
+    }
+    const parent = dirname2(currentDir);
+    if (parent === currentDir)
+      return null;
+    currentDir = parent;
+  }
+}
+async function getProjectId(directory = process.cwd()) {
+  try {
+    const gitRoot = findNearestGitRoot(directory);
+    if (!gitRoot)
+      return "global";
+    await runGit(["rev-parse", "--git-common-dir"], gitRoot);
+    const rootCommit = await runGit(["rev-list", "--max-parents=0", "HEAD"], gitRoot);
+    if (!rootCommit)
+      return "global";
+    return rootCommit.split(`
+`)[0].trim();
+  } catch (error48) {
+    return "global";
+  }
+}
+async function getPreviousSessionId() {
+  const projectId = await getProjectId();
+  return new Promise((resolve2, reject) => {
+    const query = `
+      SELECT id 
+      FROM session 
+      WHERE project_id = ? 
+      ORDER BY time_created DESC 
+      LIMIT 1 OFFSET 1
+    `;
+    opencodeDb.get(query, [projectId], (err, row) => {
+      if (err) {
+        return reject(err);
+      }
+      if (!row || !row.id) {
+        return resolve2(null);
+      }
+      resolve2(row.id);
+    });
+  });
+}
+
 // src/tools/summarizePreviousSession.ts
 var SummarizePreviousSessionInputSchema = exports_external.object({});
 async function summarizePreviousSession(input) {
-  throw new Error("Not implemented");
+  const previousSessionId = await getPreviousSessionId();
+  if (!previousSessionId) {
+    return "No previous session found to summarize.";
+  }
+  return new Promise((resolve2, reject) => {
+    const query = `SELECT data FROM message WHERE session_id = ? ORDER BY time_created ASC`;
+    opencodeDb.all(query, [previousSessionId], (err, rows) => {
+      if (err) {
+        return reject(new Error(`Failed to fetch previous session logs: ${err.message}`));
+      }
+      if (!rows || rows.length === 0) {
+        return resolve2(`No messages found in the previous session (${previousSessionId}) to summarize.`);
+      }
+      const logs = rows.map((r) => r.data).join(`
+`);
+      resolve2(`Here is the previous session logs, please summarize it by keeping the main points and when you are done summarizing it, please call the save_session_summary tool with the session_id "${previousSessionId}" and the summary you generated: 
+
+${logs}`);
+    });
+  });
 }
 
 // src/tools/saveSessionSummary.ts
