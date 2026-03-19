@@ -108,20 +108,6 @@ bun src/index.ts
 bun dist/index.js
 ```
 
-## Updates
-
-Check for a newer release:
-
-```bash
-./scripts/check-update.sh
-```
-
-Update to the latest version:
-
-```bash
-./scripts/install.sh
-```
-
 ## Tips
 
 - Start OpenCode from your project root so the MCP can map sessions to the correct project.
