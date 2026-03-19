@@ -2,10 +2,6 @@
 
 This note summarizes our conversation about how OpenCode assigns sessions to projects (including the `global` project) and how to query the local SQLite DB.
 
-## Version Context
-
-This document is based on the local `opencode.db` schema and session records as of 2026-03-17. Observed OpenCode session versions in the DB: 1.1.53, 1.1.59, 1.2.6, 1.2.10, 1.2.11, 1.2.12, 1.2.15, 1.2.16, 1.2.17, 1.2.24, 1.2.26, 1.2.27.
-
 ## Quick Summary
 
 - A session is created when you start an OpenCode instance.

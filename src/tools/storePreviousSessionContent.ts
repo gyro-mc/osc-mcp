@@ -92,7 +92,6 @@ ORDER BY recent_messages.time_created ASC;`,
                     : 0;
 
                 messagesById.set(row.message_id, {
-                  session_id: row.session_id ?? previousSessionId,
                   message_id: row.message_id,
                   role,
                   time_created: timeCreated,
