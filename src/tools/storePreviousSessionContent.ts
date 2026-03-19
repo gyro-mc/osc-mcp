@@ -86,18 +86,12 @@ ORDER BY recent_messages.time_created ASC;`,
                 const role =
                   typeof messageData?.role === "string"
                     ? messageData.role
-                    : "unknown"; const timeCreated =
-                  typeof messageData?.time?.created === "number"
-                    ? messageData.time.created
-                    : 0;
+                    : "unknown";
 
                 messagesById.set(row.message_id, {
-                  message_id: row.message_id,
                   role,
-                  time_created: timeCreated,
                   content: {
                     summary: messageData?.summary,
-                    error: messageData?.error,
                     parts: [],
                   },
                 });

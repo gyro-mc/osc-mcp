@@ -95,14 +95,8 @@ export function mapPartData(partData: any): any {
       return {
         type: "tool",
         tool: partData.tool,
-        state: {
-          status: partData.state?.status,
-          input: partData.state?.input,
-          output: partData.state?.output,
-          error: partData.state?.error,
-          title: partData.state?.title,
-          metadata: partData.state?.metadata,
-        },
+        status: partData.state?.status,
+        title: partData.state?.title,
       };
     case "patch":
       return { type: "patch", hash: partData.hash, files: partData.files };

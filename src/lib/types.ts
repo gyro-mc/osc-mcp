@@ -197,12 +197,9 @@ export type MappedMessage = MessageData & {
 };
 
 export interface PreviousSessionContentMessage {
-  message_id: string;
   role: string;
-  time_created: number;
   content: {
     summary?: any;
-    error?: any;
     parts: any[];
   };
 }

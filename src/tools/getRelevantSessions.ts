@@ -9,13 +9,13 @@ export const GetRelevantSessionsInputSchema = z.object({});
  * stored in `mcp_session_summary` for the relevant directory tree.
  *
  * @param input The empty input object (currently takes no parameters).
- * @returns A formatted string listing recent session titles, dates, and IDs.
+ * @returns A JSON string of recent session IDs and content.
  */
 export async function getRelevantSessions(): Promise<string> {
   const projectId = await getProjectIdForDirectory();
   const limit = 10;
   if (!projectId) {
-    return "No relevant sessions found for this project.";
+    return "[]";
   }
 
   return new Promise((resolve, reject) => {
@@ -37,25 +37,19 @@ export async function getRelevantSessions(): Promise<string> {
           ); 
         }
         if (!summaryRows || summaryRows.length === 0) {
-          return resolve(
-            "No relevant previous sessions found for this directory.",
-          );
+          return resolve("[]");
         }
 
-        let output = "Context from previous sessions in the same project:\n\n";
-        for (const row of summaryRows) {
-          const timeCreated =
-            typeof row.time_created === "number" ? row.time_created : 0;
-          const timeUpdated =
-            typeof row.time_updated === "number" ? row.time_updated : 0;
-          const content = typeof row.content === "string" ? row.content : "";
-          output += `- [ID: ${row.session_id}]\n`;
-          output += `  Time Created: ${timeCreated}\n`;
-          output += `  Time Updated: ${timeUpdated}\n`;
-          output += `  Content: ${content}\n`;
-        }
+        const sessions = summaryRows.map((row) => ({
+          session_id: row.session_id,
+          time_created:
+            typeof row.time_created === "number" ? row.time_created : 0,
+          time_updated:
+            typeof row.time_updated === "number" ? row.time_updated : 0,
+          content: typeof row.content === "string" ? row.content : "",
+        }));
 
-        resolve(output);
+        resolve(JSON.stringify(sessions));
       },
     );
   });
