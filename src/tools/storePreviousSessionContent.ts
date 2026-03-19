@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { opencodeDb, mcpDb } from "../db.js";
-import { getPreviousSessionId } from "../lib/lib.js";
+import { getPreviousSessionId, mapPartData } from "../lib/lib.js";
 import type { PreviousSessionContentMessage } from "../lib/types.js";
 
 export const StorePreviousSessionContentInputSchema = z.object({});
@@ -19,7 +19,7 @@ export async function storePreviousSessionContent(): Promise<string> {
   }
 
   const messageLimit = 200;
-
+  const allowedPartTypes = ["text", "tool", "patch", "file", "subtask"];
   return new Promise((resolve, reject) => {
     opencodeDb.get(
       "SELECT project_id FROM session WHERE id = ?",
@@ -86,8 +86,7 @@ ORDER BY recent_messages.time_created ASC;`,
                 const role =
                   typeof messageData?.role === "string"
                     ? messageData.role
-                    : "unknown";
-                const timeCreated =
+                    : "unknown"; const timeCreated =
                   typeof messageData?.time?.created === "number"
                     ? messageData.time.created
                     : 0;
@@ -113,10 +112,10 @@ ORDER BY recent_messages.time_created ASC;`,
                   partData = null;
                 }
 
-                if (partData) {
+                if (partData && allowedPartTypes.includes(partData.type)) {
                   messagesById
                     .get(row.message_id)
-                    ?.content.parts.push(partData);
+                    ?.content.parts.push(mapPartData(partData));
                 }
               }
             }

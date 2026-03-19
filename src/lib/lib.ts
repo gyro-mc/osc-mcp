@@ -81,4 +81,45 @@ export async function getPreviousSessionId(
       resolve(row.id);
     });
   });
+} 
+
+export function mapPartData(partData: any): any {
+  if (!partData || typeof partData !== "object") {
+    return partData;
+  }
+
+  switch (partData.type) {
+    case "text":
+      return { type: "text", text: partData.text };
+    case "tool":
+      return {
+        type: "tool",
+        tool: partData.tool,
+        state: {
+          status: partData.state?.status,
+          input: partData.state?.input,
+          output: partData.state?.output,
+          error: partData.state?.error,
+          title: partData.state?.title,
+          metadata: partData.state?.metadata,
+        },
+      };
+    case "patch":
+      return { type: "patch", hash: partData.hash, files: partData.files };
+    case "file":
+      return {
+        type: "file",
+        mime: partData.mime,
+        filename: partData.filename,
+        url: partData.url,
+      };
+    case "subtask":
+      return {
+        type: "subtask",
+        description: partData.description,
+        command: partData.command,
+      };
+    default:
+      return partData;
+  }
 }

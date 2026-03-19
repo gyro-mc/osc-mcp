@@ -1,0 +1,101 @@
+{
+  "text": {
+    "type": "text",
+    "text": "ok then add it and update the file and tehn in opencode_part_samples add the other types pls "
+  },
+  "tool": {
+    "type": "tool",
+    "callID": "call_0X49rQk4jhwB3FSTFrrqntId",
+    "tool": "bash",
+    "state": {
+      "status": "running",
+      "input": {
+        "command": "python - <<'PY'\nimport os, sqlite3, json\nfrom pathlib import Path\n\nopencode_path = os.environ.get(\"OPENCODE_DB\") or str(Path.home() / \".local/share/opencode/opencode.db\")\nconn = sqlite3.connect(opencode_path)\nconn.row_factory = sqlite3.Row\ncur = conn.cursor()\n\nwanted = [\n    \"text\",\n    \"tool\",\n    \"patch\",\n    \"file\",\n    \"agent\",\n    \"compaction\",\n    \"subtask\",\n    \"step-start\",\n    \"step-finish\",\n    \"reasoning\",\n]\n\ncur.execute(\"SELECT data FROM part ORDER BY time_created DESC LIMIT 50000\")\nrows = cur.fetchall()\n\nsamples = {t: None for t in wanted}\nfor row in rows:\n    try:\n        data = json.loads(row[\"data\"])\n    except Exception:\n        continue\n    t = data.get(\"type\")\n    if t in samples and samples[t] is None:\n        samples[t] = data\n    if all(samples.values()):\n        break\n\nout_path = Path(\"/home/gyro/Documents/Projects/osc-mcp/docs/opencode_part_samples.json\")\nout_path.write_text(json.dumps(samples, indent=2, ensure_ascii=False) + \"\\n\")\n\nconn.close()\nPY",
+        "description": "Update part samples JSON from opencode DB"
+      },
+      "metadata": {
+        "output": "",
+        "description": "Update part samples JSON from opencode DB"
+      },
+      "time": {
+        "start": 1773920645708
+      }
+    },
+    "metadata": {
+      "openai": {
+        "itemId": "fc_0acd59fa88d7f8530169bbe18006e4819b9f779bb0ce5d58d8"
+      }
+    }
+  },
+  "patch": {
+    "type": "patch",
+    "hash": "b1c5c230c866d55e8ae3d94cd4b8a601c1cc0f71",
+    "files": [
+      "/home/gyro/Documents/Projects/osc-mcp/src/tools/storePreviousSessionContent.ts"
+    ]
+  },
+  "file": {
+    "type": "file",
+    "mime": "text/plain",
+    "filename": "docs/opencode_part_samples.json",
+    "url": "file:///home/gyro/Documents/Projects/osc-mcp/docs/opencode_part_samples.json"
+  },
+  "agent": {
+    "type": "agent",
+    "name": "plan",
+    "source": {
+      "value": "@plan",
+      "start": 0,
+      "end": 5
+    }
+  },
+  "compaction": {
+    "type": "compaction",
+    "auto": true
+  },
+  "subtask": {
+    "type": "subtask",
+    "prompt": "You are a code reviewer. Your job is to review code changes and provide actionable feedback.\n\n---\n\nInput: this file pls\n\n---\n\n## Determining What to Review\n\nBased on the input provided, determine which type of review to perform:\n\n1. **No arguments (default)**: Review all uncommitted changes\n   - Run: `git diff` for unstaged changes\n   - Run: `git diff --cached` for staged changes\n   - Run: `git status --short` to identify untracked (net new) files\n\n2. **Commit hash** (40-char SHA or short hash): Review that specific commit\n   - Run: `git show this file pls`\n\n3. **Branch name**: Compare current branch to the specified branch\n   - Run: `git diff this file pls...HEAD`\n\n4. **PR URL or number** (contains \"github.com\" or \"pull\" or looks like a PR number): Review the pull request\n   - Run: `gh pr view this file pls` to get PR context\n   - Run: `gh pr diff this file pls` to get the diff\n\nUse best judgement when processing input.\n\n---\n\n## Gathering Context\n\n**Diffs alone are not enough.** After getting the diff, read the entire file(s) being modified to understand the full context. Code that looks wrong in isolation may be correct given surrounding logic—and vice versa.\n\n- Use the diff to identify which files changed\n- Use `git status --short` to identify untracked files, then read their full contents\n- Read the full file to understand existing patterns, control flow, and error handling\n- Check for existing style guide or conventions files (CONVENTIONS.md, AGENTS.md, .editorconfig, etc.)\n\n---\n\n## What to Look For\n\n**Bugs** - Your primary focus.\n- Logic errors, off-by-one mistakes, incorrect conditionals\n- If-else guards: missing guards, incorrect branching, unreachable code paths\n- Edge cases: null/empty/undefined inputs, error conditions, race conditions\n- Security issues: injection, auth bypass, data exposure\n- Broken error handling that swallows failures, throws unexpectedly or returns error types that are not caught.\n\n**Structure** - Does the code fit the codebase?\n- Does it follow existing patterns and conventions?\n- Are there established abstractions it should use but doesn't?\n- Excessive nesting that could be flattened with early returns or extraction\n\n**Performance** - Only flag if obviously problematic.\n- O(n²) on unbounded data, N+1 queries, blocking I/O on hot paths\n\n**Behavior Changes** - If a behavioral change is introduced, raise it (especially if it's possibly unintentional).\n\n---\n\n## Before You Flag Something\n\n**Be certain.** If you're going to call something a bug, you need to be confident it actually is one.\n\n- Only review the changes - do not review pre-existing code that wasn't modified\n- Don't flag something as a bug if you're unsure - investigate first\n- Don't invent hypothetical problems - if an edge case matters, explain the realistic scenario where it breaks\n- If you need more context to be sure, use the tools below to get it\n\n**Don't be a zealot about style.** When checking code against conventions:\n\n- Verify the code is *actually* in violation. Don't complain about else statements if early returns are already being used correctly.\n- Some \"violations\" are acceptable when they're the simplest option. A `let` statement is fine if the alternative is convoluted.\n- Excessive nesting is a legitimate concern regardless of other style choices.\n- Don't flag style preferences as issues unless they clearly violate established project conventions.\n\n---\n\n## Tools\n\nUse these to inform your review:\n\n- **Explore agent** - Find how existing code handles similar problems. Check patterns, conventions, and prior art before claiming something doesn't fit.\n- **Exa Code Context** - Verify correct usage of libraries/APIs before flagging something as wrong.\n- **Exa Web Search** - Research best practices if you're unsure about a pattern.\n\nIf you're uncertain about something and can't verify it with these tools, say \"I'm not sure about X\" rather than flagging it as a definite issue.\n\n---\n\n## Output\n\n1. If there is a bug, be direct and clear about why it is a bug.\n2. Clearly communicate severity of issues. Do not overstate severity.\n3. Critiques should clearly and explicitly communicate the scenarios, environments, or inputs that are necessary for the bug to arise. The comment should immediately indicate that the issue's severity depends on these factors.\n4. Your tone should be matter-of-fact and not accusatory or overly positive. It should read as a helpful AI assistant suggestion without sounding too much like a human reviewer.\n5. Write so the reader can quickly understand the issue without reading too closely.\n6. AVOID flattery, do not give any comments that are not helpful to the reader. Avoid phrasing like \"Great job ...\", \"Thanks for ...\".",
+    "description": "review changes [commit|branch|pr], defaults to uncommitted",
+    "agent": "build",
+    "model": {
+      "providerID": "openai",
+      "modelID": "gpt-5.2-codex"
+    },
+    "command": "review"
+  },
+  "step-start": {
+    "type": "step-start",
+    "snapshot": "051d8bf0ab7feb27e428df40ff41d47e22df5827"
+  },
+  "step-finish": {
+    "type": "step-finish",
+    "reason": "tool-calls",
+    "snapshot": "051d8bf0ab7feb27e428df40ff41d47e22df5827",
+    "cost": 0,
+    "tokens": {
+      "total": 61048,
+      "input": 337,
+      "output": 295,
+      "reasoning": 192,
+      "cache": {
+        "read": 60416,
+        "write": 0
+      }
+    }
+  },
+  "reasoning": {
+    "type": "reasoning",
+    "text": "**Expanding allowedPartTypes and fixing samples JSON**\n\nI'm updating allowedPartTypes to include 'patch' and other part types like 'step-start', 'step-finish', 'reasoning', 'tool', and 'text' for completeness. I'll fix the invalid samples JSON structure by rewriting it properly and use the DB to fetch representative samples for these types. After updating the storePreviousSessionContent allowedPartTypes and applying the patch, I'll run bun tests to verify changes.",
+    "metadata": {
+      "openai": {
+        "itemId": "rs_0541cac1d72713c80169bbe1741a8481998b3e22460923e12c",
+        "reasoningEncryptedContent": "gAAAAABpu-F6FGy6JgFvYz97NzjIBU05HSB8WkkPJ4OxguVQW8pfBJcyo_Cc1j-6WXB2Uwpr02ancnkODcV5tnaSMMZEoUK3o8gD5O4zwGRWC8TTGSnI8iozfNsIflxjhdhaNZpGwM9PwnyTo7NDxkxnNYSnrasy0qVNOKypfEqO2m0kbLL4wiVIwbn3pxf2pT4_v4mMR-JZO-2sy3c81c2IJ-sMmgX5owKtfmM1wp1s2yYe0smtMFczXtbRm7QcgDLXp9LHjl6tCtTongYDhHvrIOXqPnXnARWJYbxMkC6-jz1KhjtcoCUyqG_-g7TBXNRFnzYdEIbvZxBH2hdiLu-m8OZ2UNNJs8eVuPdRmhlHTgfavilas2p1BZa41C0hAlV7csC8X4cYN7gq7F37xs1MsUct2BDl-FxQE15Mn6IECAKF2OGmFUlL47gc7J-COke_43oGC-drld22o--EE7mLXOGRNaei20WY_og1hiS9XLiqWsh-InSAEf4E0h3fBP42hqkh_rZ6DN4AUuac9xyVawQJZn88v-YEdbNoWwtQBuh2nI7LiStkwUFbO3QVHgTCxKbCvxMg-HVZ2-e0zu7GOTRZEYS3iu1rtGyJlad9IflhttvmsTPE8yPF3fOHXLyAynZ05CjLVXtccjRAuQRCHieBmFO3U4GZXvGmmDSBvl0o1fIN4A-MYI9iiI8t0oF6phqsbvt-AeDtVkfLYzMflxLoS-5DRx4ijzh_Lxo9n1L2yxlZ8pLSb3OxYUTLIUzewJM5rAOnoHsJrwXrfQbdtvG9_YmR8mUe3aWcz_PYQz0_NRcwDe05KpSnv8jJZiBHPAtd15dH96rRP-k4wwqvXLOUIfEJrTVXjMx8ox2YW-xc9ngOBfyS4FX4jMljwC8jEgCzLQPh3GwkOzxc0J48A7gNcB2Q3zk8_Y7kYway6Q9zHO1END0rA8r9WQTQ8CcFtP77mBl0XPltQjyiytVGIcNGjb0ZKDnkW1jDAKaKqMHHKLNz0C83SkFMmeqKDvSHx-Eq0S2C0BjzBStVidotF8cPcNVDzCuGRE0Zk9aYyKbejxDbnS9-SbpkU5uQyURiW4idw05PakyeZR2qpmCboT8Y1vcQ4U-DXWDpxnXfyIuYToUzJHTzcRPCQjB2TGoUrttMmt5mlggA3gv_TZM3vwPGkkv7wORtv9GwN6tK8NZtfuQuufpIQMBNCaQZ0wEIizuvrcv6_1Qa7UuGFKzVeNreRkC9zNy-NobExwend1VJw9OQGGl1S0aifJ0hkDkHgM4sIArAsbSNwTB5SRxn5iHAI9bgEAWXWW0CbP6U0LqHnqgKx3uX4_jw8FBsUucJW8esB6LOVKDMvUYjrvnZLMyDKyaLRckQ0KWAyomDolTdgIyGdQAVrV8wenEoiMt2D1rNzkOAEZzmUnIkEhnO3Qjbbk3CF0IOlQi-astzkMGX4kXmaqJhwKCkFkbaSrwK_iyPEJviMGhaEjaQw6b2Q-EzV1jAtLzKy1glj7WtR50N3xtllXGn1pSor8Fx2Hv9IBsHcF9srz4k-3doqBhsKUaWmH9RBs1Bv5KF4iPajDCsejvG9tzMVrnWe0l0s5z-dV8c1EW5yjBb_FqaPt8COn_nP_SzZnLkMNeYXctSrhUJPX4W6QLTsen-0N1aSrU9CnBKn-0vIHGjCn5BNn2oAfePGRl_EF9mT9-ZKy4wqrPmzbHUNbcNZLVZXlYl3aH9HG3zrnGgtgzhA1_4PG-7vUXD1_oirrElSFX0Rv8cxu6W4RvWxvEVWQ94L39aFXVmvFwsqJQUbeAwQ-8Gx6YLDUb9W6lAIdWAflNovV6Faf738vEHI0qA3_Nv8eD0kXkuMP96k9rHYZpRXKrNmb9T8rWt-YRUxwDqOwTvNDZNoD3ZKp7mOhCafFtd3kZWtf21wf6dLnt5i0wjW0O2Ed5qLrB2SGMcJbgwkVOFPjSxG3XLHPGiCSj71ngYbJR8dQKG9rlUOiDHXSNbJ5YKZgVa6ccn7PgTQS8t1jc5yfsiPRkenW-OBXxhbQNBGyQ5cE8LRJzeqJSpkF8LUBLev6xPPZCKmWZ_WosKEyJg-gLwjsZ6cHTfw7fX4JYFUdjUqYzgKlcPoRjZ"
+      }
+    },
+    "time": {
+      "start": 1773920627759,
+      "end": 1773920633943
+    }
+  }
+}
