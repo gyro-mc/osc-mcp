@@ -4,9 +4,6 @@ MCP server that summarizes OpenCode sessions into a lightweight, queryable histo
 It stores filtered session content in a local MCP SQLite database and exposes tools
 the model can use to retrieve relevant context on demand.
 
-## Demo
-
-[Demo video](docs/assets/demo.mp4)
 
 ## Install
 
