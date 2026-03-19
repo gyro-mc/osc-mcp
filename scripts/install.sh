@@ -5,11 +5,42 @@ REPO_URL_DEFAULT="https://github.com/gyro-mc/sco-mcp.git"
 REPO_URL="${OSC_MCP_REPO_URL:-$REPO_URL_DEFAULT}"
 INSTALL_DIR_DEFAULT="$HOME/.local/share/opencode/osc-mcp"
 INSTALL_DIR="${OSC_MCP_INSTALL_DIR:-$INSTALL_DIR_DEFAULT}"
-INSTRUCTIONS_DIR="$HOME/.config/opencode/instructions"
+CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+DATA_DIR_DEFAULT="$DATA_HOME/opencode"
+CONFIG_CANDIDATES=(
+  "$CONFIG_HOME/opencode/opencode.json"
+  "$HOME/.config/opencode/opencode.json"
+  "$HOME/Library/Application Support/opencode/opencode.json"
+)
+OPENCODE_CONFIG=""
+for candidate in "${CONFIG_CANDIDATES[@]}"; do
+  if [ -f "$candidate" ]; then
+    OPENCODE_CONFIG="$candidate"
+    break
+  fi
+done
+if [ -z "$OPENCODE_CONFIG" ]; then
+  OPENCODE_CONFIG="$CONFIG_HOME/opencode/opencode.json"
+  if [ ! -f "$OPENCODE_CONFIG" ]; then
+    cat <<EOF
+OpenCode config not found at expected locations.
+Create the config or set your config directory, then re-run.
+
+Expected default config:
+  $OPENCODE_CONFIG
+
+You may need to set XDG_CONFIG_HOME or create opencode.json manually.
+EOF
+    exit 1
+  fi
+fi
+CONFIG_DIR="$(dirname "$OPENCODE_CONFIG")"
+INSTRUCTIONS_DIR="$CONFIG_DIR/instructions"
 SESSION_START_FILE="$INSTRUCTIONS_DIR/osc-mcp-session-start.md"
 CONTEXT_LOOKUP_FILE="$INSTRUCTIONS_DIR/osc-mcp-context-lookup.md"
-OPENCODE_CONFIG="$HOME/.config/opencode/opencode.json"
 SKIP_CONFIG="false"
+PYTHON_BIN=""
 
 for arg in "$@"; do
   case "$arg" in
@@ -29,6 +60,12 @@ EOF
   esac
 done
 
+if command -v python3 >/dev/null 2>&1; then
+  PYTHON_BIN="python3"
+elif command -v python >/dev/null 2>&1; then
+  PYTHON_BIN="python"
+fi
+
 if ! command -v bun >/dev/null 2>&1; then
   echo "Bun is required but not installed. Install from https://bun.sh and re-run."
   exit 1
@@ -36,6 +73,16 @@ fi
 
 if ! command -v git >/dev/null 2>&1; then
   echo "git is required but not installed. Install git and re-run."
+  exit 1
+fi
+
+if [ ! -d "$DATA_DIR_DEFAULT" ]; then
+  cat <<EOF
+OpenCode data directory not found at:
+  $DATA_DIR_DEFAULT
+
+Set OPENCODE_DB and MCP_DB to your actual paths and re-run this script.
+EOF
   exit 1
 fi
 
@@ -63,8 +110,8 @@ echo "Installing OpenCode instruction files"
 
 CONFIG_UPDATED="false"
 
-if [ "$SKIP_CONFIG" = "false" ] && [ -f "$OPENCODE_CONFIG" ]; then
-  python3 - <<'PY' "$OPENCODE_CONFIG" "$SESSION_START_FILE" "$CONTEXT_LOOKUP_FILE" && CONFIG_UPDATED="true" || CONFIG_UPDATED="false"
+if [ "$SKIP_CONFIG" = "false" ] && [ -f "$OPENCODE_CONFIG" ] && [ -n "$PYTHON_BIN" ]; then
+  "$PYTHON_BIN" - <<'PY' "$OPENCODE_CONFIG" "$SESSION_START_FILE" "$CONTEXT_LOOKUP_FILE" && CONFIG_UPDATED="true" || CONFIG_UPDATED="false"
 import json
 import sys
 
@@ -94,19 +141,19 @@ fi
 if [ "$CONFIG_UPDATED" = "true" ]; then
   echo "Updated OpenCode config: $OPENCODE_CONFIG"
 else
-  cat <<'EOF'
-Could not auto-update OpenCode config (JSON parsing failed or skipped).
+  cat <<EOF
+Could not auto-update OpenCode config (missing python, JSON parsing failed, or skipped).
 Add these instruction files manually to your opencode.json "instructions" array:
 
-  ~/.config/opencode/instructions/osc-mcp-session-start.md
-  ~/.config/opencode/instructions/osc-mcp-context-lookup.md
+  $SESSION_START_FILE
+  $CONTEXT_LOOKUP_FILE
 
 And add this MCP entry to your config if not present:
 
   "osc-mcp": {
     "type": "local",
     "enabled": true,
-    "command": ["bun", "$HOME/.local/share/opencode/osc-mcp/dist/index.js"]
+    "command": ["bun", "$INSTALL_DIR/dist/index.js"]
   }
 EOF
 fi

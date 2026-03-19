@@ -18,10 +18,17 @@ bun install
 ## Quick Start (best UX)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/scripts/install.sh | bash
 ```
 
-Security note: review `install.sh` before running or use the manual steps below.
+Windows (PowerShell):
+
+```powershell
+irm https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/scripts/install.ps1 | iex
+```
+
+Security note: review `scripts/install.sh` before running or use the manual steps below.
+For Windows, review `scripts/install.ps1` before running.
 
 What it does:
 - Clones the repo into `~/.local/share/opencode/osc-mcp`
@@ -61,7 +68,19 @@ Then add the MCP entry (if not present):
 To avoid auto-editing config when using the installer:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/install.sh | bash -s -- --no-config
+curl -fsSL https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/scripts/install.sh | bash -s -- --no-config
+```
+
+Windows (PowerShell):
+
+```powershell
+irm https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/scripts/install.ps1 | iex
+```
+
+To skip config edits on Windows:
+
+```powershell
+irm https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/scripts/install.ps1 | iex -ArgumentList "-NoConfig"
 ```
 
 ## Run
@@ -78,6 +97,35 @@ bun dist/index.js
 
 - `OPENCODE_DB`: Path to OpenCode DB (default `~/.local/share/opencode/opencode.db`)
 - `MCP_DB`: Path to MCP DB (default `~/.local/share/opencode/mcp.db`)
+
+## OS Notes
+
+- macOS/Linux: use `scripts/install.sh` (requires `bash`, `git`, `bun`, and `python3` or `python` for auto-config).
+- Windows: use `scripts/install.ps1` in PowerShell.
+
+Config path detection (installers search in this order):
+
+macOS/Linux:
+1) `$XDG_CONFIG_HOME/opencode/opencode.json`
+2) `~/.config/opencode/opencode.json`
+3) `~/Library/Application Support/opencode/opencode.json`
+
+Windows:
+1) `%XDG_CONFIG_HOME%\opencode\opencode.json`
+2) `%APPDATA%\opencode\opencode.json`
+3) `%LOCALAPPDATA%\opencode\opencode.json`
+4) `~\.config\opencode\opencode.json`
+5) `~\Library\Application Support\opencode\opencode.json`
+
+Default data locations (databases):
+
+macOS/Linux:
+- `~/.local/share/opencode/opencode.db`
+- `~/.local/share/opencode/mcp.db`
+
+Windows:
+- `%USERPROFILE%\.local\share\opencode\opencode.db`
+- `%USERPROFILE%\.local\share\opencode\mcp.db`
 
 ## Commands (Bun only)
 
