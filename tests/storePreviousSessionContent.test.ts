@@ -7,7 +7,18 @@ type DbRunCallback = (err: Error | null) => void;
 const mockGetPreviousSessionId = mock();
 const mockMcpRun = mock();
 const mockOpencodeAll = mock();
-const mockOpencodeGet = mock();
+const mockOpencodeGet = mock((...args: unknown[]) => {
+  const cb = args[args.length - 1] as DbGetCallback;
+  if (typeof cb === "function") {
+    cb(null, { result: 1 });
+  }
+});
+const mockMcpGet = mock((...args: unknown[]) => {
+  const cb = args[args.length - 1] as DbGetCallback;
+  if (typeof cb === "function") {
+    cb(null, { result: 1 });
+  }
+});
 
 mock.module("../src/lib/lib.js", () => ({
   getPreviousSessionId: mockGetPreviousSessionId,
@@ -15,7 +26,7 @@ mock.module("../src/lib/lib.js", () => ({
 
 mock.module("../src/db.js", () => ({
   opencodeDb: { all: mockOpencodeAll, get: mockOpencodeGet },
-  mcpDb: { get: mock(), run: mockMcpRun },
+  mcpDb: { get: mockMcpGet, run: mockMcpRun },
 }));
 
 import { storePreviousSessionContent } from "../src/tools/storePreviousSessionContent.js";
@@ -24,7 +35,8 @@ beforeEach(() => {
   mockGetPreviousSessionId.mockReset();
   mockMcpRun.mockReset();
   mockOpencodeAll.mockReset();
-  mockOpencodeGet.mockReset();
+  mockOpencodeGet.mockClear();
+  mockMcpGet.mockClear();
 });
 
 test("returns a message when no previous session is found", async () => {
@@ -37,7 +49,8 @@ test("returns a message when no previous session is found", async () => {
 
 test("rejects when message query fails", async () => {
   mockGetPreviousSessionId.mockResolvedValue("session-3");
-  mockOpencodeGet.mockImplementation((sql: string, params: unknown[], cb: DbGetCallback) => {
+  mockOpencodeGet.mockImplementation((...args: any[]) => {
+    const cb = args[args.length - 1] as DbGetCallback;
     cb(null, { project_id: "proj-1" });
   });
   mockOpencodeAll.mockImplementation((sql: string, params: unknown[], cb: DbAllCallback) => {
@@ -51,7 +64,8 @@ test("rejects when message query fails", async () => {
 
 test("returns a message when no messages exist", async () => {
   mockGetPreviousSessionId.mockResolvedValue("session-4");
-  mockOpencodeGet.mockImplementation((sql: string, params: unknown[], cb: DbGetCallback) => {
+  mockOpencodeGet.mockImplementation((...args: any[]) => {
+    const cb = args[args.length - 1] as DbGetCallback;
     cb(null, { project_id: "proj-1" });
   });
   mockOpencodeAll.mockImplementation((sql: string, params: unknown[], cb: DbAllCallback) => {
@@ -65,7 +79,8 @@ test("returns a message when no messages exist", async () => {
 
 test("rejects when storing content fails", async () => {
   mockGetPreviousSessionId.mockResolvedValue("session-5");
-  mockOpencodeGet.mockImplementation((sql: string, params: unknown[], cb: DbGetCallback) => {
+  mockOpencodeGet.mockImplementation((...args: any[]) => {
+    const cb = args[args.length - 1] as DbGetCallback;
     cb(null, { project_id: "proj-1" });
   });
   mockOpencodeAll.mockImplementation((sql: string, params: unknown[], cb: DbAllCallback) => {
@@ -80,7 +95,7 @@ test("rejects when storing content fails", async () => {
   });
   mockMcpRun.mockImplementation((sql: string, params: unknown[], cb: DbRunCallback) => {
     expect(sql).toContain("mcp_session_summary");
-    expect(sql).not.toContain("summary");
+    expect(sql).not.toContain(" summary ");
     expect(sql).toContain("project_id");
     cb(new Error("insert failed"));
   });
@@ -92,7 +107,8 @@ test("rejects when storing content fails", async () => {
 
 test("stores content for successful lookup", async () => {
   mockGetPreviousSessionId.mockResolvedValue("session-6");
-  mockOpencodeGet.mockImplementation((sql: string, params: unknown[], cb: DbGetCallback) => {
+  mockOpencodeGet.mockImplementation((...args: any[]) => {
+    const cb = args[args.length - 1] as DbGetCallback;
     cb(null, { project_id: "proj-1" });
   });
   mockOpencodeAll.mockImplementation((sql: string, params: unknown[], cb: DbAllCallback) => {
@@ -107,7 +123,7 @@ test("stores content for successful lookup", async () => {
   });
   mockMcpRun.mockImplementation((sql: string, params: unknown[], cb: DbRunCallback) => {
     expect(sql).toContain("mcp_session_summary");
-    expect(sql).not.toContain("summary");
+    expect(sql).not.toContain(" summary ");
     expect(sql).toContain("project_id");
     cb(null);
   });

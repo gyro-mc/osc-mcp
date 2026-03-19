@@ -1,6 +1,10 @@
+import { z } from "zod";
+
 import { opencodeDb, mcpDb } from "../db.js";
 import { getPreviousSessionId } from "../lib/lib.js";
 import type { PreviousSessionContentMessage } from "../lib/types.js";
+
+export const StorePreviousSessionContentInputSchema = z.object({});
 
 /**
  * @description Called at the start of a session. It stores the previous session's
@@ -9,11 +13,12 @@ import type { PreviousSessionContentMessage } from "../lib/types.js";
  * @returns A confirmation string indicating the content was stored.
  */
 export async function storePreviousSessionContent(): Promise<string> {
-  const limit = 20;
   const previousSessionId = await getPreviousSessionId();
   if (!previousSessionId) {
     return "No previous session found to store.";
   }
+
+  const messageLimit = 200;
 
   return new Promise((resolve, reject) => {
     opencodeDb.get(
@@ -22,29 +27,37 @@ export async function storePreviousSessionContent(): Promise<string> {
       (projectErr: Error | null, projectRow: any) => {
         if (projectErr) {
           return reject(
-            new Error(`Failed to fetch previous session project: ${projectErr.message}`),
+            new Error(
+              `Failed to fetch previous session project: ${projectErr.message}`,
+            ),
           );
         }
-
-        const projectId = projectRow?.project_id ?? "global";
+        const projectId = projectRow?.project_id || "global";
 
         opencodeDb.all(
-          `SELECT
-  message.session_id,
-  message.id AS message_id,
-  message.data AS message_data,
+          `WITH recent_messages AS (
+  SELECT id, session_id, data, time_created
+  FROM message
+  WHERE session_id = ?
+  ORDER BY time_created ASC
+  LIMIT ?
+)
+SELECT
+  recent_messages.session_id,
+  recent_messages.id AS message_id,
+  recent_messages.data AS message_data,
   part.data AS part_data
-FROM message
+FROM recent_messages
 LEFT JOIN part
-  ON part.message_id = message.id
-WHERE message.session_id = ?
-ORDER BY message.time_created ASC
-LIMIT ?;`,
-          [previousSessionId, limit],
+  ON part.message_id = recent_messages.id
+ORDER BY recent_messages.time_created ASC;`,
+          [previousSessionId, messageLimit],
           (err: Error | null, messageRows: any[]) => {
             if (err) {
               return reject(
-                new Error(`Failed to fetch previous session logs: ${err.message}`),
+                new Error(
+                  `Failed to fetch previous session logs: ${err.message}`,
+                ),
               );
             }
             if (!messageRows || messageRows.length === 0) {
@@ -53,7 +66,10 @@ LIMIT ?;`,
               );
             }
 
-            const messagesById = new Map<string, PreviousSessionContentMessage>();
+            const messagesById = new Map<
+              string,
+              PreviousSessionContentMessage
+            >();
 
             for (const row of messageRows) {
               const existing = messagesById.get(row.message_id);
@@ -98,7 +114,9 @@ LIMIT ?;`,
                 }
 
                 if (partData) {
-                  messagesById.get(row.message_id)?.content.parts.push(partData);
+                  messagesById
+                    .get(row.message_id)
+                    ?.content.parts.push(partData);
                 }
               }
             }

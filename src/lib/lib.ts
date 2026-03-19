@@ -1,31 +1,50 @@
+import { dirname } from "node:path";
+
 import { opencodeDb } from "../db.js";
 
 /**
  * @description Retrieves the project_id for the most recent session
  * tied to the current directory tree.
+ * (we check every parentdir of startDir untill we find session)
  */
 export async function getProjectIdForDirectory(
   startDir: string = process.cwd(),
 ): Promise<string | null> {
+  const exactQuery = `
+    SELECT project_id
+    FROM session
+    WHERE directory = ?
+    ORDER BY time_created DESC
+    LIMIT 1
+  `;
+
+  let currentDir = startDir;
+  let parentDir = dirname(startDir);
+  while (true) {
+    if (parentDir === currentDir) {
+      break;
+    }
+    const parentProjectId = await fetchProjectId(exactQuery, [currentDir]);
+    if (parentProjectId) {
+      return parentProjectId;
+    }
+    currentDir = parentDir;
+    parentDir = dirname(currentDir);
+  }
+
+  return null;
+}
+
+function fetchProjectId(
+  query: string,
+  params: unknown[],
+): Promise<string | null> {
   return new Promise((resolve, reject) => {
-    const query = `
-      SELECT project_id
-      FROM session
-      WHERE directory = ? OR directory LIKE ?
-      ORDER BY time_created DESC
-      LIMIT 1
-    `;
-
-    const likePattern = `${startDir}/%`;
-
-    opencodeDb.get(query, [startDir, likePattern], (err: Error | null, row: any) => {
+    opencodeDb.get(query, params, (err: Error | null, row: any) => {
       if (err) {
         return reject(err);
       }
-      if (!row || !row.project_id) {
-        return resolve(null);
-      }
-      resolve(row.project_id);
+      resolve(row?.project_id ?? null);
     });
   });
 }
@@ -33,6 +52,7 @@ export async function getProjectIdForDirectory(
 /**
  * Retrieves the ID of the previous session for the relevant directory.
  * Uses opencodeDb to find the second most recent session (since the current one is the most recent).
+ * (previous session is the last opened_session in the project)
  */
 export async function getPreviousSessionId(
   startDir: string = process.cwd(),
@@ -44,10 +64,10 @@ export async function getPreviousSessionId(
 
   return new Promise((resolve, reject) => {
     const query = `
-      SELECT id 
-      FROM session 
+      SELECT id
+      FROM session
       WHERE project_id = ?
-      ORDER BY time_created DESC 
+      ORDER BY time_created DESC
       LIMIT 1 OFFSET 1
     `;
 

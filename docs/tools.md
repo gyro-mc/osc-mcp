@@ -32,3 +32,25 @@ We expose 2 distinct tools to the AI to handle the lifecycle of session context.
 *   **Trigger:** Called by the AI whenever it needs historical context about the codebase or previous work.
 *   **Action:** Retrieves the 10 most recent sessions for the current project from `opencode.db`.
 *   **Output:** A lightweight "Table of Contents" list containing only the Session Title, Date, and `session_id`.
+
+## Related Commands
+
+```bash
+# Run the MCP server
+bun src/index.ts
+
+# Run all tests
+bun test
+
+# Run a single test file
+bun test tests/storePreviousSessionContent.test.ts
+
+# Run a specific test by name pattern
+bun test --test-name-pattern "returns no previous session"
+```
+
+Notes:
+- No dedicated lint/format command in this repo.
+- Never use `node`, `ts-node`, `npx`, `jest`, or `vitest`. Always use `bun`/`bunx`.
+
+For agent-specific style and conventions, see `AGENTS.md`.

@@ -1,85 +1,42 @@
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from "@modelcontextprotocol/sdk/types.js";
-import { zodToJsonSchema } from "zod-to-json-schema";
-import { z } from "zod";
-
-import { storePreviousSessionContent } from "./tools/storePreviousSessionContent.js";
+  storePreviousSessionContent,
+  StorePreviousSessionContentInputSchema,
+} from "./tools/storePreviousSessionContent.js";
 import {
   GetRelevantSessionsInputSchema,
   getRelevantSessions,
 } from "./tools/getRelevantSessions.js";
 
-const server = new Server(
+const server = new McpServer({
+  name: "opencode-session-context-mcp",
+  version: "1.0.0",
+});
+
+server.registerTool(
+  "store_previous_session_content",
   {
-    name: "osc-mcp",
-    version: "1.0.0", 
+    description:
+      "Stores filtered content for the most recent previous session into the MCP database. Use at the very start of a new session to preserve prior context.",
+    inputSchema: StorePreviousSessionContentInputSchema.shape,
   },
-  {
-    capabilities: {
-      tools: {},
-    },
-  }
+  async () => ({
+    content: [{ type: "text", text: await storePreviousSessionContent() }],
+  }),
 );
 
-server.setRequestHandler(ListToolsRequestSchema, async () => {
-  return {
-    tools: [
-      {
-        name: "store_previous_session_content",
-        description:
-          "Stores the filtered content for the most recent previous session into the MCP database.",
-        inputSchema: zodToJsonSchema(z.object({}) as any),
-      },
-      {
-        name: "get_relevant_sessions",
-        description:
-          "Retrieves a list of the 10 most recent sessions (Title, Date, ID) to be used as a Table of Contents.",
-        inputSchema: zodToJsonSchema(GetRelevantSessionsInputSchema as any),
-      },
-    ],
-  };
-});
-
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  const { name, arguments: args } = request.params;
-  let resultText = "";
-
-  try {
-    switch (name) {
-      case "store_previous_session_content": {
-        z.object({}).parse(args || {});
-        resultText = await storePreviousSessionContent();
-        break;
-      }
-      case "get_relevant_sessions": {
-        const input = GetRelevantSessionsInputSchema.parse(args || {});
-        resultText = await getRelevantSessions(input);
-        break;
-      }
-      default:
-        throw new Error(`Unknown tool: ${name}`);
-    }
-
-    return {
-      content: [{ type: "text", text: resultText }],
-    };
-  } catch (error) {
-    if (error instanceof Error) {
-      return {
-        content: [{ type: "text", text: `Error: ${error.message}` }],
-        isError: true,
-      };
-    }
-    return {
-      content: [{ type: "text", text: "Unknown error occurred" }],
-      isError: true,
-    };
-  }
-});
+server.registerTool(
+  "get_relevant_sessions",
+  {
+    description:
+      "Retrieves the 10 most recent sessions (Title, Date, ID) as a Table of Contents. Use when the user asks for work that likely depends on prior session context.",
+    inputSchema: GetRelevantSessionsInputSchema.shape,
+  },
+  async () => ({
+    content: [{ type: "text", text: await getRelevantSessions() }],
+  }),
+);
 
 async function main() {
   const transport = new StdioServerTransport();
