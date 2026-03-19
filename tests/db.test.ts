@@ -1,5 +1,27 @@
-import { test, expect } from "bun:test";
-import { opencodeDb, mcpDb } from "../src/db";
+import { test, expect, mock } from "bun:test";
+
+type DbGetCallback = (err: Error | null, row: any) => void;
+
+const mockOpencodeGet = mock((...args: unknown[]) => {
+  const cb = args[args.length - 1] as DbGetCallback;
+  if (typeof cb === "function") {
+    cb(null, { result: 1 });
+  }
+});
+
+const mockMcpGet = mock((...args: unknown[]) => {
+  const cb = args[args.length - 1] as DbGetCallback;
+  if (typeof cb === "function") {
+    cb(null, { result: 1 });
+  }
+});
+
+mock.module("../src/db.js", () => ({
+  opencodeDb: { get: mockOpencodeGet },
+  mcpDb: { get: mockMcpGet },
+}));
+
+import { opencodeDb, mcpDb } from "../src/db.js";
 
 test("Database connections should be valid and open", async () => {
   // Test opencodeDb connection

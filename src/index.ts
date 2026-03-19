@@ -12,7 +12,7 @@ import {
 const server = new McpServer({
   name: "opencode-session-context-mcp",
   version: "1.0.0",
-});
+})
 
 server.registerTool(
   "store_previous_session_content",
@@ -37,6 +37,7 @@ server.registerTool(
     content: [{ type: "text", text: await getRelevantSessions() }],
   }),
 );
+
 
 async function main() {
   const transport = new StdioServerTransport();

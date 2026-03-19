@@ -1,6 +1,31 @@
 # opencode-session-context-mcp (osc-mcp)
 
-MCP server for summarizing OpenCode sessions and retrieving relevant history.
+MCP server that summarizes OpenCode sessions into a lightweight, queryable history.
+It stores filtered session content in a local MCP SQLite database and exposes tools
+the model can use to retrieve relevant context on demand.
+
+## Install
+
+Requirements:
+- Bun v1.3+
+- An existing OpenCode database at `~/.local/share/opencode/opencode.db`
+  (or set `OPENCODE_DB` to a custom path)
+
+```bash
+bun install
+```
+
+## Run
+
+```bash
+# Run the MCP server
+bun src/index.ts
+```
+
+## Environment
+
+- `OPENCODE_DB`: Path to OpenCode DB (default `~/.local/share/opencode/opencode.db`)
+- `MCP_DB`: Path to MCP DB (default `~/.local/share/opencode/mcp.db`)
 
 ## Commands (Bun only)
 
