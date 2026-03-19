@@ -3,7 +3,8 @@
 MCP server that summarizes OpenCode sessions into a lightweight, queryable history.
 It stores filtered session content in a local MCP SQLite database and exposes tools
 the model can use to retrieve relevant context on demand.
- https://github.com/user-attachments/assets/d41fb2b8-96ca-4a03-9bcd-afede68212e2
+
+ ![video](https://github.com/user-attachments/assets/d41fb2b8-96ca-4a03-9bcd-afede68212e2)
 
 ## Install
 
