@@ -5,25 +5,27 @@ REPO_URL_DEFAULT="https://github.com/gyro-mc/sco-mcp.git"
 REPO_URL="${OSC_MCP_REPO_URL:-$REPO_URL_DEFAULT}"
 INSTALL_DIR_DEFAULT="$HOME/.local/share/opencode/osc-mcp"
 INSTALL_DIR="${OSC_MCP_INSTALL_DIR:-$INSTALL_DIR_DEFAULT}"
+REF_DEFAULT="main"
+REF="${OSC_MCP_REF:-$REF_DEFAULT}"
 CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 DATA_DIR_DEFAULT="$DATA_HOME/opencode"
 CONFIG_CANDIDATES=(
-  "$CONFIG_HOME/opencode/opencode.json"
-  "$HOME/.config/opencode/opencode.json"
-  "$HOME/Library/Application Support/opencode/opencode.json"
+	"$CONFIG_HOME/opencode/opencode.json"
+	"$HOME/.config/opencode/opencode.json"
+	"$HOME/Library/Application Support/opencode/opencode.json"
 )
 OPENCODE_CONFIG=""
 for candidate in "${CONFIG_CANDIDATES[@]}"; do
-  if [ -f "$candidate" ]; then
-    OPENCODE_CONFIG="$candidate"
-    break
-  fi
+	if [ -f "$candidate" ]; then
+		OPENCODE_CONFIG="$candidate"
+		break
+	fi
 done
 if [ -z "$OPENCODE_CONFIG" ]; then
-  OPENCODE_CONFIG="$CONFIG_HOME/opencode/opencode.json"
-  if [ ! -f "$OPENCODE_CONFIG" ]; then
-    cat <<EOF
+	OPENCODE_CONFIG="$CONFIG_HOME/opencode/opencode.json"
+	if [ ! -f "$OPENCODE_CONFIG" ]; then
+		cat <<EOF
 OpenCode config not found at expected locations.
 Create the config or set your config directory, then re-run.
 
@@ -32,8 +34,8 @@ Expected default config:
 
 You may need to set XDG_CONFIG_HOME or create opencode.json manually.
 EOF
-    exit 1
-  fi
+		exit 1
+	fi
 fi
 CONFIG_DIR="$(dirname "$OPENCODE_CONFIG")"
 INSTRUCTIONS_DIR="$CONFIG_DIR/instructions"
@@ -43,56 +45,64 @@ SKIP_CONFIG="false"
 PYTHON_BIN=""
 
 for arg in "$@"; do
-  case "$arg" in
-    --no-config)
-      SKIP_CONFIG="true"
-      ;;
-    -h|--help)
-      cat <<'EOF'
+	case "$arg" in
+	--no-config)
+		SKIP_CONFIG="true"
+		;;
+	-h | --help)
+		cat <<'EOF'
 Usage: install.sh [--no-config]
 
 Options:
   --no-config   Do not edit opencode.json
   -h, --help    Show this help message
 EOF
-      exit 0
-      ;;
-  esac
+		exit 0
+		;;
+	esac
 done
 
 if command -v python3 >/dev/null 2>&1; then
-  PYTHON_BIN="python3"
+	PYTHON_BIN="python3"
 elif command -v python >/dev/null 2>&1; then
-  PYTHON_BIN="python"
+	PYTHON_BIN="python"
 fi
 
 if ! command -v bun >/dev/null 2>&1; then
-  echo "Bun is required but not installed. Install from https://bun.sh and re-run."
-  exit 1
+	echo "Bun is required but not installed. Install from https://bun.sh and re-run."
+	exit 1
 fi
 
 if ! command -v git >/dev/null 2>&1; then
-  echo "git is required but not installed. Install git and re-run."
-  exit 1
+	echo "git is required but not installed. Install git and re-run."
+	exit 1
 fi
 
 if [ ! -d "$DATA_DIR_DEFAULT" ]; then
-  cat <<EOF
+	cat <<EOF
 OpenCode data directory not found at:
   $DATA_DIR_DEFAULT
 
-Set OPENCODE_DB and MCP_DB to your actual paths and re-run this script.
+Set OPENCODE_DB to your actual path and re-run this script.
 EOF
-  exit 1
+	exit 1
 fi
 
 if [ -d "$INSTALL_DIR/.git" ]; then
   echo "Updating existing install in $INSTALL_DIR"
-  git -C "$INSTALL_DIR" pull --ff-only
+  if [ -n "${OSC_MCP_REF:-}" ]; then
+    git -C "$INSTALL_DIR" fetch --tags
+    git -C "$INSTALL_DIR" checkout "$REF"
+  else
+    git -C "$INSTALL_DIR" pull --ff-only
+  fi
 else
   echo "Cloning to $INSTALL_DIR"
   mkdir -p "$(dirname "$INSTALL_DIR")"
   git clone "$REPO_URL" "$INSTALL_DIR"
+  if [ -n "${OSC_MCP_REF:-}" ]; then
+    git -C "$INSTALL_DIR" checkout "$REF"
+  fi
 fi
 
 echo "Installing dependencies..."
@@ -111,7 +121,7 @@ echo "Installing OpenCode instruction files"
 CONFIG_UPDATED="false"
 
 if [ "$SKIP_CONFIG" = "false" ] && [ -f "$OPENCODE_CONFIG" ] && [ -n "$PYTHON_BIN" ]; then
-  "$PYTHON_BIN" - <<'PY' "$OPENCODE_CONFIG" "$SESSION_START_FILE" "$CONTEXT_LOOKUP_FILE" && CONFIG_UPDATED="true" || CONFIG_UPDATED="false"
+	"$PYTHON_BIN" - "$OPENCODE_CONFIG" "$SESSION_START_FILE" "$CONTEXT_LOOKUP_FILE" <<'PY' && CONFIG_UPDATED="true" || CONFIG_UPDATED="false"
 import json
 import sys
 
@@ -139,9 +149,9 @@ PY
 fi
 
 if [ "$CONFIG_UPDATED" = "true" ]; then
-  echo "Updated OpenCode config: $OPENCODE_CONFIG"
+	echo "Updated OpenCode config: $OPENCODE_CONFIG"
 else
-  cat <<EOF
+	cat <<EOF
 Could not auto-update OpenCode config (missing python, JSON parsing failed, or skipped).
 Add these instruction files manually to your opencode.json "instructions" array:
 

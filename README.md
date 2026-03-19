@@ -1,54 +1,75 @@
-# opencode-session-context-mcp (osc-mcp)
+# opencode-session-context-mcp
+osc-mcp
 
-MCP server that summarizes OpenCode sessions into a lightweight, queryable
-history. It stores filtered session content in a local MCP SQLite database and
-exposes tools the model can use to retrieve relevant context on demand.
+
 
 ## Demo
 
-![video](https://github.com/user-attachments/assets/d41fb2b8-96ca-4a03-9bcd-afede68212e2)
+https://github.com/user-attachments/assets/d41fb2b8-96ca-4a03-9bcd-afede68212e2
+
+## Dictionary
+
+- [Description](#description)
+- [Tools](#tools)
+- [Install](#install)
+- [Tips](#tips)
+- [Environment](#environment)
+
+## Description
+`opencode-session-context-mcp` (aka osc-mcp) is an MCP server that supplies new sessions
+with context from prior sessions in the same project, so your OpenCode instance can pick
+up where you left off and better align with your project’s ongoing needs.
+
+⚠️ Caution: this tool is under active development, especially around optimizing token spend when fetching context. Contributions are welcome.
+
+## How It Works
+
+- On session start, the server stores a filtered summary of the previous session into `mcp.db`.
+- When a new session asks for context, it looks up recent summaries for the current project.
+- The client (OpenCode) uses those summaries to seed your new session with relevant context.
+
+## Tools
+
+- `store_previous_session_content`: stores filtered content from the most recent
+  previous session into `mcp.db`.
+- `get_relevant_sessions`: returns a lightweight list of recent session
+  summaries for the current project.
+
+## Requirements
+
+- `bun`
+- `git`
 
 ## Install
 
-Requirements:
+### Quick Start (best UX)
 
-- Bun v1.3+
-- An existing OpenCode database at `~/.local/share/opencode/opencode.db`
-  (or set `OPENCODE_DB` to a custom path)
+Linux/mac
 
 ```bash
-bun install
-```
-
-## Quick Start (best UX)
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/scripts/install.sh \
+curl -fsSL \
+  https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/scripts/\
+  install.sh \
   | bash
 ```
 
 Windows (PowerShell):
 
 ```powershell
-irm https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/scripts/install.ps1 \
+irm \
+  https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/scripts/\
+  install.ps1 \
   | iex
 ```
 
 Security note: review `scripts/install.sh` before running or use the manual
 steps below. For Windows, review `scripts/install.ps1` before running.
 
-What it does:
-
-- Clones the repo into `~/.local/share/opencode/osc-mcp`
-- Runs `bun install`
-- Builds to `dist/`
-- Installs OpenCode instruction files
-- Attempts to update `~/.config/opencode/opencode.json`
-
-## Manual Install
+### Manual Install
 
 ```bash
-git clone https://github.com/gyro-mc/sco-mcp.git ~/.local/share/opencode/osc-mcp
+git clone https://github.com/gyro-mc/sco-mcp.git \
+  ~/.local/share/opencode/osc-mcp
 cd ~/.local/share/opencode/osc-mcp
 bun install
 bun run build
@@ -74,26 +95,8 @@ Then add the MCP entry (if not present):
 }
 ```
 
-To avoid auto-editing config when using the installer:
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/scripts/install.sh \
-  | bash -s -- --no-config
-```
 
-Windows (PowerShell):
-
-```powershell
-irm https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/scripts/install.ps1 \
-  | iex
-```
-
-To skip config edits on Windows:
-
-```powershell
-irm https://raw.githubusercontent.com/gyro-mc/sco-mcp/main/scripts/install.ps1 \
-  | iex -ArgumentList "-NoConfig"
-```
 
 ## Run
 
@@ -105,16 +108,63 @@ bun src/index.ts
 bun dist/index.js
 ```
 
+## Updates
+
+Check for a newer release:
+
+```bash
+./scripts/check-update.sh
+```
+
+Update to the latest version:
+
+```bash
+./scripts/install.sh
+```
+
+## Tips
+
+- Start OpenCode from your project root so the MCP can map sessions to the correct project.
+- Keep your project in git so sessions can be tied to a stable repo context.
+
 ## Environment
 
 - `OPENCODE_DB`: Path to OpenCode DB (default
   `~/.local/share/opencode/opencode.db`)
-- `MCP_DB`: Path to MCP DB (default `~/.local/share/opencode/mcp.db`)
+
+If the default path doesn’t work for your setup, set it explicitly
+before launching OpenCode/MCP.
+
+Example:
+
+```bash
+export OPENCODE_DB="$HOME/.local/share/opencode/opencode.db"
+opencode
+```
+
+Installer overrides (optional):
+
+- `OSC_MCP_REPO_URL`: Git repo URL to clone (default
+  `https://github.com/gyro-mc/sco-mcp.git`).
+- `OSC_MCP_INSTALL_DIR`: Install directory (default
+  `~/.local/share/opencode/osc-mcp`).
+- `OSC_MCP_REF`: Git ref to checkout (tag/branch/commit, default `main`).
+- `XDG_CONFIG_HOME`: Base config directory (default `~/.config`).
+- `XDG_DATA_HOME`: Base data directory (default `~/.local/share`).
+
+Example override:
+
+```bash
+export OSC_MCP_REPO_URL="https://github.com/gyro-mc/sco-mcp.git"
+export OSC_MCP_INSTALL_DIR="$HOME/.local/share/opencode/osc-mcp"
+export OSC_MCP_REF="v0.1.0"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+```
 
 ## OS Notes
 
-- macOS/Linux: use `scripts/install.sh` (requires `bash`, `git`, `bun`, and
-  `python3` or `python` for auto-config).
+- macOS/Linux: use `scripts/install.sh` (requires `bash`, `git`, `bun`)
 - Windows: use `scripts/install.ps1` in PowerShell.
 
 Config path detection (installers search in this order):
@@ -138,55 +188,13 @@ Default data locations (databases):
 macOS/Linux:
 
 - `~/.local/share/opencode/opencode.db`
-- `~/.local/share/opencode/mcp.db`
+- `~/.local/share/opencode/osc-mcp/mcp.db`
 
 Windows:
 
 - `%USERPROFILE%\.local\share\opencode\opencode.db`
-- `%USERPROFILE%\.local\share\opencode\mcp.db`
-
-## Commands (Bun only)
-
-```bash
-# Install dependencies
-bun install
-
-# Run the MCP server
-bun src/index.ts
-
-# Run all tests
-bun test
-
-# Run a single test file
-bun test tests/storePreviousSessionContent.test.ts
-
-# Run a specific test by name pattern
-bun test --test-name-pattern "returns no previous session"
-
-# Type-check (no emit)
-bunx tsc --noEmit
-
-# Build to dist/
-bun run build
-
-# Run built output
-bun run start
-```
-
-Notes:
-
-- No dedicated lint/format command in this repo.
-- Never use `node`, `ts-node`, `npx`, `jest`, or `vitest`.
-  Always use `bun`/`bunx`.
-
-## Docs
-
-- Agent guidance: `AGENTS.md`
-- Tool architecture: `docs/tools.md`
+- `%USERPROFILE%\.local\share\opencode\osc-mcp\mcp.db`
 
 ## License
 
 MIT. See `LICENSE`.
-
-This project was created using `bun init` in bun v1.3.5.
-[Bun](https://bun.com) is a fast all-in-one JavaScript runtime.

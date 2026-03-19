@@ -8,6 +8,8 @@ $repoUrlDefault = "https://github.com/gyro-mc/sco-mcp.git"
 $repoUrl = if ($env:OSC_MCP_REPO_URL) { $env:OSC_MCP_REPO_URL } else { $repoUrlDefault }
 $installDirDefault = Join-Path $HOME ".local/share/opencode/osc-mcp"
 $installDir = if ($env:OSC_MCP_INSTALL_DIR) { $env:OSC_MCP_INSTALL_DIR } else { $installDirDefault }
+$refDefault = "main"
+$ref = if ($env:OSC_MCP_REF) { $env:OSC_MCP_REF } else { $refDefault }
 $dataDirDefault = Join-Path $HOME ".local/share/opencode"
 $configCandidates = @()
 if ($env:XDG_CONFIG_HOME) {
@@ -63,17 +65,25 @@ if (-not (Test-Path $dataDirDefault)) {
   Write-Host "OpenCode data directory not found at:"
   Write-Host "  $dataDirDefault"
   Write-Host ""
-  Write-Host "Set OPENCODE_DB and MCP_DB to your actual paths and re-run this script."
+  Write-Host "Set OPENCODE_DB to your actual path and re-run this script."
   exit 1
 }
 
 if (Test-Path (Join-Path $installDir ".git")) {
   Write-Host "Updating existing install in $installDir"
-  git -C $installDir pull --ff-only
+  if ($env:OSC_MCP_REF) {
+    git -C $installDir fetch --tags
+    git -C $installDir checkout $ref
+  } else {
+    git -C $installDir pull --ff-only
+  }
 } else {
   Write-Host "Cloning to $installDir"
   New-Item -ItemType Directory -Force -Path (Split-Path $installDir) | Out-Null
   git clone $repoUrl $installDir
+  if ($env:OSC_MCP_REF) {
+    git -C $installDir checkout $ref
+  }
 }
 
 Write-Host "Installing dependencies..."
