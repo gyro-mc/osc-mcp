@@ -1,4 +1,5 @@
 When a user request likely depends on information from a previous session, you MUST call the MCP tool `get_relevant_sessions` before answering. Use its output to decide what to retrieve next. Do not guess past-session context.
+If the call fails, assume the user has MCP turned off and do not retry; proceed without past-session context and note the limitation.
 
 Common cases that require calling `get_relevant_sessions`:
 - The user asks what they said earlier, or asks to recall prior statements or decisions.
