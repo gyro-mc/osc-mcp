@@ -64,6 +64,19 @@ irm https://github.com/gyro-mc/osc-mcp/blob/main/scripts/install.ps1?raw=1 | iex
 Security note: review `scripts/install.sh` before running or use the manual
 steps below. For Windows, review `scripts/install.ps1` before running.
 
+What the installer does (Linux/mac):
+
+- Finds your `opencode.json` (honors `XDG_CONFIG_HOME`).
+- Verifies `bun` and `git` are installed.
+- Verifies the OpenCode data dir exists (honors `XDG_DATA_HOME`).
+- Clones or updates the repo in `~/.local/share/opencode/osc-mcp`.
+- Runs `bun install` and builds the server.
+- Updates `opencode.json` to add the `"osc-mcp"` MCP entry.
+- If config editing fails or `--no-config` is set, prints manual steps.
+
+If your config is invalid JSON or you pass `--no-config`, follow the manual
+steps below.
+
 ### Manual Install
 
 ```bash
@@ -74,17 +87,18 @@ bun install
 bun run build
 ```
 
-Add these instruction files to your OpenCode config
-(`~/.config/opencode/opencode.json`):
+OpenCode config (`~/.config/opencode/opencode.json`):
+
+If you don't already have the instruction files listed, add them:
 
 ```json
 "instructions": [
-  "~/.config/opencode/instructions/osc-mcp-session-start.md",
-  "~/.config/opencode/instructions/osc-mcp-context-lookup.md"
+  "~/.local/share/opencode/osc-mcp/instructions/session-start.md",
+  "~/.local/share/opencode/osc-mcp/instructions/context-lookup.md"
 ]
 ```
 
-Then add the MCP entry (if not present):
+Then add the local MCP entry (if not present):
 
 ```json
 "osc-mcp": {

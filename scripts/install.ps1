@@ -47,10 +47,6 @@ if (-not $opencodeConfig) {
   }
 }
 
-$instructionsDir = Join-Path (Split-Path $opencodeConfig) "instructions"
-$sessionStartFile = Join-Path $instructionsDir "osc-mcp-session-start.md"
-$contextLookupFile = Join-Path $instructionsDir "osc-mcp-context-lookup.md"
-
 if (-not (Get-Command bun -ErrorAction SilentlyContinue)) {
   Write-Host "Bun is required but not installed. Install from https://bun.sh and re-run."
   exit 1
@@ -92,11 +88,7 @@ bun install --cwd $installDir
 Write-Host "Building..."
 bun run --cwd $installDir build
 
-New-Item -ItemType Directory -Force -Path $instructionsDir | Out-Null
-Copy-Item -Force (Join-Path $installDir "instructions/session-start.md") $sessionStartFile
-Copy-Item -Force (Join-Path $installDir "instructions/context-lookup.md") $contextLookupFile
-
-Write-Host "Installing OpenCode instruction files"
+Write-Host "Updating OpenCode config"
 
 $configUpdated = $false
 
@@ -104,12 +96,14 @@ if (-not $NoConfig -and (Test-Path $opencodeConfig)) {
   try {
     $raw = Get-Content $opencodeConfig -Raw
     $data = $raw | ConvertFrom-Json
-    if (-not ($data.instructions -is [System.Collections.IList])) {
-      $data.instructions = @()
+    if (-not ($data.mcp -is [hashtable])) {
+      $data.mcp = @{}
     }
-    foreach ($path in @($sessionStartFile, $contextLookupFile)) {
-      if (-not ($data.instructions -contains $path)) {
-        $data.instructions += $path
+    if (-not $data.mcp.ContainsKey("osc-mcp")) {
+      $data.mcp["osc-mcp"] = @{
+        type = "local"
+        enabled = $true
+        command = @("bun", "$installDir/dist/index.js")
       }
     }
     $json = $data | ConvertTo-Json -Depth 10
@@ -124,11 +118,7 @@ if ($configUpdated) {
   Write-Host "Updated OpenCode config: $opencodeConfig"
 } else {
   Write-Host "Could not auto-update OpenCode config (missing JSON support, parse failed, or skipped)."
-  Write-Host "Add these instruction files manually to your opencode.json \"instructions\" array:"
-  Write-Host "  $sessionStartFile"
-  Write-Host "  $contextLookupFile"
-  Write-Host ""
-  Write-Host "And add this MCP entry to your config if not present:"
+  Write-Host "Add this MCP entry to your config if not present:"
   Write-Host "  \"osc-mcp\": {"
   Write-Host "    \"type\": \"local\"," 
   Write-Host "    \"enabled\": true,"

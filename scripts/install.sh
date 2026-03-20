@@ -38,9 +38,6 @@ EOF
 	fi
 fi
 CONFIG_DIR="$(dirname "$OPENCODE_CONFIG")"
-INSTRUCTIONS_DIR="$CONFIG_DIR/instructions"
-SESSION_START_FILE="$INSTRUCTIONS_DIR/osc-mcp-session-start.md"
-CONTEXT_LOOKUP_FILE="$INSTRUCTIONS_DIR/osc-mcp-context-lookup.md"
 SKIP_CONFIG="false"
 PYTHON_BIN=""
 
@@ -112,36 +109,20 @@ bun install --cwd "$INSTALL_DIR"
 echo "Building..."
 bun run --cwd "$INSTALL_DIR" build
 
-mkdir -p "$INSTRUCTIONS_DIR"
-cp "$INSTALL_DIR/instructions/session-start.md" "$SESSION_START_FILE"
-cp "$INSTALL_DIR/instructions/context-lookup.md" "$CONTEXT_LOOKUP_FILE"
-
-echo "Installing OpenCode instruction files"
+echo "Updating OpenCode config"
 
 CONFIG_UPDATED="false"
 
 if [ "$SKIP_CONFIG" = "false" ] && [ -f "$OPENCODE_CONFIG" ] && [ -n "$PYTHON_BIN" ]; then
-	"$PYTHON_BIN" - "$OPENCODE_CONFIG" "$SESSION_START_FILE" "$CONTEXT_LOOKUP_FILE" "$INSTALL_DIR" <<'PY' && CONFIG_UPDATED="true" || CONFIG_UPDATED="false"
+	"$PYTHON_BIN" - "$OPENCODE_CONFIG" "$INSTALL_DIR" <<'PY' && CONFIG_UPDATED="true" || CONFIG_UPDATED="false"
 import json
 import sys
 
 config_path = sys.argv[1]
-session_start = sys.argv[2]
-context_lookup = sys.argv[3]
-install_dir = sys.argv[4]
+install_dir = sys.argv[2]
 
 with open(config_path, "r", encoding="utf-8") as f:
     data = json.load(f)
-
-instructions = data.get("instructions")
-if not isinstance(instructions, list):
-    instructions = []
-
-for path in (session_start, context_lookup):
-    if path not in instructions:
-        instructions.append(path)
-
-data["instructions"] = instructions
 
 mcp = data.get("mcp")
 if not isinstance(mcp, dict):
@@ -167,12 +148,7 @@ if [ "$CONFIG_UPDATED" = "true" ]; then
 else
 	cat <<EOF
 Could not auto-update OpenCode config (missing python, JSON parsing failed, or skipped).
-Add these instruction files manually to your opencode.json "instructions" array:
-
-  $SESSION_START_FILE
-  $CONTEXT_LOOKUP_FILE
-
-And add this MCP entry to your config if not present:
+Add this MCP entry to your config if not present:
 
   "osc-mcp": {
     "type": "local",
