@@ -4,7 +4,7 @@ Param(
 
 $ErrorActionPreference = "Stop"
 
-$repoUrlDefault = "https://github.com/gyro-mc/sco-mcp.git"
+$repoUrlDefault = "https://github.com/gyro-mc/osc-mcp.git"
 $repoUrl = if ($env:OSC_MCP_REPO_URL) { $env:OSC_MCP_REPO_URL } else { $repoUrlDefault }
 $installDirDefault = Join-Path $HOME ".local/share/opencode/osc-mcp"
 $installDir = if ($env:OSC_MCP_INSTALL_DIR) { $env:OSC_MCP_INSTALL_DIR } else { $installDirDefault }
