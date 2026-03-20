@@ -86,20 +86,20 @@ EOF
 fi
 
 if [ -d "$INSTALL_DIR/.git" ]; then
-  echo "Updating existing install in $INSTALL_DIR"
-  if [ -n "${OSC_MCP_REF:-}" ]; then
-    git -C "$INSTALL_DIR" fetch --tags
-    git -C "$INSTALL_DIR" checkout "$REF"
-  else
-    git -C "$INSTALL_DIR" pull --ff-only
-  fi
+	echo "Updating existing install in $INSTALL_DIR"
+	if [ -n "${OSC_MCP_REF:-}" ]; then
+		git -C "$INSTALL_DIR" fetch --tags
+		git -C "$INSTALL_DIR" checkout "$REF"
+	else
+		git -C "$INSTALL_DIR" pull --ff-only
+	fi
 else
-  echo "Cloning to $INSTALL_DIR"
-  mkdir -p "$(dirname "$INSTALL_DIR")"
-  git clone "$REPO_URL" "$INSTALL_DIR"
-  if [ -n "${OSC_MCP_REF:-}" ]; then
-    git -C "$INSTALL_DIR" checkout "$REF"
-  fi
+	echo "Cloning to $INSTALL_DIR"
+	mkdir -p "$(dirname "$INSTALL_DIR")"
+	git clone "$REPO_URL" "$INSTALL_DIR"
+	if [ -n "${OSC_MCP_REF:-}" ]; then
+		git -C "$INSTALL_DIR" checkout "$REF"
+	fi
 fi
 
 echo "Installing dependencies..."
@@ -120,6 +120,8 @@ import sys
 
 config_path = sys.argv[1]
 install_dir = sys.argv[2]
+session_start = f"{install_dir}/instructions/session-start.md"
+context_lookup = f"{install_dir}/instructions/context-lookup.md"
 
 with open(config_path, "r", encoding="utf-8") as f:
     data = json.load(f)
@@ -136,6 +138,16 @@ if "osc-mcp" not in mcp:
     }
 
 data["mcp"] = mcp
+
+instructions = data.get("instructions")
+if not isinstance(instructions, list):
+    instructions = []
+
+for path in (session_start, context_lookup):
+    if path not in instructions:
+        instructions.append(path)
+
+data["instructions"] = instructions
 
 with open(config_path, "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2)
