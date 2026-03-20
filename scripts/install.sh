@@ -121,13 +121,14 @@ echo "Installing OpenCode instruction files"
 CONFIG_UPDATED="false"
 
 if [ "$SKIP_CONFIG" = "false" ] && [ -f "$OPENCODE_CONFIG" ] && [ -n "$PYTHON_BIN" ]; then
-	"$PYTHON_BIN" - "$OPENCODE_CONFIG" "$SESSION_START_FILE" "$CONTEXT_LOOKUP_FILE" <<'PY' && CONFIG_UPDATED="true" || CONFIG_UPDATED="false"
+	"$PYTHON_BIN" - "$OPENCODE_CONFIG" "$SESSION_START_FILE" "$CONTEXT_LOOKUP_FILE" "$INSTALL_DIR" <<'PY' && CONFIG_UPDATED="true" || CONFIG_UPDATED="false"
 import json
 import sys
 
 config_path = sys.argv[1]
 session_start = sys.argv[2]
 context_lookup = sys.argv[3]
+install_dir = sys.argv[4]
 
 with open(config_path, "r", encoding="utf-8") as f:
     data = json.load(f)
@@ -141,6 +142,19 @@ for path in (session_start, context_lookup):
         instructions.append(path)
 
 data["instructions"] = instructions
+
+mcp = data.get("mcp")
+if not isinstance(mcp, dict):
+    mcp = {}
+
+if "osc-mcp" not in mcp:
+    mcp["osc-mcp"] = {
+        "type": "local",
+        "enabled": True,
+        "command": ["bun", f"{install_dir}/dist/index.js"],
+    }
+
+data["mcp"] = mcp
 
 with open(config_path, "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2)

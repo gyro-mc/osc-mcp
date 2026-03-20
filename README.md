@@ -52,19 +52,13 @@ up where you left off and better align with your project’s ongoing needs.
 Linux/mac
 
 ```bash
-curl -fsSL \
-  https://raw.githubusercontent.com/gyro-mc/osc-mcp/main/scripts/\
-  install.sh \
-  | bash
+curl -fsSL https://github.com/gyro-mc/osc-mcp/blob/main/scripts/install.sh?raw=1 | bash
 ```
 
 Windows (PowerShell):
 
 ```powershell
-irm \
-  https://raw.githubusercontent.com/gyro-mc/osc-mcp/main/scripts/\
-  install.ps1 \
-  | iex
+irm https://github.com/gyro-mc/osc-mcp/blob/main/scripts/install.ps1?raw=1 | iex
 ```
 
 Security note: review `scripts/install.sh` before running or use the manual
