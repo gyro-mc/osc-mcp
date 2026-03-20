@@ -105,7 +105,7 @@ if (-not $NoConfig -and (Test-Path $opencodeConfig)) {
       $data.mcp["osc-mcp"] = @{
         type = "local"
         enabled = $true
-        command = @("bun", "$installDir/dist/index.js")
+        command = @("bun", "$installDir/src/index.ts")
       }
     }
     if (-not ($data.instructions -is [System.Collections.IList])) {
@@ -132,7 +132,7 @@ if ($configUpdated) {
   Write-Host "  \"osc-mcp\": {"
   Write-Host "    \"type\": \"local\"," 
   Write-Host "    \"enabled\": true,"
-  Write-Host "    \"command\": [\"bun\", \"$installDir/dist/index.js\"]"
+  Write-Host "    \"command\": [\"bun\", \"$installDir/src/index.ts\"]"
   Write-Host "  }"
 }
 

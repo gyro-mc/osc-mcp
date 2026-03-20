@@ -134,7 +134,7 @@ if "osc-mcp" not in mcp:
     mcp["osc-mcp"] = {
         "type": "local",
         "enabled": True,
-        "command": ["bun", f"{install_dir}/dist/index.js"],
+        "command": ["bun", f"{install_dir}/src/index.ts"],
     }
 
 data["mcp"] = mcp
@@ -165,7 +165,7 @@ Add this MCP entry to your config if not present:
   "osc-mcp": {
     "type": "local",
     "enabled": true,
-    "command": ["bun", "$INSTALL_DIR/dist/index.js"]
+    "command": ["bun", "$INSTALL_DIR/src/index.ts"]
   }
 EOF
 fi

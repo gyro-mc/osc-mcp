@@ -104,7 +104,7 @@ Then add the local MCP entry (if not present):
 "osc-mcp": {
   "type": "local",
   "enabled": true,
-  "command": ["bun", "~/.local/share/opencode/osc-mcp/dist/index.js"]
+  "command": ["bun", "~/.local/share/opencode/osc-mcp/src/index.ts"]
 }
 ```
 
@@ -114,11 +114,8 @@ Then add the local MCP entry (if not present):
 ## Run
 
 ```bash
-# Run the MCP server (dev)
+# Run the MCP server
 bun src/index.ts
-
-# Run the built server (production)
-bun dist/index.js
 ```
 
 ## Tips
