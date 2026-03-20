@@ -96,6 +96,8 @@ if (-not $NoConfig -and (Test-Path $opencodeConfig)) {
   try {
     $raw = Get-Content $opencodeConfig -Raw
     $data = $raw | ConvertFrom-Json
+    $sessionStartFile = Join-Path $installDir "instructions/session-start.md"
+    $contextLookupFile = Join-Path $installDir "instructions/context-lookup.md"
     if (-not ($data.mcp -is [hashtable])) {
       $data.mcp = @{}
     }
@@ -104,6 +106,14 @@ if (-not $NoConfig -and (Test-Path $opencodeConfig)) {
         type = "local"
         enabled = $true
         command = @("bun", "$installDir/dist/index.js")
+      }
+    }
+    if (-not ($data.instructions -is [System.Collections.IList])) {
+      $data.instructions = @()
+    }
+    foreach ($path in @($sessionStartFile, $contextLookupFile)) {
+      if (-not ($data.instructions -contains $path)) {
+        $data.instructions += $path
       }
     }
     $json = $data | ConvertTo-Json -Depth 10
