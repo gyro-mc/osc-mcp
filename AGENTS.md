@@ -8,7 +8,7 @@ Agent instructions for the `osc-mcp` codebase. Read this before writing any code
 An MCP (Model Context Protocol) server that bridges AI coding agents with the OpenCode SQLite database.
 
 - **opencodeDb** — OpenCode's DB (`~/.local/share/opencode/opencode.db`). Read-only in practice.
-- **mcpDb** — Our DB (`~/.local/share/opencode/mcp.db`). We own schema and writes.
+- **mcpDb** — Our DB (`~/.local/share/opencode/osc-mcp/mcp.db`). We own schema and writes.
 
 ---
 
@@ -49,7 +49,7 @@ Registered MCP tools:
 ---
 
 ## Database Details (`src/db.ts`)
-- Paths resolve to `~/.local/share/opencode/{opencode,mcp}.db` unless overridden by `OPENCODE_DB` / `MCP_DB`.
+- Paths resolve to `~/.local/share/opencode/{opencode,osc-mcp/mcp}.db` unless overridden by `OPENCODE_DB` / `MCP_DB`.
 - PRAGMAs: `busy_timeout=5000` on both DBs, `journal_mode=WAL` on `mcpDb`.
 - Schema created on startup: `mcp_session_summary(session_id TEXT PRIMARY KEY, project_id TEXT, content TEXT, time_created INTEGER, time_updated INTEGER)`.
 
@@ -142,7 +142,7 @@ const result = await new Promise<SomeType>((resolve, reject) => {
 | Variable      | Default                               | Purpose                      |
 |---------------|----------------------------------------|------------------------------|
 | `OPENCODE_DB` | `~/.local/share/opencode/opencode.db`  | Path to OpenCode's SQLite DB |
-| `MCP_DB`      | `~/.local/share/opencode/mcp.db`       | Path to MCP's own SQLite DB  |
+| `MCP_DB`      | `~/.local/share/opencode/osc-mcp/mcp.db`       | Path to MCP's own SQLite DB  |
 
 ---
 

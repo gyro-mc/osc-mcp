@@ -8,7 +8,7 @@ import { existsSync } from "node:fs";
 const defaultDirPath = join(homedir(), ".local", "share", "opencode");
 const opencodePath =
   process.env.OPENCODE_DB ?? join(defaultDirPath, "opencode.db");
-const mcpPath = process.env.MCP_DB ?? join(defaultDirPath, "mcp.db");
+const mcpPath = process.env.MCP_DB ?? join(defaultDirPath, "osc-mcp", "mcp.db");
 
 // 2. Ensure directories exist to prevent crash on fresh installs
 if (!existsSync(opencodePath)) {
