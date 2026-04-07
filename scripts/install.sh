@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_URL_DEFAULT="https://github.com/gyro-mc/osc-mcp.git"
+REPO_URL_DEFAULT="https://github.com/vohs-1980/osc-mcp.git"
 REPO_URL="${OSC_MCP_REPO_URL:-$REPO_URL_DEFAULT}"
 INSTALL_DIR_DEFAULT="$HOME/.local/share/opencode/osc-mcp"
 INSTALL_DIR="${OSC_MCP_INSTALL_DIR:-$INSTALL_DIR_DEFAULT}"

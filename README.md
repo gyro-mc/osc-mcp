@@ -52,13 +52,13 @@ up where you left off and better align with your project’s ongoing needs.
 Linux/mac
 
 ```bash
-curl -fsSL https://github.com/gyro-mc/osc-mcp/blob/main/scripts/install.sh?raw=1 | bash
+curl -fsSL https://github.com/vohs-1980/osc-mcp/blob/main/scripts/install.sh?raw=1 | bash
 ```
 
 Windows (PowerShell):
 
 ```powershell
-irm https://github.com/gyro-mc/osc-mcp/blob/main/scripts/install.ps1?raw=1 | iex
+irm https://github.com/vohs-1980/osc-mcp/blob/main/scripts/install.ps1?raw=1 | iex
 ```
 
 Security note: review `scripts/install.sh` before running or use the manual
@@ -80,7 +80,7 @@ steps below.
 ### Manual Install
 
 ```bash
-git clone https://github.com/gyro-mc/osc-mcp.git \
+git clone https://github.com/vohs-1980/osc-mcp.git \
   ~/.local/share/opencode/osc-mcp
 cd ~/.local/share/opencode/osc-mcp
 bun install
@@ -141,7 +141,7 @@ opencode
 Installer overrides (optional):
 
 - `OSC_MCP_REPO_URL`: Git repo URL to clone (default
-  `https://github.com/gyro-mc/osc-mcp.git`).
+  `https://github.com/vohs-1980/osc-mcp.git`).
 - `OSC_MCP_INSTALL_DIR`: Install directory (default
   `~/.local/share/opencode/osc-mcp`).
 - `OSC_MCP_REF`: Git ref to checkout (tag/branch/commit, default `main`).
@@ -151,7 +151,7 @@ Installer overrides (optional):
 Example override:
 
 ```bash
-export OSC_MCP_REPO_URL="https://github.com/gyro-mc/osc-mcp.git"
+export OSC_MCP_REPO_URL="https://github.com/vohs-1980/osc-mcp.git"
 export OSC_MCP_INSTALL_DIR="$HOME/.local/share/opencode/osc-mcp"
 export OSC_MCP_REF="v0.1.0"
 export XDG_CONFIG_HOME="$HOME/.config"
